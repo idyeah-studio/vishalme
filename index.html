@@ -1,0 +1,1107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vishal Mehta — UX Design Leader</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    /* ─── TOKENS ─────────────────────────────────────────── */
+    :root {
+      --bg:        #F5F5F7;
+      --surface:   #FFFFFF;
+      --ink:       #1D1D1F;
+      --muted:     #6E6E73;
+      --gold:      #C9A84C;
+      --gold-dim:  rgba(201,168,76,0.12);
+      --radius:    18px;
+      --shadow:    0 2px 16px rgba(0,0,0,0.07);
+      --shadow-lg: 0 8px 40px rgba(0,0,0,0.10);
+      --max:       980px;
+      --nav-h:     64px;
+      --ff-serif:  'Playfair Display', Georgia, serif;
+      --ff-sans:   'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      --ease:      cubic-bezier(.4,0,.2,1);
+    }
+
+    /* ─── RESET ──────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--ff-sans);
+      background: var(--bg);
+      color: var(--ink);
+      font-size: 17px;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
+
+    /* ─── NAV ────────────────────────────────────────────── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0;
+      height: var(--nav-h);
+      background: rgba(245,245,247,0.82);
+      backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      border-bottom: 1px solid rgba(0,0,0,0.06);
+      z-index: 100;
+      display: flex; align-items: center;
+    }
+    .nav-inner {
+      max-width: var(--max);
+      width: 100%; margin: 0 auto;
+      padding: 0 24px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-logo {
+      font-family: var(--ff-serif);
+      font-size: 20px;
+      font-weight: 600;
+      letter-spacing: -0.3px;
+      color: var(--ink);
+    }
+    .nav-logo span { color: var(--gold); }
+    .nav-links {
+      display: flex; gap: 32px; list-style: none;
+    }
+    .nav-links a {
+      font-size: 15px;
+      font-weight: 400;
+      color: var(--muted);
+      transition: color 180ms var(--ease);
+    }
+    .nav-links a:hover,
+    .nav-links a.active { color: var(--ink); font-weight: 500; }
+
+    /* ─── SECTIONS ───────────────────────────────────────── */
+    section {
+      padding: 100px 24px;
+      max-width: var(--max);
+      margin: 0 auto;
+    }
+    section:first-of-type { padding-top: calc(var(--nav-h) + 80px); }
+
+    /* ─── HERO ───────────────────────────────────────────── */
+    #home {
+      min-height: calc(100vh - var(--nav-h));
+      display: flex; flex-direction: column; justify-content: center;
+      padding-top: calc(var(--nav-h) + 40px);
+      padding-bottom: 80px;
+    }
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 28px;
+    }
+    .hero-eyebrow::before {
+      content: '';
+      display: block; width: 24px; height: 1px;
+      background: var(--gold);
+    }
+    .hero-h1 {
+      font-family: var(--ff-serif);
+      font-size: clamp(42px, 6vw, 68px);
+      font-weight: 600;
+      line-height: 1.10;
+      letter-spacing: -1.5px;
+      color: var(--ink);
+      max-width: 740px;
+      margin-bottom: 28px;
+    }
+    .hero-h1 em {
+      font-style: italic;
+      color: var(--gold);
+    }
+    .hero-sub {
+      font-size: 19px;
+      font-weight: 300;
+      color: var(--muted);
+      max-width: 560px;
+      line-height: 1.6;
+      margin-bottom: 48px;
+    }
+    .hero-ctas {
+      display: flex; gap: 16px; flex-wrap: wrap;
+    }
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 14px 28px;
+      border-radius: 980px;
+      font-family: var(--ff-sans);
+      font-size: 15px;
+      font-weight: 500;
+      transition: all 200ms var(--ease);
+      cursor: pointer;
+      border: none;
+    }
+    .btn-primary {
+      background: var(--ink);
+      color: #fff;
+    }
+    .btn-primary:hover {
+      background: #000;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 16px rgba(0,0,0,0.18);
+    }
+    .btn-secondary {
+      background: transparent;
+      color: var(--ink);
+      border: 1.5px solid rgba(29,29,31,0.2);
+    }
+    .btn-secondary:hover {
+      border-color: var(--ink);
+      transform: translateY(-1px);
+    }
+    .hero-scroll {
+      margin-top: 80px;
+      display: flex; align-items: center; gap: 12px;
+      color: var(--muted);
+      font-size: 13px;
+      letter-spacing: 0.05em;
+    }
+    .hero-scroll-line {
+      width: 40px; height: 1px;
+      background: var(--muted);
+    }
+
+    /* ─── CREDENTIAL STRIP ───────────────────────────────── */
+    .cred-strip {
+      border-top: 1px solid rgba(0,0,0,0.07);
+      border-bottom: 1px solid rgba(0,0,0,0.07);
+      padding: 28px 24px;
+      overflow: hidden;
+    }
+    .cred-strip-inner {
+      max-width: var(--max);
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 0;
+      flex-wrap: wrap;
+    }
+    .cred-item {
+      display: flex; align-items: center; gap: 10px;
+      padding: 8px 28px 8px 0;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--muted);
+      letter-spacing: 0.02em;
+      white-space: nowrap;
+    }
+    .cred-item + .cred-item {
+      border-left: 1px solid rgba(0,0,0,0.1);
+      padding-left: 28px;
+    }
+    .cred-dot {
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: var(--gold);
+      flex-shrink: 0;
+    }
+
+    /* ─── SECTION LABELS ─────────────────────────────────── */
+    .section-label {
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 16px;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .section-label::after {
+      content: '';
+      flex: 1; max-width: 40px;
+      height: 1px; background: var(--gold);
+    }
+    .section-h2 {
+      font-family: var(--ff-serif);
+      font-size: clamp(32px, 4vw, 48px);
+      font-weight: 600;
+      letter-spacing: -1px;
+      line-height: 1.15;
+      margin-bottom: 16px;
+    }
+    .section-sub {
+      color: var(--muted);
+      font-size: 17px;
+      font-weight: 300;
+      max-width: 520px;
+      margin-bottom: 56px;
+    }
+
+    /* ─── WORK GRID ──────────────────────────────────────── */
+    #work { padding-top: 100px; }
+    .work-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+    .work-card {
+      background: var(--surface);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      transition: transform 220ms var(--ease), box-shadow 220ms var(--ease);
+      cursor: pointer;
+      display: flex; flex-direction: column;
+    }
+    .work-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-lg);
+    }
+    .work-card.featured {
+      grid-column: span 2;
+      flex-direction: row;
+    }
+    .work-card-thumb {
+      background: #1D1D1F;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+    .work-card:not(.featured) .work-card-thumb {
+      height: 220px;
+    }
+    .work-card.featured .work-card-thumb {
+      width: 55%;
+      min-height: 320px;
+    }
+    .work-card-thumb-inner {
+      width: 100%; height: 100%;
+      display: flex; align-items: center; justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+    /* Apple card — dark dashboard */
+    .thumb-apple {
+      background: linear-gradient(135deg, #111 0%, #1a1a2e 100%);
+    }
+    .thumb-apple-ui {
+      width: 85%; aspect-ratio: 16/9;
+      background: #0d0d1a;
+      border-radius: 8px;
+      border: 1px solid rgba(255,255,255,0.08);
+      padding: 12px;
+      display: flex; flex-direction: column; gap: 6px;
+    }
+    .thumb-row { display: flex; gap: 6px; }
+    .thumb-stat {
+      background: rgba(201,168,76,0.15);
+      border: 1px solid rgba(201,168,76,0.25);
+      border-radius: 6px;
+      flex: 1; padding: 8px;
+    }
+    .thumb-stat-num {
+      font-family: var(--ff-sans);
+      font-size: 18px; font-weight: 600;
+      color: var(--gold);
+    }
+    .thumb-stat-label {
+      font-size: 8px; color: rgba(255,255,255,0.4);
+      margin-top: 2px;
+    }
+    .thumb-bar-row { display: flex; flex-direction: column; gap: 4px; flex: 2; }
+    .thumb-bar {
+      height: 6px; border-radius: 3px;
+      background: rgba(201,168,76,0.3);
+    }
+    .thumb-bar:nth-child(1) { width: 75%; }
+    .thumb-bar:nth-child(2) { width: 55%; background: rgba(255,255,255,0.12); }
+    .thumb-bar:nth-child(3) { width: 88%; background: rgba(201,168,76,0.2); }
+    .thumb-chart-row {
+      display: flex; gap: 6px; flex: 1;
+    }
+    .thumb-donut {
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      border: 5px solid rgba(201,168,76,0.4);
+      border-top-color: var(--gold);
+      flex-shrink: 0;
+    }
+    .thumb-lines { flex: 1; display: flex; flex-direction: column; gap: 5px; justify-content: center; }
+    .thumb-line { height: 4px; border-radius: 2px; background: rgba(255,255,255,0.1); }
+    .thumb-line:nth-child(1) { width: 90%; }
+    .thumb-line:nth-child(2) { width: 65%; background: rgba(201,168,76,0.25); }
+    .thumb-line:nth-child(3) { width: 80%; }
+
+    /* Walmart card */
+    .thumb-walmart {
+      background: linear-gradient(135deg, #1a0a3e 0%, #2d1060 100%);
+    }
+    .thumb-ds-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px;
+      width: 80%;
+    }
+    .thumb-ds-card {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 8px;
+      aspect-ratio: 1;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .thumb-ds-card span {
+      font-size: 18px;
+    }
+    .thumb-ds-card.gold-card {
+      background: rgba(201,168,76,0.2);
+      border-color: rgba(201,168,76,0.4);
+    }
+
+    /* Intuitive card */
+    .thumb-intuitive {
+      background: linear-gradient(135deg, #0a1628 0%, #0d2044 100%);
+    }
+    .thumb-portal {
+      width: 80%; background: #0a1a35;
+      border-radius: 8px;
+      border: 1px solid rgba(255,255,255,0.1);
+      padding: 10px;
+    }
+    .thumb-portal-header {
+      display: flex; justify-content: space-between;
+      margin-bottom: 8px;
+    }
+    .thumb-portal-title {
+      font-size: 8px; color: rgba(255,255,255,0.5);
+    }
+    .thumb-treemap {
+      display: grid; grid-template-columns: 2fr 1fr; grid-template-rows: 1fr 1fr;
+      gap: 3px; height: 60px;
+    }
+    .thumb-tm-cell {
+      border-radius: 4px;
+      background: rgba(201,168,76,0.2);
+    }
+    .thumb-tm-cell:first-child { grid-row: span 2; background: rgba(201,168,76,0.35); }
+    .thumb-tm-cell:nth-child(2) { background: rgba(255,255,255,0.08); }
+    .thumb-tm-cell:nth-child(3) { background: rgba(201,168,76,0.15); }
+
+    /* Luminate card */
+    .thumb-luminate {
+      background: linear-gradient(135deg, #0f1f0f 0%, #1a2e1a 100%);
+    }
+    .thumb-components {
+      width: 80%; display: flex; flex-direction: column; gap: 6px;
+    }
+    .thumb-comp-row {
+      display: flex; gap: 6px;
+    }
+    .thumb-comp {
+      background: rgba(201,168,76,0.12);
+      border: 1px solid rgba(201,168,76,0.25);
+      border-radius: 6px;
+      padding: 6px 10px;
+      font-size: 8px; color: rgba(201,168,76,0.8);
+      font-weight: 500;
+    }
+    .thumb-comp.wide { flex: 2; }
+    .thumb-comp.narrow { flex: 1; }
+    .thumb-table-preview {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 6px;
+      overflow: hidden;
+    }
+    .thumb-table-row {
+      display: flex; gap: 4px; padding: 4px 6px;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+    }
+    .thumb-table-cell {
+      height: 4px; border-radius: 2px;
+      background: rgba(255,255,255,0.1);
+      flex: 1;
+    }
+    .thumb-table-cell.accent { background: rgba(201,168,76,0.3); }
+    .thumb-table-row.header .thumb-table-cell {
+      background: rgba(201,168,76,0.2);
+    }
+
+    /* AI badge */
+    .ai-badge {
+      position: absolute; top: 12px; right: 12px;
+      background: rgba(201,168,76,0.15);
+      border: 1px solid rgba(201,168,76,0.4);
+      border-radius: 980px;
+      padding: 4px 10px;
+      font-size: 10px;
+      font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 0.05em;
+    }
+
+    .work-card-body {
+      padding: 28px 32px 32px;
+      flex: 1; display: flex; flex-direction: column;
+    }
+    .work-card-tags {
+      display: flex; flex-wrap: wrap; gap: 6px;
+      margin-bottom: 16px;
+    }
+    .tag {
+      font-size: 11px; font-weight: 500;
+      letter-spacing: 0.04em;
+      padding: 4px 10px;
+      border-radius: 980px;
+      background: var(--gold-dim);
+      color: var(--gold);
+    }
+    .work-card-title {
+      font-family: var(--ff-serif);
+      font-size: 22px;
+      font-weight: 600;
+      letter-spacing: -0.4px;
+      line-height: 1.25;
+      margin-bottom: 10px;
+    }
+    .work-card-desc {
+      font-size: 15px;
+      font-weight: 300;
+      color: var(--muted);
+      line-height: 1.6;
+      flex: 1;
+    }
+    .work-card-footer {
+      margin-top: 20px;
+      display: flex; align-items: center; gap: 8px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--gold);
+    }
+    .work-card-footer svg {
+      transition: transform 200ms var(--ease);
+    }
+    .work-card:hover .work-card-footer svg {
+      transform: translateX(4px);
+    }
+
+    /* Active project card */
+    .work-card.active-project { cursor: default; }
+    .work-card.active-project:hover { transform: none; box-shadow: var(--shadow); }
+    .active-badge {
+      display: inline-flex; align-items: center; gap: 7px;
+      font-size: 11px; font-weight: 500; letter-spacing: 0.06em;
+      text-transform: uppercase; color: #4ade80;
+      margin-bottom: 16px;
+    }
+    .active-dot {
+      width: 7px; height: 7px; border-radius: 50%;
+      background: #4ade80;
+      box-shadow: 0 0 0 3px rgba(74,222,128,0.2);
+      animation: activepulse 2s infinite;
+      flex-shrink: 0;
+    }
+    @keyframes activepulse {
+      0%, 100% { box-shadow: 0 0 0 3px rgba(74,222,128,0.2); }
+      50% { box-shadow: 0 0 0 6px rgba(74,222,128,0.08); }
+    }
+    .active-footer {
+      font-size: 13px; font-weight: 400;
+      color: var(--muted); font-style: italic;
+      margin-top: 20px;
+    }
+
+    /* Raptor thumb */
+    .raptor-thumb {
+      background: #0a1628;
+      display: flex; align-items: center; justify-content: center;
+      padding: 40px 48px;
+      width: 100%; height: 100%;
+    }
+    .raptor-title-row { display: flex; align-items: center; gap: 12px; margin-bottom: 4px; }
+    .active-badge-inline {
+      display: inline-flex; align-items: center; gap: 5px;
+      font-size: 11px; font-weight: 500; letter-spacing: 0.05em;
+      text-transform: uppercase; color: #4ade80;
+    }
+    .raptor-ui { width: 100%; max-width: 480px; display: flex; flex-direction: column; gap: 20px; }
+    .raptor-header { }
+    .raptor-title { font-size: 18px; font-weight: 600; color: rgba(255,255,255,0.9); }
+    .raptor-sub { font-size: 12px; color: rgba(255,255,255,0.4); margin-top: 3px; }
+    .raptor-metrics { display: flex; gap: 12px; }
+    .raptor-metric {
+      flex: 1; background: rgba(255,255,255,0.04); border-radius: 10px;
+      padding: 14px 12px; display: flex; flex-direction: column; gap: 4px;
+      border: 1px solid rgba(255,255,255,0.07);
+    }
+    .raptor-metric.warn { border-color: rgba(250,204,21,0.2); background: rgba(250,204,21,0.05); }
+    .raptor-metric-dot {
+      width: 6px; height: 6px; border-radius: 50%; background: #4ade80; margin-bottom: 2px;
+    }
+    .raptor-metric.warn .raptor-metric-dot { background: #facc15; }
+    .raptor-metric-val { font-size: 18px; font-weight: 600; color: rgba(255,255,255,0.85); }
+    .raptor-metric-lbl { font-size: 9px; color: rgba(255,255,255,0.35); text-transform: uppercase; letter-spacing: 0.04em; }
+    .raptor-bar-row { display: flex; flex-direction: column; gap: 7px; }
+    .raptor-bar { height: 5px; border-radius: 3px; opacity: 0.75; }
+
+    /* ─── ABOUT SECTION ──────────────────────────────────── */
+    #about {
+      background: var(--ink);
+      color: var(--bg);
+      max-width: 100%;
+      padding: 100px 24px;
+    }
+    #about .about-inner {
+      max-width: var(--max);
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: start;
+    }
+    #about .section-label { color: var(--gold); }
+    #about .section-label::after { background: var(--gold); }
+    #about .section-h2 { color: #F5F5F7; }
+    .about-body {
+      font-size: 17px;
+      font-weight: 300;
+      color: rgba(245,245,247,0.75);
+      line-height: 1.75;
+    }
+    .about-body p + p { margin-top: 20px; }
+    .about-body strong {
+      color: #F5F5F7;
+      font-weight: 500;
+    }
+    .about-right {
+      display: flex; flex-direction: column; gap: 32px;
+      padding-top: 8px;
+    }
+    .about-cred-list {
+      list-style: none;
+      display: flex; flex-direction: column; gap: 0;
+    }
+    .about-cred-item {
+      display: flex; align-items: center; gap: 14px;
+      padding: 16px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+      font-size: 15px;
+      color: rgba(245,245,247,0.7);
+      font-weight: 300;
+    }
+    .about-cred-item:first-child { border-top: 1px solid rgba(255,255,255,0.07); }
+    .about-cred-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--gold);
+      flex-shrink: 0;
+    }
+    .about-quote {
+      background: rgba(201,168,76,0.08);
+      border-left: 2px solid var(--gold);
+      padding: 24px 28px;
+      border-radius: 0 12px 12px 0;
+    }
+    .about-quote p {
+      font-family: var(--ff-serif);
+      font-size: 19px;
+      font-style: italic;
+      color: rgba(245,245,247,0.9);
+      line-height: 1.5;
+    }
+    .about-quote cite {
+      display: block;
+      margin-top: 12px;
+      font-style: normal;
+      font-size: 13px;
+      color: var(--gold);
+      font-weight: 500;
+      letter-spacing: 0.05em;
+    }
+
+    /* ─── CONTACT ────────────────────────────────────────── */
+    #contact { padding-bottom: 120px; }
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-top: 0;
+    }
+    .contact-card {
+      background: var(--surface);
+      border-radius: var(--radius);
+      padding: 36px;
+      box-shadow: var(--shadow);
+    }
+    .contact-card.primary {
+      background: var(--ink);
+      color: var(--bg);
+    }
+    .contact-card-label {
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 12px;
+    }
+    .contact-card-title {
+      font-family: var(--ff-serif);
+      font-size: 28px;
+      font-weight: 600;
+      letter-spacing: -0.5px;
+      line-height: 1.2;
+      margin-bottom: 16px;
+    }
+    .contact-card.primary .contact-card-title { color: #F5F5F7; }
+    .contact-card-body {
+      font-size: 15px;
+      font-weight: 300;
+      color: var(--muted);
+      line-height: 1.65;
+      margin-bottom: 28px;
+    }
+    .contact-card.primary .contact-card-body { color: rgba(245,245,247,0.6); }
+    .avail-list {
+      list-style: none; margin: 12px 0 20px; display: flex; flex-direction: column; gap: 10px;
+    }
+    .avail-list li {
+      font-size: 14px; font-weight: 300; color: rgba(245,245,247,0.65); line-height: 1.55;
+      padding-left: 16px; position: relative;
+    }
+    .avail-list li::before {
+      content: ''; position: absolute; left: 0; top: 9px;
+      width: 4px; height: 4px; border-radius: 50%; background: var(--gold);
+    }
+    .contact-links {
+      display: flex; flex-direction: column; gap: 12px;
+    }
+    .contact-link {
+      display: flex; align-items: center; gap: 12px;
+      font-size: 15px; font-weight: 400;
+      color: var(--ink);
+      transition: color 180ms var(--ease);
+      padding: 4px 0;
+    }
+    .contact-link:hover { color: var(--gold); }
+    .contact-link-icon {
+      width: 36px; height: 36px;
+      border-radius: 10px;
+      background: var(--gold-dim);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .contact-link-icon svg { color: var(--gold); }
+    .avail-tag {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(201,168,76,0.12);
+      border: 1px solid rgba(201,168,76,0.3);
+      border-radius: 980px;
+      padding: 8px 16px;
+      font-size: 13px; font-weight: 500;
+      color: var(--gold);
+    }
+    .avail-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: #4CAF50;
+      box-shadow: 0 0 6px rgba(76,175,80,0.6);
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+
+    /* ─── FOOTER ─────────────────────────────────────────── */
+    footer {
+      border-top: 1px solid rgba(0,0,0,0.07);
+      padding: 32px 24px;
+    }
+    .footer-inner {
+      max-width: var(--max); margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .footer-logo {
+      font-family: var(--ff-serif);
+      font-size: 16px; font-weight: 600;
+      color: var(--muted);
+    }
+    .footer-logo span { color: var(--gold); }
+    .footer-copy {
+      font-size: 13px; color: var(--muted);
+    }
+
+    /* ─── SCROLL REVEAL ──────────────────────────────────── */
+    .reveal { opacity: 1; transform: none; }
+    }
+    .reveal-delay-1 { transition-delay: 100ms; }
+    .reveal-delay-2 { transition-delay: 200ms; }
+    .reveal-delay-3 { transition-delay: 300ms; }
+    .reveal-delay-4 { transition-delay: 400ms; }
+
+    /* ─── RESPONSIVE ─────────────────────────────────────── */
+    @media (max-width: 768px) {
+      .work-grid { grid-template-columns: 1fr; }
+      .work-card.featured { flex-direction: column; }
+      .work-card.featured .work-card-thumb { width: 100%; min-height: 200px; }
+      #about .about-inner { grid-template-columns: 1fr; gap: 48px; }
+      .contact-grid { grid-template-columns: 1fr; }
+      .hero-h1 { font-size: 38px; }
+      .cred-strip-inner { gap: 0; }
+      .cred-item { font-size: 11px; padding: 6px 14px 6px 0; }
+      .cred-item + .cred-item { padding-left: 14px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-inner">
+      <a href="#home" class="nav-logo">Vishal<span>.</span>Design</a>
+      <ul class="nav-links">
+        <li><a href="#home" class="active">Home</a></li>
+        <li><a href="#work">Work</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section id="home">
+    <div class="hero-eyebrow reveal">Design Leader · AI Workflow Pioneer</div>
+    <h1 class="hero-h1 reveal reveal-delay-1">
+      25 years at the intersection of<br>
+      <em>design</em> and engineering.
+    </h1>
+    <p class="hero-sub reveal reveal-delay-2">
+      I design enterprise systems that ship — from design systems to production React, from Walmart to Apple.
+    </p>
+    <div class="hero-ctas reveal reveal-delay-3">
+      <a href="#work" class="btn btn-primary">View Work →</a>
+      <a href="#about" class="btn btn-secondary">About Me</a>
+    </div>
+    <div class="hero-scroll reveal reveal-delay-4">
+      <span class="hero-scroll-line"></span>
+      Selected case studies below
+    </div>
+  </section>
+
+  <!-- CREDENTIAL STRIP -->
+  <div class="cred-strip">
+    <div class="cred-strip-inner">
+      <div class="cred-item"><span class="cred-dot"></span>Apple — Wallet, Payments &amp; Commerce</div>
+      <div class="cred-item"><span class="cred-dot"></span>Walmart — Data Ventures</div>
+      <div class="cred-item"><span class="cred-dot"></span>Intuitive Surgical</div>
+      <div class="cred-item"><span class="cred-dot"></span>EB1A — Extraordinary Ability</div>
+      <div class="cred-item"><span class="cred-dot"></span>ACM SIGCHI Member</div>
+      <div class="cred-item"><span class="cred-dot"></span>World Usability Congress 2025</div>
+      <div class="cred-item"><span class="cred-dot"></span>Author — Design AI Alchemy</div>
+    </div>
+  </div>
+
+  <!-- WORK -->
+  <section id="work">
+    <div class="section-label reveal">Selected Work</div>
+    <h2 class="section-h2 reveal reveal-delay-1">What I've shipped.</h2>
+    <p class="section-sub reveal reveal-delay-2">Case studies available on request. I prefer to walk through the thinking in a live conversation.</p>
+
+    <div class="work-grid">
+
+      <!-- Featured: Apple -->
+      <a href="apple-shipping.html" class="work-card featured reveal">
+        <div class="work-card-thumb thumb-apple">
+          <div class="work-card-thumb-inner">
+            <div class="thumb-apple-ui">
+              <div class="thumb-row">
+                <div class="thumb-stat">
+                  <div class="thumb-stat-num">640</div>
+                  <div class="thumb-stat-label">Total Shipments</div>
+                </div>
+                <div class="thumb-stat">
+                  <div class="thumb-stat-num">409</div>
+                  <div class="thumb-stat-label">Shipped</div>
+                </div>
+                <div class="thumb-stat">
+                  <div class="thumb-stat-num">131</div>
+                  <div class="thumb-stat-label">Not Received</div>
+                </div>
+                <div class="thumb-bar-row">
+                  <div class="thumb-bar"></div>
+                  <div class="thumb-bar"></div>
+                  <div class="thumb-bar"></div>
+                </div>
+              </div>
+              <div class="thumb-chart-row">
+                <div class="thumb-donut"></div>
+                <div class="thumb-lines">
+                  <div class="thumb-line"></div>
+                  <div class="thumb-line"></div>
+                  <div class="thumb-line"></div>
+                </div>
+              </div>
+            </div>
+            <div class="ai-badge">AI-Enhanced</div>
+          </div>
+        </div>
+        <div class="work-card-body">
+          <div class="work-card-tags">
+            <span class="tag">AI Workflows</span>
+            <span class="tag">UX Design</span>
+            <span class="tag">Enterprise</span>
+          </div>
+          <div class="work-card-title">Apple Intelligence Shipping</div>
+          <div class="work-card-desc">Redesigned Apple's internal shipping operations — cutting shipment creation time by 50% through AI-powered workflows built for trust, transparency, and human oversight.</div>
+          <div class="work-card-footer">
+            View case study
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+              <path d="M2 7h10M7 2l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+        </div>
+      </a>
+
+      <!-- Walmart -->
+      <a href="dv-design-system.html" class="work-card reveal reveal-delay-1">
+        <div class="work-card-thumb thumb-walmart">
+          <div class="work-card-thumb-inner">
+            <div class="thumb-ds-grid">
+              <div class="thumb-ds-card gold-card"><span>▦</span></div>
+              <div class="thumb-ds-card"><span>⊞</span></div>
+              <div class="thumb-ds-card"><span>◈</span></div>
+              <div class="thumb-ds-card"><span>▤</span></div>
+              <div class="thumb-ds-card gold-card"><span>◉</span></div>
+              <div class="thumb-ds-card"><span>⊟</span></div>
+            </div>
+            <div class="ai-badge">AI-Enhanced</div>
+          </div>
+        </div>
+        <div class="work-card-body">
+          <div class="work-card-tags">
+            <span class="tag">Design Systems</span>
+            <span class="tag">Enterprise</span>
+            <span class="tag">Data Viz</span>
+          </div>
+          <div class="work-card-title">DV Design System</div>
+          <div class="work-card-desc">Architected Walmart's enterprise design system — 30% productivity boost and zero design debt for new product launches across Data Ventures.</div>
+          <div class="work-card-footer">
+            View case study
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+              <path d="M2 7h10M7 2l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+        </div>
+      </a>
+
+      <!-- Intuitive -->
+      <a href="customer-portal.html" class="work-card reveal reveal-delay-2">
+        <div class="work-card-thumb thumb-intuitive">
+          <div class="work-card-thumb-inner">
+            <div class="thumb-portal">
+              <div class="thumb-portal-header">
+                <span class="thumb-portal-title">Orders — da Vinci Xi</span>
+              </div>
+              <div class="thumb-treemap">
+                <div class="thumb-tm-cell"></div>
+                <div class="thumb-tm-cell"></div>
+                <div class="thumb-tm-cell"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="work-card-body">
+          <div class="work-card-tags">
+            <span class="tag">Product Design</span>
+            <span class="tag">Healthcare</span>
+            <span class="tag">Enterprise</span>
+          </div>
+          <div class="work-card-title">Customer Portal 2.0</div>
+          <div class="work-card-desc">Transformed Intuitive Surgical's hospital portal — turning a 75% dissatisfaction rate into a streamlined, insight-driven experience for surgical teams.</div>
+          <div class="work-card-footer">
+            View case study
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+              <path d="M2 7h10M7 2l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+        </div>
+      </a>
+
+      <!-- Raptor — Apple Pay Partner Analytics -->
+      <div class="work-card featured reveal reveal-delay-1">
+        <div class="work-card-thumb raptor-thumb">
+          <div class="raptor-ui">
+            <div class="raptor-header">
+              <div class="raptor-title-row">
+                <div class="raptor-title">Raptor</div>
+                <div class="active-badge-inline">
+                  <span class="active-dot"></span>
+                  Active
+                </div>
+              </div>
+              <div class="raptor-sub">Apple Pay Partner Health</div>
+            </div>
+            <div class="raptor-metrics">
+              <div class="raptor-metric good">
+                <div class="raptor-metric-dot"></div>
+                <div class="raptor-metric-val">99.4%</div>
+                <div class="raptor-metric-lbl">API Uptime</div>
+              </div>
+              <div class="raptor-metric warn">
+                <div class="raptor-metric-dot"></div>
+                <div class="raptor-metric-val">3</div>
+                <div class="raptor-metric-lbl">Alerts</div>
+              </div>
+              <div class="raptor-metric good">
+                <div class="raptor-metric-dot"></div>
+                <div class="raptor-metric-val">142ms</div>
+                <div class="raptor-metric-lbl">Avg Latency</div>
+              </div>
+            </div>
+            <div class="raptor-bar-row">
+              <div class="raptor-bar" style="width:95%;background:#4ade80"></div>
+              <div class="raptor-bar" style="width:72%;background:#facc15"></div>
+              <div class="raptor-bar" style="width:88%;background:#4ade80"></div>
+              <div class="raptor-bar" style="width:60%;background:#f87171"></div>
+            </div>
+          </div>
+        </div>
+        <div class="work-card-body">
+          <div class="work-card-tags">
+            <span class="tag">Apple Pay</span>
+            <span class="tag">Analytics</span>
+            <span class="tag">Enterprise</span>
+          </div>
+          <div class="work-card-title">Raptor — Apple Pay Partner Analytics</div>
+          <div class="work-card-desc">Real-time integration health monitoring and corrective action workflows for Apple Pay's global partner ecosystem.</div>
+          <div class="work-card-footer" style="color:var(--muted);font-style:italic;font-weight:400;">
+            Available for discussion under NDA
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <div id="about">
+    <div class="about-inner">
+      <div class="about-left">
+        <div class="section-label reveal">About</div>
+        <h2 class="section-h2 reveal reveal-delay-1">Designer. Engineer.<br>Human who has shipped both.</h2>
+        <div class="about-body reveal reveal-delay-2">
+          <p>I started as a software engineer. That decision shaped everything.</p>
+          <p>Most designers hand off to engineering. I sit at the seam — where design decisions meet implementation reality, where a component architecture choice determines whether a product team moves fast or grinds to a halt. That's where I've spent 25 years.</p>
+          <p>At <strong>Walmart</strong> I architected the DV Design System and built the component foundation for Luminate Insights — a high-density analytics platform where merchants make multi-million dollar inventory decisions. At <strong>Apple's Wallet, Payments, and Commerce team</strong> I've been driving an AI-augmented workflow that takes features from brief to production-ready React in under two weeks, at Apple-standard quality.</p>
+          <p>I don't let a portfolio website do the talking. I'd rather walk you through the thinking, the tradeoffs, and the outcomes in a live conversation.</p>
+        </div>
+      </div>
+      <div class="about-right reveal reveal-delay-2">
+        <div class="about-quote">
+          <p>"AI doesn't replace judgment. It amplifies it."</p>
+          <cite>— From Δ-08, Vibe Coding Works</cite>
+        </div>
+        <ul class="about-cred-list">
+          <li class="about-cred-item"><span class="about-cred-dot"></span>Apple — Wallet, Payments &amp; Commerce</li>
+          <li class="about-cred-item"><span class="about-cred-dot"></span>Walmart — Data Ventures</li>
+          <li class="about-cred-item"><span class="about-cred-dot"></span>Intuitive Surgical</li>
+          <li class="about-cred-item"><span class="about-cred-dot"></span>EB1A Green Card — Extraordinary Ability</li>
+          <li class="about-cred-item"><span class="about-cred-dot"></span>ACM SIGCHI Member</li>
+          <li class="about-cred-item"><span class="about-cred-dot"></span>World Usability Congress 2025 — Speaker</li>
+          <li class="about-cred-item"><span class="about-cred-dot"></span>Author — Design AI Alchemy</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="section-label reveal">Contact</div>
+    <h2 class="section-h2 reveal reveal-delay-1">Let's talk.</h2>
+    <p class="section-sub reveal reveal-delay-2">I prefer a conversation over a contact form. Reach out directly.</p>
+
+    <div class="contact-grid">
+      <div class="contact-card primary reveal">
+        <div class="contact-card-label">Availability</div>
+        <div class="contact-card-title">Open to the right opportunity.</div>
+        <div class="contact-card-body">Currently exploring:</div>
+        <ul class="avail-list">
+          <li>Principal Product Design roles — enterprise and B2B</li>
+          <li>Design system architecture and component foundations</li>
+          <li>AI-augmented design and prototyping workflows</li>
+          <li>Fractional or advisory engagements</li>
+        </ul>
+        <div class="avail-tag">
+          <span class="avail-dot"></span>
+          Available now
+        </div>
+      </div>
+
+      <div class="contact-card reveal reveal-delay-1">
+        <div class="contact-card-label">Get in Touch</div>
+        <div class="contact-card-title">Reach out directly.</div>
+        <div class="contact-card-body">No forms, no friction. Pick a channel that works for you.</div>
+        <div class="contact-links">
+          <a href="mailto:knock@vishalme.com" class="contact-link">
+            <div class="contact-link-icon">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <path d="M2 4l6 5 6-5M2 4h12v9H2V4z" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            knock@vishalme.com
+          </a>
+          <a href="https://linkedin.com/in/vishalme" target="_blank" class="contact-link">
+            <div class="contact-link-icon">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <rect x="2" y="2" width="12" height="12" rx="2" stroke="currentColor" stroke-width="1.4"/>
+                <path d="M5 7v4M5 5.5v.01M8 11V8.5c0-.83.67-1.5 1.5-1.5s1.5.67 1.5 1.5V11" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+              </svg>
+            </div>
+            linkedin.com/in/vishalme
+          </a>
+          <a href="https://medium.com/@vishalme" target="_blank" class="contact-link">
+            <div class="contact-link-icon">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <circle cx="5" cy="8" r="3" stroke="currentColor" stroke-width="1.4"/>
+                <ellipse cx="11" cy="8" rx="1.5" ry="3" stroke="currentColor" stroke-width="1.4"/>
+                <line x1="14" y1="5" x2="14" y2="11" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+              </svg>
+            </div>
+            medium.com/@vishalme
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-logo">Vishal<span>.</span>Design</div>
+      <div class="footer-copy">© 2026 Vishal Mehta. All rights reserved.</div>
+    </div>
+  </footer>
+
+  <script>
+    // Scroll reveal
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.12 });
+    reveals.forEach(el => observer.observe(el));
+
+    // Trigger hero immediately
+    document.querySelectorAll('#home .reveal').forEach(el => {
+      setTimeout(() => el.classList.add('visible'), 100);
+    });
+
+    // Nav active state
+    const sections = document.querySelectorAll('section[id], div[id]');
+    const navLinks = document.querySelectorAll('.nav-links a');
+    window.addEventListener('scroll', () => {
+      let current = '';
+      sections.forEach(section => {
+        if (window.scrollY >= section.offsetTop - 100) {
+          current = section.getAttribute('id');
+        

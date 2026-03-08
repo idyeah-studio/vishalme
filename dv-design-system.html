@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DV Design System — Vishal Mehta</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #F5F5F7; --surface: #FFFFFF; --ink: #1D1D1F; --muted: #6E6E73;
+      --gold: #C9A84C; --gold-dim: rgba(201,168,76,0.12);
+      --radius: 18px; --shadow: 0 2px 16px rgba(0,0,0,0.07);
+      --shadow-lg: 0 8px 40px rgba(0,0,0,0.10); --max: 800px;
+      --nav-h: 64px; --ff-serif: 'Playfair Display', Georgia, serif;
+      --ff-sans: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      --ease: cubic-bezier(.4,0,.2,1);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--ff-sans); background: var(--bg); color: var(--ink); font-size: 17px; line-height: 1.65; -webkit-font-smoothing: antialiased; }
+    a { color: inherit; text-decoration: none; }
+
+    nav { position: fixed; top: 0; left: 0; right: 0; height: var(--nav-h); background: rgba(245,245,247,0.82); backdrop-filter: blur(20px) saturate(180%); -webkit-backdrop-filter: blur(20px) saturate(180%); border-bottom: 1px solid rgba(0,0,0,0.06); z-index: 100; display: flex; align-items: center; }
+    .nav-inner { max-width: 980px; width: 100%; margin: 0 auto; padding: 0 24px; display: flex; align-items: center; justify-content: space-between; }
+    .nav-logo { font-family: var(--ff-serif); font-size: 20px; font-weight: 600; color: var(--ink); }
+    .nav-logo span { color: var(--gold); }
+    .nav-back { display: flex; align-items: center; gap: 8px; font-size: 15px; color: var(--muted); transition: color 180ms var(--ease); }
+    .nav-back:hover { color: var(--ink); }
+    .nav-back svg { transition: transform 180ms var(--ease); }
+    .nav-back:hover svg { transform: translateX(-3px); }
+
+    .case-hero { max-width: var(--max); margin: 0 auto; padding: calc(var(--nav-h) + 72px) 24px 64px; }
+    .case-eyebrow { display: inline-flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold); margin-bottom: 20px; }
+    .case-eyebrow::before { content: ''; display: block; width: 20px; height: 1px; background: var(--gold); }
+    .case-h1 { font-family: var(--ff-serif); font-size: clamp(36px, 5vw, 54px); font-weight: 600; letter-spacing: -1.2px; line-height: 1.1; margin-bottom: 20px; }
+    .case-tagline { font-size: 20px; font-weight: 300; color: var(--muted); line-height: 1.55; margin-bottom: 36px; max-width: 600px; }
+    .case-meta { display: flex; flex-wrap: wrap; gap: 24px; padding: 24px 0; border-top: 1px solid rgba(0,0,0,0.07); border-bottom: 1px solid rgba(0,0,0,0.07); margin-bottom: 48px; }
+    .case-meta-item { display: flex; flex-direction: column; gap: 4px; }
+    .case-meta-label { font-size: 11px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gold); }
+    .case-meta-value { font-size: 15px; font-weight: 400; color: var(--ink); }
+
+    .nda-notice { background: var(--gold-dim); border: 1px solid rgba(201,168,76,0.25); border-radius: 12px; padding: 16px 20px; display: flex; align-items: flex-start; gap: 12px; margin-bottom: 56px; }
+    .nda-icon { font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+    .nda-text { font-size: 14px; font-weight: 400; color: var(--muted); line-height: 1.55; }
+    .nda-text strong { color: var(--ink); font-weight: 500; }
+
+    .case-body { max-width: var(--max); margin: 0 auto; padding: 0 24px 120px; }
+    .case-section { margin-bottom: 64px; }
+    .case-section-label { font-size: 11px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold); display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
+    .case-section-label::after { content: ''; flex: 1; max-width: 32px; height: 1px; background: var(--gold); }
+    .case-section h2 { font-family: var(--ff-serif); font-size: 28px; font-weight: 600; letter-spacing: -0.5px; line-height: 1.2; margin-bottom: 16px; }
+    .case-section p { font-size: 17px; font-weight: 300; color: var(--muted); line-height: 1.75; margin-bottom: 16px; }
+    .case-section p strong { color: var(--ink); font-weight: 500; }
+    .case-section p:last-child { margin-bottom: 0; }
+
+    .impact-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 8px; }
+    .impact-card { background: var(--surface); border-radius: var(--radius); padding: 28px 24px; box-shadow: var(--shadow); display: flex; flex-direction: column; gap: 8px; }
+    .impact-num { font-family: var(--ff-serif); font-size: 42px; font-weight: 600; color: var(--gold); letter-spacing: -1px; line-height: 1; }
+    .impact-label { font-size: 14px; font-weight: 300; color: var(--muted); line-height: 1.4; }
+
+    .visual-block { background: #1a0a3e; border-radius: var(--radius); overflow: hidden; margin: 8px 0; box-shadow: var(--shadow-lg); }
+    .visual-caption { font-size: 13px; color: var(--muted); text-align: center; margin-top: 10px; font-style: italic; }
+
+    .screen-img { width: 100%; display: block; border-radius: var(--radius); box-shadow: var(--shadow-lg); }
+    .screen-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 8px; }
+    .screen-item { display: flex; flex-direction: column; gap: 8px; }
+    .screen-item img { width: 100%; display: block; border-radius: 14px; box-shadow: var(--shadow-lg); }
+    .screen-label { font-size: 12px; font-weight: 400; color: var(--muted); text-align: center; font-style: italic; line-height: 1.5; }
+
+    .tradeoff-block { display: flex; flex-direction: column; gap: 0; margin-top: 8px; }
+    .tradeoff-item { display: flex; gap: 24px; padding: 32px 0; border-bottom: 1px solid rgba(0,0,0,0.06); }
+    .tradeoff-item:last-child { border-bottom: none; }
+    .tradeoff-num { font-family: var(--ff-serif); font-size: 32px; font-weight: 600; color: var(--gold); opacity: 0.25; line-height: 1; flex-shrink: 0; width: 40px; }
+    .tradeoff-content h3 { font-size: 18px; font-weight: 500; margin-bottom: 12px; color: var(--ink); }
+    .tradeoff-content p { font-size: 16px; font-weight: 300; color: var(--muted); line-height: 1.75; margin-bottom: 12px; }
+    .tradeoff-content p:last-child { margin-bottom: 0; }
+    .tradeoff-content p strong { color: var(--ink); font-weight: 500; }
+
+    .ds-ui { padding: 40px; }
+    .ds-header { margin-bottom: 28px; }
+    .ds-title { font-size: 22px; font-weight: 700; color: #fff; margin-bottom: 4px; }
+    .ds-sub { font-size: 12px; color: rgba(255,255,255,0.4); }
+    .ds-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 20px; }
+    .ds-component {
+      background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 12px; padding: 16px 12px;
+      display: flex; flex-direction: column; align-items: center; gap: 8px;
+    }
+    .ds-component.featured { background: rgba(201,168,76,0.12); border-color: rgba(201,168,76,0.3); }
+    .ds-comp-icon { font-size: 20px; }
+    .ds-comp-name { font-size: 10px; font-weight: 500; color: rgba(255,255,255,0.6); text-align: center; }
+    .ds-component.featured .ds-comp-name { color: var(--gold); }
+    .ds-tokens { display: flex; gap: 8px; flex-wrap: wrap; }
+    .ds-token { padding: 6px 12px; border-radius: 6px; font-size: 10px; font-weight: 500; }
+
+    .process-steps { display: flex; flex-direction: column; gap: 0; margin-top: 8px; }
+    .process-step { display: flex; gap: 20px; padding: 24px 0; border-bottom: 1px solid rgba(0,0,0,0.06); }
+    .process-step:last-child { border-bottom: none; }
+    .process-num { font-family: var(--ff-serif); font-size: 32px; font-weight: 600; color: var(--gold); opacity: 0.4; line-height: 1; flex-shrink: 0; width: 40px; }
+    .process-content h3 { font-size: 17px; font-weight: 500; margin-bottom: 6px; }
+    .process-content p { font-size: 15px; font-weight: 300; color: var(--muted); line-height: 1.65; margin: 0; }
+
+    .cta-block { background: var(--ink); border-radius: var(--radius); padding: 48px; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 20px; }
+    .cta-block h3 { font-family: var(--ff-serif); font-size: 28px; font-weight: 600; color: #F5F5F7; letter-spacing: -0.5px; line-height: 1.2; }
+    .cta-block p { font-size: 16px; font-weight: 300; color: rgba(245,245,247,0.6); max-width: 480px; line-height: 1.65; }
+
+    .testimonial-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 8px; }
+    .testimonial-card {
+      background: var(--surface); border-radius: var(--radius);
+      padding: 32px 28px; box-shadow: var(--shadow);
+      display: flex; flex-direction: column; justify-content: space-between; gap: 24px;
+      border-left: 3px solid var(--gold);
+    }
+    .testimonial-quote {
+      font-family: var(--ff-serif); font-size: 17px; font-weight: 400;
+      font-style: italic; color: var(--ink); line-height: 1.7;
+    }
+    .testimonial-attr { display: flex; align-items: center; gap: 10px; }
+    .testimonial-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--gold); flex-shrink: 0;
+    }
+    .testimonial-role { font-size: 13px; font-weight: 500; color: var(--muted); }
+
+    @media (max-width: 640px) { .testimonial-grid { grid-template-columns: 1fr; } }
+    .lightbox-trigger { cursor: zoom-in; }
+    .lightbox-hint {
+      display: flex; align-items: center; justify-content: center; gap: 6px;
+      font-size: 12px; font-weight: 500; color: var(--gold);
+      margin-top: 8px; opacity: 0.8;
+    }
+    .lightbox-trigger:hover .lightbox-hint { opacity: 1; }
+    .lightbox-trigger:hover img { box-shadow: 0 8px 40px rgba(201,168,76,0.2); }
+
+    .btn { display: inline-flex; align-items: center; gap: 8px; padding: 14px 32px; border-radius: 980px; font-family: var(--ff-sans); font-size: 15px; font-weight: 500; transition: all 200ms var(--ease); cursor: pointer; border: none; }
+    .btn-gold { background: var(--gold); color: #000; }
+    .btn-gold:hover { background: #d4b050; transform: translateY(-1px); box-shadow: 0 4px 20px rgba(201,168,76,0.35); }
+
+    .reveal { opacity: 1; transform: none; }
+    @media (prefers-reduced-motion: no-preference) {
+      .reveal { opacity: 1; transform: none; }
+      .reveal.visible { opacity: 1; transform: none; }
+    }
+    .reveal-delay-1 { transition-delay: 80ms; }
+    .reveal-delay-2 { transition-delay: 160ms; }
+
+    footer { border-top: 1px solid rgba(0,0,0,0.07); padding: 32px 24px; }
+    .footer-inner { max-width: 980px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; }
+    .footer-logo { font-family: var(--ff-serif); font-size: 16px; font-weight: 600; color: var(--muted); }
+    .footer-logo span { color: var(--gold); }
+    .footer-copy { font-size: 13px; color: var(--muted); }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">Vishal<span>.</span>Design</a>
+      <a href="index.html#work" class="nav-back">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 3L5 8l5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        All Work
+      </a>
+    </div>
+  </nav>
+
+  <div class="case-hero">
+    <div class="case-eyebrow reveal">Walmart · Design Systems · Analytics · React</div>
+    <h1 class="case-h1 reveal reveal-delay-1">DV Design System</h1>
+    <p class="case-tagline reveal reveal-delay-2">From audit to architecture — building the unified design system and flagship Table and Chart components that shipped across every Luminate product at Walmart Data Ventures.</p>
+    <div class="case-meta reveal reveal-delay-2">
+      <div class="case-meta-item"><span class="case-meta-label">My Role</span><span class="case-meta-value">Design Lead · System Architect</span></div>
+      <div class="case-meta-item"><span class="case-meta-label">Scope</span><span class="case-meta-value">System + Components + React</span></div>
+      <div class="case-meta-item"><span class="case-meta-label">Timeline</span><span class="case-meta-value">11 months</span></div>
+      <div class="case-meta-item"><span class="case-meta-label">Outcome</span><span class="case-meta-value">Record release · Zero design debt</span></div>
+    </div>
+    <div class="nda-notice reveal">
+      <span class="nda-icon">🔒</span>
+      <div class="nda-text"><strong>NDA applies to this project.</strong> Select materials shown here are approved for public display. Detailed component documentation, token architecture, and governance models are available in a private walkthrough.</div>
+    </div>
+  </div>
+
+  <div class="case-body">
+    <div class="case-section reveal">
+      <div class="case-section-label">The Challenge</div>
+      <h2>No shared language. No shared system.</h2>
+      <p>Walmart Data Ventures ran multiple enterprise products — analytics platforms, merchant tools, internal dashboards — built by separate teams with no shared design foundation. Nobody had declared it a problem yet. I did.</p>
+      <p>An audit I ran across the full Luminate product suite mapped the gaps: duplicated patterns, inconsistent interactions, components that looked similar but behaved differently depending on which team had built them. Design debt was accumulating faster than any single team could address. <strong>I used that audit to make the case for a unified system</strong> — and then built it.</p>
+    </div>
+
+    <div class="case-section reveal">
+      <div class="case-section-label">My Approach</div>
+      <h2>Architecture before aesthetics.</h2>
+      <div class="process-steps">
+        <div class="process-step">
+          <div class="process-num">01</div>
+          <div class="process-content">
+            <h3>Audit and pattern extraction</h3>
+            <p>Catalogued existing components across all products — identifying what was being rebuilt repeatedly, what was inconsistent, and what was genuinely novel. The system was designed around real usage patterns, not hypothetical ones.</p>
+          </div>
+        </div>
+        <div class="process-step">
+          <div class="process-num">02</div>
+          <div class="process-content">
+            <h3>Schema-agnostic component architecture</h3>
+            <p>Components were built to accept any data shape without requiring internal changes. Product teams could configure behavior, density, and visualization type through a clean props layer — not by forking the component.</p>
+          </div>
+        </div>
+        <div class="process-step">
+          <div class="process-num">03</div>
+          <div class="process-content">
+            <h3>AI-assisted color palette generation</h3>
+            <p>Introduced generative AI tooling to produce accessible, on-brand color palettes for data visualization — a process that previously required weeks of manual iteration between design and accessibility review.</p>
+          </div>
+        </div>
+        <div class="process-step">
+          <div class="process-num">04</div>
+          <div class="process-content">
+            <h3>Governance model for adoption</h3>
+            <p>Defined contribution guidelines, review cadence, and documentation standards so the system could evolve without central bottlenecks. Teams could propose, build, and ship new components within a clear framework.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="case-section reveal">
+      <div class="case-section-label">The System</div>
+      <h2>Components built for enterprise density.</h2>
+
+      <!-- Thumbnail — authorship + project identity -->
+      <img src="dv-thumb.png" alt="DV Components — Walmart Data Ventures, designed by Vishal and team" class="screen-img" style="margin-bottom:10px;">
+      <p class="visual-caption" style="margin-bottom:32px;">DV Components — Walmart Data Ventures</p>
+
+      <!-- Audit — the origin story -->
+      <img src="dv-s04.png" alt="Audit across Luminate product suite showing experience gaps and inconsistencies across six products" class="screen-img" style="margin-bottom:10px; background:#fff; border-radius:18px;">
+      <p class="visual-caption" style="margin-bottom:32px;">The audit that started it all — inconsistencies mapped across six Luminate products, which became the case for a unified system</p>
+
+      <!-- Ecosystem diagram -->
+      <img src="dv-s01.png" alt="Living Design ecosystem showing DV extension relationship to LD Core Components" class="screen-img" style="margin-bottom:10px; background:#fff; border-radius:18px;">
+      <p class="visual-caption" style="margin-bottom:32px;">System architecture — DV as an extension of Walmart's Living Design foundation</p>
+
+      <!-- Chart components in context -->
+      <img src="dv-s02.png" alt="Four chart types: area chart, bar chart, donut chart, and multi-line chart" class="screen-img" style="margin-bottom:10px; background:#fff; border-radius:18px;">
+      <p class="visual-caption" style="margin-bottom:32px;">Chart suite — area, bar, donut, and multi-line components in product context</p>
+
+      <!-- Token palette + component examples -->
+      <img src="dv-s03.png" alt="Color token scale and component examples including navigation, modal, file upload" class="screen-img" style="margin-bottom:10px; background:#fff; border-radius:18px;">
+      <p class="visual-caption">Token architecture — color scale, component variants, and usage guidelines</p>
+
+      <!-- Data Table component — the flagship output -->
+      <img src="dv-s05.png" alt="DV Data Table component spec showing 10-row template with column variants, checkboxes, filters and search" class="screen-img" style="margin-top:32px; margin-bottom:10px; background:#fff; border-radius:18px;">
+      <p class="visual-caption" style="margin-bottom:32px;">The Data Table — schema-agnostic, fully configurable, adopted as the standard across all Luminate products</p>
+
+      <!-- Line Chart spec — click to expand -->
+      <div class="lightbox-trigger" onclick="openLightbox('dv-s06.png', 'Line Chart component spec')">
+        <img src="dv-s06.png" alt="Line Chart component spec" class="screen-img" style="margin-bottom:6px; background:#fff; border-radius:18px; max-width:480px; margin-left:auto; margin-right:auto; display:block; cursor:zoom-in;">
+        <div class="lightbox-hint">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="6" cy="6" r="4.5" stroke="currentColor" stroke-width="1.3"/><path d="M9.5 9.5L12.5 12.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/><path d="M4 6h4M6 4v4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+          Click to view full spec
+        </div>
+      </div>
+      <p class="visual-caption" style="margin-top:8px;">Line Chart component — variants, hover interactivity, mono/color themes, and responsive behaviour documented for engineering handoff</p>
+    </div>
+
+    <!-- Lightbox overlay -->
+    <div id="lightbox" onclick="closeLightbox()" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.92); z-index:1000; cursor:zoom-out; overflow-y:auto; padding:40px 20px;">
+      <button onclick="closeLightbox()" style="position:fixed; top:20px; right:24px; background:rgba(255,255,255,0.1); border:none; color:#fff; font-size:22px; width:40px; height:40px; border-radius:50%; cursor:pointer; display:flex; align-items:center; justify-content:center; z-index:1001;">&times;</button>
+      <img id="lightbox-img" src="" alt="" style="display:block; max-width:900px; width:100%; margin:0 auto; border-radius:12px; box-shadow:0 20px 80px rgba(0,0,0,0.5);">
+    </div>
+
+    <div class="case-section reveal">
+      <div class="case-section-label">Tradeoffs</div>
+      <h2>Two decisions that shaped the system.</h2>
+      <div class="tradeoff-block">
+        <div class="tradeoff-item">
+          <div class="tradeoff-num">01</div>
+          <div class="tradeoff-content">
+            <h3>DV extension over a standalone system</h3>
+            <p>The tempting path was to build a fully independent DV design system from scratch — one we owned entirely, with no dependency on the broader Walmart Living Design foundation. Faster to ship the first version, easier to control.</p>
+            <p>We chose to build as an extension of LD Core instead. The tradeoff was a more complex architecture and a dependency on another team's roadmap. The return: <strong>every future improvement to Living Design automatically benefits DV products</strong>, and DV designers stay fluent with the same foundations used across Walmart. A standalone system would have become an island.</p>
+          </div>
+        </div>
+        <div class="tradeoff-item">
+          <div class="tradeoff-num">02</div>
+          <div class="tradeoff-content">
+            <h3>Configurable components over product-specific forks</h3>
+            <p>Early in the process, individual product teams had already started building their own versions of common patterns — tables, filters, chart headers. The path of least resistance was to bless those forks and call it a system.</p>
+            <p>Instead we consolidated them into configurable components with a clean props layer. Product teams could get the exact behavior they needed through configuration, not by copying and modifying. The short-term cost was saying no to some team requests. The long-term gain: <strong>zero design debt for every new product that launched on the system</strong> — a claim that held through the full 11 months.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="case-section reveal">
+      <div class="case-section-label">Impact</div>
+      <h2>Measurable outcomes across the organization.</h2>
+      <div class="impact-grid">
+        <div class="impact-card">
+          <div class="impact-num">30%</div>
+          <div class="impact-label">Boost in designer productivity across product teams</div>
+        </div>
+        <div class="impact-card">
+          <div class="impact-num">Zero</div>
+          <div class="impact-label">Design debt for every new product launched on the system</div>
+        </div>
+        <div class="impact-card">
+          <div class="impact-num">Record</div>
+          <div class="impact-label">Fastest Table + Chart component release in platform history</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="case-section reveal">
+      <div class="case-section-label">What People Said</div>
+      <h2>Heard across the org.</h2>
+      <div class="testimonial-grid">
+        <div class="testimonial-card">
+          <div class="testimonial-quote">"Implementing this design system has been a game-changer. It has unified our product interfaces, ensuring a cohesive and consistent user experience across all our applications."</div>
+          <div class="testimonial-attr">
+            <div class="testimonial-dot"></div>
+            <div class="testimonial-role">Design Director, Data Ventures</div>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <div class="testimonial-quote">"The reusable components have not only enhanced our development speed but also improved the overall quality and reliability of our applications."</div>
+          <div class="testimonial-attr">
+            <div class="testimonial-dot"></div>
+            <div class="testimonial-role">Engineering Lead, Core Services</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="case-section reveal">
+      <div class="cta-block">
+        <h3>The full story is better told in person.</h3>
+        <p>Component architecture decisions, governance model, token structure, and adoption strategy are available in a private walkthrough. I find conversations reveal far more about how I think than any PDF can.</p>
+        <a href="/cdn-cgi/l/email-protection#274c4948444c67514e544f464b4a420944484a185452454d4244531a6446544207745352435e0770464b4c534f554852404f07c5a7b3076371076342544e404907745e5453424a" class="btn btn-gold">Request a Walkthrough →</a>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-inner">
+      <a href="index.html" class="footer-logo">Vishal<span>.</span>Design</a>
+      <div class="footer-copy">© 2026 Vishal Mehta. All rights reserved.</div>
+    </div>
+  </footer>
+
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+    }, { threshold: 0.1 });
+    reveals.forEach(el => observer.observe(el));
+
+    function openLightbox(src, alt) {
+      const lb = document.getElementById('lightbox');
+      const img = document.getElementById('lightbox-img');
+      img.src = src;
+      img.alt = alt;
+      lb.style.display = 'block';
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox() {
+      document.getElementById('lightbox').style.display = 'none';
+      document.body.style.overflow = '';
+    }
+
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+  </script>
+</body>
+</html>

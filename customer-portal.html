@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Customer Portal 2.0 — Vishal Mehta</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #F5F5F7; --surface: #FFFFFF; --ink: #1D1D1F; --muted: #6E6E73;
+      --gold: #C9A84C; --gold-dim: rgba(201,168,76,0.12);
+      --radius: 18px; --shadow: 0 2px 16px rgba(0,0,0,0.07);
+      --shadow-lg: 0 8px 40px rgba(0,0,0,0.10); --max: 800px;
+      --nav-h: 64px; --ff-serif: 'Playfair Display', Georgia, serif;
+      --ff-sans: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      --ease: cubic-bezier(.4,0,.2,1);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--ff-sans); background: var(--bg); color: var(--ink); font-size: 17px; line-height: 1.65; -webkit-font-smoothing: antialiased; }
+    a { color: inherit; text-decoration: none; }
+
+    nav { position: fixed; top: 0; left: 0; right: 0; height: var(--nav-h); background: rgba(245,245,247,0.82); backdrop-filter: blur(20px) saturate(180%); -webkit-backdrop-filter: blur(20px) saturate(180%); border-bottom: 1px solid rgba(0,0,0,0.06); z-index: 100; display: flex; align-items: center; }
+    .nav-inner { max-width: 980px; width: 100%; margin: 0 auto; padding: 0 24px; display: flex; align-items: center; justify-content: space-between; }
+    .nav-logo { font-family: var(--ff-serif); font-size: 20px; font-weight: 600; color: var(--ink); }
+    .nav-logo span { color: var(--gold); }
+    .nav-back { display: flex; align-items: center; gap: 8px; font-size: 15px; color: var(--muted); transition: color 180ms var(--ease); }
+    .nav-back:hover { color: var(--ink); }
+    .nav-back svg { transition: transform 180ms var(--ease); }
+    .nav-back:hover svg { transform: translateX(-3px); }
+
+    .case-hero { max-width: var(--max); margin: 0 auto; padding: calc(var(--nav-h) + 72px) 24px 64px; }
+    .case-eyebrow { display: inline-flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold); margin-bottom: 20px; }
+    .case-eyebrow::before { content: ''; display: block; width: 20px; height: 1px; background: var(--gold); }
+    .case-h1 { font-family: var(--ff-serif); font-size: clamp(36px, 5vw, 54px); font-weight: 600; letter-spacing: -1.2px; line-height: 1.1; margin-bottom: 20px; }
+    .case-tagline { font-size: 20px; font-weight: 300; color: var(--muted); line-height: 1.55; margin-bottom: 36px; max-width: 600px; }
+    .case-meta { display: flex; flex-wrap: wrap; gap: 24px; padding: 24px 0; border-top: 1px solid rgba(0,0,0,0.07); border-bottom: 1px solid rgba(0,0,0,0.07); margin-bottom: 48px; }
+    .case-meta-item { display: flex; flex-direction: column; gap: 4px; }
+    .case-meta-label { font-size: 11px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gold); }
+    .case-meta-value { font-size: 15px; font-weight: 400; color: var(--ink); }
+
+    .nda-notice { background: var(--gold-dim); border: 1px solid rgba(201,168,76,0.25); border-radius: 12px; padding: 16px 20px; display: flex; align-items: flex-start; gap: 12px; margin-bottom: 56px; }
+    .nda-icon { font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+    .nda-text { font-size: 14px; font-weight: 400; color: var(--muted); line-height: 1.55; }
+    .nda-text strong { color: var(--ink); font-weight: 500; }
+
+    .case-body { max-width: var(--max); margin: 0 auto; padding: 0 24px 120px; }
+    .case-section { margin-bottom: 64px; }
+    .case-section-label { font-size: 11px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold); display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
+    .case-section-label::after { content: ''; flex: 1; max-width: 32px; height: 1px; background: var(--gold); }
+    .case-section h2 { font-family: var(--ff-serif); font-size: 28px; font-weight: 600; letter-spacing: -0.5px; line-height: 1.2; margin-bottom: 16px; }
+    .case-section p { font-size: 17px; font-weight: 300; color: var(--muted); line-height: 1.75; margin-bottom: 16px; }
+    .case-section p strong { color: var(--ink); font-weight: 500; }
+    .case-section p:last-child { margin-bottom: 0; }
+
+    .stat-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 24px 0; }
+    .stat-card { background: var(--surface); border-radius: var(--radius); padding: 24px 20px; box-shadow: var(--shadow); }
+    .stat-num { font-family: var(--ff-serif); font-size: 38px; font-weight: 600; color: var(--gold); letter-spacing: -1px; line-height: 1; margin-bottom: 6px; }
+    .stat-label { font-size: 13px; font-weight: 300; color: var(--muted); line-height: 1.4; }
+    .stat-context { font-size: 11px; color: rgba(110,110,115,0.6); margin-top: 4px; }
+
+    .visual-block { background: #0a1628; border-radius: var(--radius); overflow: hidden; margin: 8px 0; box-shadow: var(--shadow-lg); }
+    .visual-caption { font-size: 13px; color: var(--muted); text-align: center; margin-top: 12px; font-style: italic; }
+    .screen-img { width: 100%; height: auto; display: block; border-radius: var(--radius); box-shadow: var(--shadow-lg); }
+
+    .portal-ui { display: grid; grid-template-columns: 160px 1fr; min-height: 320px; }
+    .portal-sidebar { background: #061020; padding: 20px 0; border-right: 1px solid rgba(255,255,255,0.06); }
+    .portal-brand { padding: 0 16px 20px; font-size: 11px; font-weight: 700; color: rgba(255,255,255,0.3); letter-spacing: 0.1em; border-bottom: 1px solid rgba(255,255,255,0.06); margin-bottom: 12px; }
+    .portal-nav-item { padding: 9px 16px; font-size: 12px; color: rgba(255,255,255,0.4); display: flex; align-items: center; gap: 8px; }
+    .portal-nav-item.active { color: var(--gold); background: rgba(201,168,76,0.08); border-right: 2px solid var(--gold); }
+    .portal-main { padding: 24px; }
+    .portal-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
+    .portal-title { font-size: 14px; font-weight: 600; color: rgba(255,255,255,0.85); }
+    .portal-meta { font-size: 10px; color: rgba(255,255,255,0.3); }
+    .treemap { display: grid; grid-template-columns: 2fr 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 4px; height: 140px; margin-bottom: 16px; }
+    .tm-cell { border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 2px; }
+    .tm-cell.large { grid-row: span 2; background: rgba(201,168,76,0.25); border: 1px solid rgba(201,168,76,0.35); }
+    .tm-cell.med { background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.1); }
+    .tm-cell.sm { background: rgba(201,168,76,0.1); border: 1px solid rgba(201,168,76,0.2); }
+    .tm-num { font-size: 18px; font-weight: 600; color: var(--gold); }
+    .tm-lbl { font-size: 8px; color: rgba(255,255,255,0.4); }
+    .portal-table { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07); border-radius: 8px; overflow: hidden; }
+    .portal-table-row { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; padding: 8px 12px; border-bottom: 1px solid rgba(255,255,255,0.04); align-items: center; }
+    .portal-table-row.header { background: rgba(255,255,255,0.04); }
+    .portal-table-cell { font-size: 9px; color: rgba(255,255,255,0.4); }
+    .portal-table-row.header .portal-table-cell { color: rgba(255,255,255,0.25); font-weight: 500; letter-spacing: 0.05em; }
+    .cell-accent { color: var(--gold) !important; font-weight: 500; }
+
+    .process-steps { display: flex; flex-direction: column; gap: 0; margin-top: 8px; }
+    .process-step { display: flex; gap: 20px; padding: 24px 0; border-bottom: 1px solid rgba(0,0,0,0.06); }
+    .process-step:last-child { border-bottom: none; }
+    .process-num { font-family: var(--ff-serif); font-size: 32px; font-weight: 600; color: var(--gold); opacity: 0.4; line-height: 1; flex-shrink: 0; width: 40px; }
+    .process-content h3 { font-size: 17px; font-weight: 500; margin-bottom: 6px; }
+    .process-content p { font-size: 15px; font-weight: 300; color: var(--muted); line-height: 1.65; margin: 0; }
+
+    .impact-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 8px; }
+    .impact-card { background: var(--surface); border-radius: var(--radius); padding: 28px 24px; box-shadow: var(--shadow); display: flex; flex-direction: column; gap: 8px; }
+    .impact-num { font-family: var(--ff-serif); font-size: 42px; font-weight: 600; color: var(--gold); letter-spacing: -1px; line-height: 1; }
+    .impact-label { font-size: 14px; font-weight: 300; color: var(--muted); line-height: 1.4; }
+
+    .cta-block { background: var(--ink); border-radius: var(--radius); padding: 48px; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 20px; }
+    .cta-block h3 { font-family: var(--ff-serif); font-size: 28px; font-weight: 600; color: #F5F5F7; letter-spacing: -0.5px; line-height: 1.2; }
+    .cta-block p { font-size: 16px; font-weight: 300; color: rgba(245,245,247,0.6); max-width: 480px; line-height: 1.65; }
+    .btn { display: inline-flex; align-items: center; gap: 8px; padding: 14px 32px; border-radius: 980px; font-family: var(--ff-sans); font-size: 15px; font-weight: 500; transition: all 200ms var(--ease); cursor: pointer; border: none; }
+    .btn-gold { background: var(--gold); color: #000; }
+    .btn-gold:hover { background: #d4b050; transform: translateY(-1px); box-shadow: 0 4px 20px rgba(201,168,76,0.35); }
+
+    .reveal { opacity: 1; transform: none; }
+    @media (prefers-reduced-motion: no-preference) {
+      .reveal { opacity: 1; transform: none; }
+      .reveal.visible { opacity: 1; transform: none; }
+    }
+    .reveal-delay-1 { transition-delay: 80ms; }
+    .reveal-delay-2 { transition-delay: 160ms; }
+
+    footer { border-top: 1px solid rgba(0,0,0,0.07); padding: 32px 24px; }
+    .footer-inner { max-width: 980px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; }
+    .footer-logo { font-family: var(--ff-serif); font-size: 16px; font-weight: 600; color: var(--muted); }
+    .footer-logo span { color: var(--gold); }
+    .footer-copy { font-size: 13px; color: var(--muted); }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">Vishal<span>.</span>Design</a>
+      <a href="index.html#work" class="nav-back">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 3L5 8l5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        All Work
+      </a>
+    </div>
+  </nav>
+
+  <div class="case-hero">
+    <div class="case-eyebrow reveal">Intuitive Surgical · Product Design · Healthcare</div>
+    <h1 class="case-h1 reveal reveal-delay-1">Customer Portal 2.0</h1>
+    <p class="case-tagline reveal reveal-delay-2">Transforming how hospital nurses manage robotic surgical inventory — from frustration to clarity, through data visualization designed for high-stakes decisions.</p>
+    <div class="case-meta reveal reveal-delay-2">
+      <div class="case-meta-item"><span class="case-meta-label">My Role</span><span class="case-meta-value">Product Design Lead</span></div>
+      <div class="case-meta-item"><span class="case-meta-label">Team</span><span class="case-meta-value">UX Research, PM, Engineering</span></div>
+      <div class="case-meta-item"><span class="case-meta-label">Timeline</span><span class="case-meta-value">6 months</span></div>
+      <div class="case-meta-item"><span class="case-meta-label">Domain</span><span class="case-meta-value">Healthcare · Enterprise</span></div>
+    </div>
+    <div class="nda-notice reveal">
+      <span class="nda-icon">🔒</span>
+      <div class="nda-text"><strong>NDA applies to this project.</strong> Select materials shown here are approved for public display. Full research findings, usability testing results, and detailed interaction design are available in a private walkthrough.</div>
+    </div>
+  </div>
+
+  <div class="case-body">
+    <div class="case-section reveal">
+      <div class="case-section-label">The Challenge</div>
+      <h2>75% of users couldn't do their job.</h2>
+      <p>Hospital nurses managing Intuitive Surgical's da Vinci robotic systems were running operating rooms with a portal built in 2016 — before the complexity of robotic surgery programs had fully materialized. The result was a compounding failure across every core workflow.</p>
+      <div class="stat-row">
+        <div class="stat-card">
+          <div class="stat-num">75%</div>
+          <div class="stat-label">Users unsatisfied with how the portal supported their needs</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">8/10</div>
+          <div class="stat-label">Users found navigation painful</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">7/10</div>
+          <div class="stat-label">Users found no actionable insights for facility utilization</div>
+        </div>
+      </div>
+      <p>The deeper problem: nurses weren't just inconvenienced. They were making inventory ordering decisions without reliable data — in an environment where equipment availability directly impacts surgical outcomes.</p>
+    </div>
+
+    <div class="case-section reveal">
+      <div class="case-section-label">My Approach</div>
+      <h2>Research first. Visualize the decision, not the data.</h2>
+      <div class="process-steps">
+        <div class="process-step">
+          <div class="process-num">01</div>
+          <div class="process-content">
+            <h3>Contextual research with OR nurses</h3>
+            <p>Observed nurses in their actual workflow — not in a lab. Understanding the decision they needed to make (when and how much to order) shaped every design decision that followed.</p>
+          </div>
+        </div>
+        <div class="process-step">
+          <div class="process-num">02</div>
+          <div class="process-content">
+            <h3>Treemap and matrix visualization</h3>
+            <p>Designed novel tree map and matrix chart visualizations that surfaced utilization patterns in a single glance. The goal was to turn complex inventory data into an immediately actionable insight — not a table to be analyzed.</p>
+          </div>
+        </div>
+        <div class="process-step">
+          <div class="process-num">03</div>
+          <div class="process-content">
+            <h3>Navigation redesign from the ground up</h3>
+            <p>The 2016 architecture was built around data structure, not user goals. Rebuilt navigation around the three things nurses actually needed to do: check utilization, place orders, and resolve exceptions.</p>
+          </div>
+        </div>
+        <div class="process-step">
+          <div class="process-num">04</div>
+          <div class="process-content">
+            <h3>Error-proofing returns workflow</h3>
+            <p>Inventory returns had a 70% error rate due to ambiguous workflows. Redesigned with progressive disclosure and inline validation — making the correct path the obvious path.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="case-section reveal">
+      <div class="case-section-label">The Interface</div>
+      <h2>Clarity for high-stakes decisions.</h2>
+
+      <!-- Hero — Orders treemap, the signature visualization -->
+      <img src="cp-hero.png" alt="Customer Portal Orders page showing treemap visualization of instrument usage by category" class="screen-img" style="margin-bottom:10px; background:#fff; border-radius:18px;">
+      <p class="visual-caption" style="margin-bottom:32px;">Orders — treemap visualization showing instrument usage at a glance. The size of each cell encodes quantity, so nurses see what needs reordering without reading a table</p>
+
+      <!-- Navigation redesign — 4 states, mobile -->
+      <img src="cp-s01.png" alt="Mobile navigation redesign showing four progressive states — from collapsed to fully expanded with hospital context" class="screen-img" style="margin-bottom:10px; background:#F5F5F7; border-radius:18px;">
+      <p class="visual-caption" style="margin-bottom:32px;">Navigation redesign — four states from the ground up. Old portal buried functions 3 levels deep; new architecture surfaces the three things nurses actually do: check utilization, place orders, resolve exceptions</p>
+
+      <!-- Utilization — responsive pair -->
+      <img src="cp-s02.png" alt="Utilization dashboard showing system summary and calendar views side by side across breakpoints" class="screen-img" style="margin-bottom:10px; background:#fff; border-radius:18px;">
+      <p class="visual-caption" style="margin-bottom:32px;">Utilization dashboard — cases, hours, fleet status, and a surgical calendar in one view. Designed across breakpoints; OR nurses move between desktop and tablet during shift</p>
+
+      <!-- Orders + Inventory Utilization side by side -->
+      <img src="cp-s03.png" alt="Orders tracking and Inventory utilization views showing cost vs use scatter plot and compare stats" class="screen-img" style="margin-bottom:10px; background:#fff; border-radius:18px;">
+      <p class="visual-caption" style="margin-bottom:32px;">Inventory utilization — cost vs. use scatter plot lets administrators identify over-ordered instruments instantly. Compare Stats enables side-by-side instrument benchmarking across quarters</p>
+
+      <!-- Utilization — donut + history calendar -->
+      <img src="cp-s05.png" alt="Utilization summary with donut charts for cases and hours broken down by da Vinci system type, plus utilization history calendar" class="screen-img" style="margin-bottom:10px; background:#fff; border-radius:18px;">
+      <p class="visual-caption">System utilization summary — 533 cases and 1,180 hours broken down by Xi, Si, and SP. History calendar gives program coordinators a month-level pattern view for capacity planning</p>
+    </div>
+
+    <div class="case-section reveal">
+      <div class="case-section-label">Research Rigour</div>
+      <h2>Validated before we built a single screen.</h2>
+      <p style="margin-bottom:32px;">Every design decision traced back to a testable hypothesis. Before any high-fidelity work began, a structured usability test plan mapped what we needed to learn, who we'd test with, and how we'd measure success.</p>
+
+      <!-- Usability test plan -->
+      <img src="cp-s04.png" alt="Usability Test Plan Dashboard showing product under test, test objectives, participants, tasks, responsibilities and procedure timeline" class="screen-img" style="margin-bottom:10px; background:#fff; border-radius:18px;">
+      <p class="visual-caption" style="margin-bottom:32px;">Usability Test Plan — structured across 5–6 ROCOS participants (mixed novice/expert), 60-minute moderated sessions on Zoom, with 8 defined task scenarios covering navigation, ordering, and utilization interpretation</p>
+
+      <!-- Feature value/feasibility matrix -->
+      <img src="cp-s06.png" alt="Value, Feasibility and Priority matrix spreadsheet showing JTBD goals mapped to features with user value and feasibility sizing" class="screen-img" style="margin-bottom:10px; background:#fff; border-radius:18px;">
+      <p class="visual-caption">Value × Feasibility × Priority matrix — every feature mapped to a JTBD goal, scored for user value (S/M/L) and feasibility across process, data, and technical dimensions. This became the roadmap prioritization artifact shared with PM and engineering</p>
+    </div>
+
+    <div class="case-section reveal">
+      <div class="case-section-label">Tradeoffs</div>
+      <h2>Two decisions that shaped the redesign.</h2>
+      <div class="process-steps">
+        <div class="process-step">
+          <div class="process-num">01</div>
+          <div class="process-content">
+            <h3>Novel visualization over familiar tables</h3>
+            <p>Nurses were comfortable with spreadsheet-style order history. The safe path was to keep that pattern and clean up the UI. Instead we introduced a treemap as the primary ordering view — encoding quantity in cell size so the reorder signal was immediate, not derived.</p>
+            <p>The tradeoff was a steeper learning curve on first use. The return: <strong>nurses reported understanding their instrument usage at a glance for the first time.</strong> Usability testing validated the pattern held — task completion on ordering scenarios improved significantly over the baseline.</p>
+          </div>
+        </div>
+        <div class="process-step">
+          <div class="process-num">02</div>
+          <div class="process-content">
+            <h3>Goal-based navigation over data-based navigation</h3>
+            <p>The original architecture was organized around data objects: instruments, systems, orders, returns — each a separate silo. Logical from an engineering perspective, but it forced nurses to context-switch constantly to complete a single workflow.</p>
+            <p>We restructured around jobs-to-be-done: manage utilization, manage inventory, manage your account. The tradeoff was breaking established muscle memory for power users. The gain: <strong>users who previously navigated 3–4 levels deep to reach core functions reached them in one step.</strong></p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="case-section reveal">
+      <div class="case-section-label">Impact</div>
+      <h2>From frustration to flow.</h2>
+      <div class="impact-grid">
+        <div class="impact-card">
+          <div class="impact-num">75%</div>
+          <div class="impact-label">Dissatisfaction rate — the baseline that made the case for a full redesign</div>
+        </div>
+        <div class="impact-card">
+          <div class="impact-num">6mo</div>
+          <div class="impact-label">Research through shipped product — contextual research to production</div>
+        </div>
+        <div class="impact-card">
+          <div class="impact-num">8/10</div>
+          <div class="impact-label">Navigation friction rate resolved — from the most common complaint to a non-issue</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="case-section reveal">
+      <div class="cta-block">
+        <h3>The full story is better told in person.</h3>
+        <p>Research synthesis, usability testing sessions, visualization design decisions, and the engineering collaboration story are available in a private walkthrough. I find conversations reveal far more about how I think than any PDF can.</p>
+        <a href="/cdn-cgi/l/email-protection#5c3732333f371c2a352f343d303139723f3331632f293e36393f28611f3d2f397c0f282938257c0b3d303728342e33293b347cbedcc87c1f292f283331392e7c0c332e283d307c6e726c" class="btn btn-gold">Request a Walkthrough →</a>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-inner">
+      <a href="index.html" class="footer-logo">Vishal<span>.</span>Design</a>
+      <div class="footer-copy">© 2026 Vishal Mehta. All rights reserved.</div>
+    </div>
+  </footer>
+
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+    }, { threshold: 0.1 });
+    reveals.forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
