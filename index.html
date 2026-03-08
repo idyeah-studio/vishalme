@@ -737,16 +737,112 @@
     .reveal-delay-4 { transition-delay: 400ms; }
 
     /* ─── RESPONSIVE ─────────────────────────────────────── */
+    /* ─── HAMBURGER ──────────────────────────────────────────── */
+    .nav-hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 8px;
+      background: none;
+      border: none;
+      z-index: 200;
+    }
+    .nav-hamburger span {
+      display: block;
+      width: 24px;
+      height: 1.5px;
+      background: var(--ink);
+      transition: all 220ms var(--ease);
+    }
+    .nav-hamburger.open span:first-child {
+      transform: translateY(6.5px) rotate(45deg);
+    }
+    .nav-hamburger.open span:last-child {
+      transform: translateY(-6.5px) rotate(-45deg);
+    }
+
+    /* ─── MOBILE ─────────────────────────────────────────────── */
     @media (max-width: 768px) {
-      .work-grid { grid-template-columns: 1fr; }
-      .work-card.featured { flex-direction: column; }
-      .work-card.featured .work-card-thumb { width: 100%; min-height: 200px; }
-      #about .about-inner { grid-template-columns: 1fr; gap: 48px; }
-      .contact-grid { grid-template-columns: 1fr; }
-      .hero-h1 { font-size: 38px; }
-      .cred-strip-inner { gap: 0; }
-      .cred-item { font-size: 11px; padding: 6px 14px 6px 0; }
-      .cred-item + .cred-item { padding-left: 14px; }
+
+      /* Nav */
+      .nav-hamburger { display: flex; }
+      .nav-links {
+        display: none;
+        position: fixed;
+        top: var(--nav-h);
+        left: 0; right: 0;
+        background: rgba(245,245,247,0.97);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        flex-direction: column;
+        gap: 0;
+        padding: 12px 0 24px;
+        border-bottom: 1px solid rgba(0,0,0,0.07);
+        z-index: 150;
+      }
+      .nav-links.open { display: flex; }
+      .nav-links li { width: 100%; }
+      .nav-links a {
+        display: block;
+        padding: 14px 28px;
+        font-size: 17px;
+      }
+
+      /* Hero */
+      .hero-h1 { font-size: 34px; letter-spacing: -1px; }
+      .hero-sub { font-size: 17px; }
+      .hero-scroll { margin-top: 48px; }
+
+      /* Cred strip */
+      .cred-strip-inner {
+        flex-direction: column;
+        gap: 0;
+        padding: 0 24px;
+      }
+      .cred-item {
+        font-size: 13px;
+        padding: 8px 0;
+        border-bottom: 1px solid rgba(0,0,0,0.05);
+      }
+      .cred-item + .cred-item { padding-left: 0; }
+      .cred-item:last-child { border-bottom: none; }
+
+      /* Work grid */
+      .work-grid { grid-template-columns: 1fr; gap: 20px; }
+      .work-card.featured {
+        flex-direction: column;
+        grid-column: span 1;
+      }
+      .work-card.featured .work-card-thumb {
+        width: 100%;
+        min-height: 220px;
+      }
+
+      /* Raptor thumb on mobile */
+      .raptor-thumb { padding: 28px 24px; }
+      .raptor-ui { max-width: 100%; }
+      .raptor-title { font-size: 15px; }
+      .raptor-metric-val { font-size: 15px; }
+
+      /* About */
+      #about .about-inner {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+      .about-quote {
+        font-size: 20px;
+      }
+
+      /* Contact */
+      .contact-grid { grid-template-columns: 1fr; gap: 16px; }
+
+      /* Sections */
+      section { padding: 72px 20px; }
+      #home { padding-top: calc(var(--nav-h) + 48px); padding-bottom: 60px; }
+
+      /* Avail list */
+      .avail-list li { font-size: 13px; }
     }
   </style>
 </head>
@@ -756,7 +852,11 @@
   <nav>
     <div class="nav-inner">
       <a href="#home" class="nav-logo">Vishal<span>.</span>Design</a>
-      <ul class="nav-links">
+      <button class="nav-hamburger" id="hamburger" aria-label="Menu">
+        <span></span>
+        <span></span>
+      </button>
+      <ul class="nav-links" id="nav-links">
         <li><a href="#home" class="active">Home</a></li>
         <li><a href="#work">Work</a></li>
         <li><a href="#about">About</a></li>
@@ -792,6 +892,7 @@
       <div class="cred-item"><span class="cred-dot"></span>Walmart — Data Ventures</div>
       <div class="cred-item"><span class="cred-dot"></span>Intuitive Surgical</div>
       <div class="cred-item"><span class="cred-dot"></span>EB1A — Extraordinary Ability</div>
+      <div class="cred-item"><span class="cred-dot"></span>IEEE Senior Member</div>
       <div class="cred-item"><span class="cred-dot"></span>ACM SIGCHI Member</div>
       <div class="cred-item"><span class="cred-dot"></span>World Usability Congress 2025</div>
       <div class="cred-item"><span class="cred-dot"></span>Author — Design AI Alchemy</div>
@@ -990,19 +1091,19 @@
           <p>I started as a software engineer. That decision shaped everything.</p>
           <p>Most designers hand off to engineering. I sit at the seam — where design decisions meet implementation reality, where a component architecture choice determines whether a product team moves fast or grinds to a halt. That's where I've spent 25 years.</p>
           <p>At <strong>Walmart</strong> I architected the DV Design System and built the component foundation for Luminate Insights — a high-density analytics platform where merchants make multi-million dollar inventory decisions. At <strong>Apple's Wallet, Payments, and Commerce team</strong> I've been driving an AI-augmented workflow that takes features from brief to production-ready React in under two weeks, at Apple-standard quality.</p>
-          <p>I don't let a portfolio website do the talking. I'd rather walk you through the thinking, the tradeoffs, and the outcomes in a live conversation.</p>
         </div>
       </div>
       <div class="about-right reveal reveal-delay-2">
         <div class="about-quote">
-          <p>"AI doesn't replace judgment. It amplifies it."</p>
-          <cite>— From Δ-08, Vibe Coding Works</cite>
+          <p>"A fool with a tool is still a fool."</p>
+          <cite>— Grady Booch</cite>
         </div>
         <ul class="about-cred-list">
           <li class="about-cred-item"><span class="about-cred-dot"></span>Apple — Wallet, Payments &amp; Commerce</li>
           <li class="about-cred-item"><span class="about-cred-dot"></span>Walmart — Data Ventures</li>
           <li class="about-cred-item"><span class="about-cred-dot"></span>Intuitive Surgical</li>
           <li class="about-cred-item"><span class="about-cred-dot"></span>EB1A Green Card — Extraordinary Ability</li>
+          <li class="about-cred-item"><span class="about-cred-dot"></span>IEEE Senior Member</li>
           <li class="about-cred-item"><span class="about-cred-dot"></span>ACM SIGCHI Member</li>
           <li class="about-cred-item"><span class="about-cred-dot"></span>World Usability Congress 2025 — Speaker</li>
           <li class="about-cred-item"><span class="about-cred-dot"></span>Author — Design AI Alchemy</li>
@@ -1037,15 +1138,15 @@
       <div class="contact-card reveal reveal-delay-1">
         <div class="contact-card-label">Get in Touch</div>
         <div class="contact-card-title">Reach out directly.</div>
-        <div class="contact-card-body">No forms, no friction. Pick a channel that works for you.</div>
+        <div class="contact-card-body">No forms, no friction. Pick the channel that works for you.</div>
         <div class="contact-links">
-          <a href="mailto:knock@vishalme.com" class="contact-link">
+          <a href="/cdn-cgi/l/email-protection#600b0e0f030b2016091308010c0d054e030f0d" class="contact-link">
             <div class="contact-link-icon">
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
                 <path d="M2 4l6 5 6-5M2 4h12v9H2V4z" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
             </div>
-            knock@vishalme.com
+            <span class="__cf_email__" data-cfemail="caa1a4a5a9a18abca3b9a2aba6a7afe4a9a5a7">[email&#160;protected]</span>
           </a>
           <a href="https://linkedin.com/in/vishalme" target="_blank" class="contact-link">
             <div class="contact-link-icon">
@@ -1080,6 +1181,7 @@
   </footer>
 
   <script>
+  document.addEventListener('DOMContentLoaded', () => {
     // Scroll reveal
     const reveals = document.querySelectorAll('.reveal');
     const observer = new IntersectionObserver((entries) => {
@@ -1096,12 +1198,24 @@
       setTimeout(() => el.classList.add('visible'), 100);
     });
 
+    // Hamburger toggle
+    const hamburger = document.getElementById('hamburger');
+    const navLinksList = document.getElementById('nav-links');
+    if (hamburger && navLinksList) {
+      hamburger.addEventListener('click', () => {
+        hamburger.classList.toggle('open');
+        navLinksList.classList.toggle('open');
+      });
+      navLinksList.querySelectorAll('a').forEach(a => {
+        a.addEventListener('click', () => {
+          hamburger.classList.remove('open');
+          navLinksList.classList.remove('open');
+        });
+      });
+    }
+  });
+
+  document.addEventListener('DOMContentLoaded', () => {
     // Nav active state
     const sections = document.querySelectorAll('section[id], div[id]');
-    const navLinks = document.querySelectorAll('.nav-links a');
-    window.addEventListener('scroll', () => {
-      let current = '';
-      sections.forEach(section => {
-        if (window.scrollY >= section.offsetTop - 100) {
-          current = section.getAttribute('id');
-        
+    const navLinks = document.querySelecto
