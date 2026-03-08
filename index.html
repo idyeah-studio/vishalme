@@ -820,10 +820,20 @@
       }
 
       /* Raptor thumb on mobile */
-      .raptor-thumb { padding: 28px 24px; }
-      .raptor-ui { max-width: 100%; }
-      .raptor-title { font-size: 15px; }
-      .raptor-metric-val { font-size: 15px; }
+      /* Raptor thumb on mobile */
+.raptor-thumb {
+  height: 240px !important;
+  width: 100% !important;
+  padding: 24px 20px;
+  box-sizing: border-box;
+}
+.raptor-ui { max-width: 100%; min-width: 0; gap: 12px; }
+.raptor-metrics { flex-wrap: nowrap; gap: 6px; }
+.raptor-metric { padding: 10px 8px; min-width: 0; }
+.raptor-metric-val { font-size: 14px; }
+.raptor-metric-lbl { font-size: 8px; }
+.raptor-title { font-size: 15px; }
+.raptor-bar-row { gap: 5px; }
 
       /* About */
       #about .about-inner {
@@ -1214,8 +1224,4 @@
       });
     }
   });
-
-  document.addEventListener('DOMContentLoaded', () => {
-    // Nav active state
-    const sections = document.querySelectorAll('section[id], div[id]');
-    const navLinks = document.querySelecto
+  </script>
