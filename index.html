@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Vishal Mehta — UX Design Leader</title>
+  <title>Vishal Mehta · UX Design Leader</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
@@ -172,41 +172,6 @@
       background: var(--muted);
     }
 
-    /* ─── CREDENTIAL STRIP ───────────────────────────────── */
-    .cred-strip {
-      border-top: 1px solid rgba(0,0,0,0.07);
-      border-bottom: 1px solid rgba(0,0,0,0.07);
-      padding: 28px 24px;
-      overflow: hidden;
-    }
-    .cred-strip-inner {
-      max-width: var(--max);
-      margin: 0 auto;
-      display: flex;
-      align-items: center;
-      gap: 0;
-      flex-wrap: wrap;
-    }
-    .cred-item {
-      display: flex; align-items: center; gap: 10px;
-      padding: 8px 28px 8px 0;
-      font-size: 13px;
-      font-weight: 500;
-      color: var(--muted);
-      letter-spacing: 0.02em;
-      white-space: nowrap;
-    }
-    .cred-item + .cred-item {
-      border-left: 1px solid rgba(0,0,0,0.1);
-      padding-left: 28px;
-    }
-    .cred-dot {
-      width: 5px; height: 5px;
-      border-radius: 50%;
-      background: var(--gold);
-      flex-shrink: 0;
-    }
-
     /* ─── SECTION LABELS ─────────────────────────────────── */
     .section-label {
       font-size: 12px;
@@ -216,11 +181,6 @@
       color: var(--gold);
       margin-bottom: 16px;
       display: flex; align-items: center; gap: 10px;
-    }
-    .section-label::after {
-      content: '';
-      flex: 1; max-width: 40px;
-      height: 1px; background: var(--gold);
     }
     .section-h2 {
       font-family: var(--ff-serif);
@@ -280,7 +240,7 @@
       position: relative;
       overflow: hidden;
     }
-    /* Apple card — dark dashboard */
+    /* Apple card, dark dashboard */
     .thumb-apple {
       background: linear-gradient(135deg, #111 0%, #1a1a2e 100%);
     }
@@ -522,7 +482,6 @@
       text-transform: uppercase; color: #4ade80;
     }
     .raptor-ui { width: 100%; max-width: 480px; display: flex; flex-direction: column; gap: 20px; }
-    .raptor-header { }
     .raptor-title { font-size: 18px; font-weight: 600; color: rgba(255,255,255,0.9); }
     .raptor-sub { font-size: 12px; color: rgba(255,255,255,0.4); margin-top: 3px; }
     .raptor-metrics { display: flex; gap: 12px; }
@@ -557,7 +516,6 @@
       align-items: start;
     }
     #about .section-label { color: var(--gold); }
-    #about .section-label::after { background: var(--gold); }
     #about .section-h2 { color: #F5F5F7; }
     .about-body {
       font-size: 17px;
@@ -728,6 +686,78 @@
       font-size: 13px; color: var(--muted);
     }
 
+    /* ─── PUBLICATIONS ───────────────────────────────────── */
+    .pub-ledger {
+      display: flex;
+      flex-direction: column;
+      border-top: 1px solid rgba(0,0,0,0.09);
+    }
+    .pub-tier {
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      gap: 48px;
+      padding: 36px 0;
+      border-bottom: 1px solid rgba(0,0,0,0.09);
+    }
+    .pub-tier-label {
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gold);
+      padding-top: 6px;
+    }
+    .pub-items {
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+    }
+    .pub-item {
+      display: block;
+    }
+    .pub-item-head {
+      display: flex;
+      align-items: baseline;
+      gap: 6px 14px;
+      flex-wrap: wrap;
+    }
+    .pub-item-title {
+      font-family: var(--ff-serif);
+      font-size: 21px;
+      font-weight: 600;
+      letter-spacing: -0.3px;
+      line-height: 1.3;
+      color: var(--ink);
+      transition: color 180ms var(--ease);
+    }
+    a.pub-item:hover .pub-item-title { color: var(--gold); }
+    .pub-item-meta {
+      font-size: 13px;
+      font-weight: 400;
+      color: var(--muted);
+      letter-spacing: 0.02em;
+    }
+    .pub-item-arrow {
+      color: var(--gold);
+      opacity: 0;
+      transform: translate(-4px, 1px);
+      transition: opacity 180ms var(--ease), transform 180ms var(--ease);
+      flex-shrink: 0;
+      align-self: center;
+    }
+    a.pub-item:hover .pub-item-arrow {
+      opacity: 1;
+      transform: translate(0, 1px);
+    }
+    .pub-item-desc {
+      font-size: 15px;
+      font-weight: 300;
+      color: var(--muted);
+      line-height: 1.6;
+      margin-top: 8px;
+      max-width: 560px;
+    }
+
     /* ─── SCROLL REVEAL ──────────────────────────────────── */
     .reveal { opacity: 1; transform: none; }
     .reveal-delay-1 { transition-delay: 100ms; }
@@ -793,20 +823,6 @@
       .hero-sub { font-size: 17px; }
       .hero-scroll { margin-top: 48px; }
 
-      /* Cred strip */
-      .cred-strip-inner {
-        flex-direction: column;
-        gap: 0;
-        padding: 0 24px;
-      }
-      .cred-item {
-        font-size: 13px;
-        padding: 8px 0;
-        border-bottom: 1px solid rgba(0,0,0,0.05);
-      }
-      .cred-item + .cred-item { padding-left: 0; }
-      .cred-item:last-child { border-bottom: none; }
-
       /* Work grid */
       .work-grid { grid-template-columns: 1fr; gap: 20px; }
       .work-card.featured {
@@ -850,6 +866,15 @@
         font-size: 20px;
       }
 
+      /* Publications */
+      .pub-tier {
+        grid-template-columns: 1fr;
+        gap: 18px;
+        padding: 28px 0;
+      }
+      .pub-tier-label { padding-top: 0; }
+      .pub-item-title { font-size: 19px; }
+
       /* Contact */
       .contact-grid { grid-template-columns: 1fr; gap: 16px; }
 
@@ -876,6 +901,7 @@
         <li><a href="#home" class="active">Home</a></li>
         <li><a href="#work">Work</a></li>
         <li><a href="#about">About</a></li>
+        <li><a href="#writing">Writing</a></li>
         <li><a href="#contact">Contact</a></li>
         <!-- Résumé hidden: tailored per job application, not published publicly -->
         <!-- <li><a href="Vishal_Mehta_Resume.pdf" target="_blank">Résumé ↗</a></li> -->
@@ -885,13 +911,12 @@
 
   <!-- HERO -->
   <section id="home">
-    <div class="hero-eyebrow reveal">Design Leader · AI Workflow Pioneer</div>
     <h1 class="hero-h1 reveal reveal-delay-1">
       25 years at the intersection of<br>
       <em>design</em> and engineering.
     </h1>
     <p class="hero-sub reveal reveal-delay-2">
-      I design enterprise systems that ship — from design systems to production React, from Walmart to Apple.
+      I design enterprise systems that ship, from design-system architecture to production React, for teams at companies like Walmart and Apple.
     </p>
     <div class="hero-ctas reveal reveal-delay-3">
       <a href="#work" class="btn btn-primary">View Work →</a>
@@ -902,20 +927,6 @@
       Selected case studies below
     </div>
   </section>
-
-  <!-- CREDENTIAL STRIP -->
-  <div class="cred-strip">
-    <div class="cred-strip-inner">
-      <div class="cred-item"><span class="cred-dot"></span>Apple — Wallet, Payments &amp; Commerce</div>
-      <div class="cred-item"><span class="cred-dot"></span>Walmart — Data Ventures</div>
-      <div class="cred-item"><span class="cred-dot"></span>Intuitive Surgical</div>
-      <div class="cred-item"><span class="cred-dot"></span>EB1A — Extraordinary Ability</div>
-      <div class="cred-item"><span class="cred-dot"></span>IEEE Senior Member</div>
-      <div class="cred-item"><span class="cred-dot"></span>ACM SIGCHI Member</div>
-      <div class="cred-item"><span class="cred-dot"></span>World Usability Congress 2025</div>
-      <div class="cred-item"><span class="cred-dot"></span>Author — Design AI Alchemy</div>
-    </div>
-  </div>
 
   <!-- WORK -->
   <section id="work">
@@ -968,7 +979,7 @@
             <span class="tag">Enterprise</span>
           </div>
           <div class="work-card-title">Apple Intelligence Shipping</div>
-          <div class="work-card-desc">Redesigned Apple's internal shipping operations — cutting shipment creation time by 50% through AI-powered workflows built for trust, transparency, and human oversight.</div>
+          <div class="work-card-desc">Redesigned Apple's internal shipping operations, cutting shipment creation time by 50% through AI-powered workflows built for trust, transparency, and human oversight.</div>
           <div class="work-card-footer">
             View case study
             <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
@@ -1000,7 +1011,7 @@
             <span class="tag">Data Viz</span>
           </div>
           <div class="work-card-title">Walmart DV Design System</div>
-          <div class="work-card-desc">Architected Walmart's enterprise design system — 30% productivity boost and zero design debt for new product launches across Data Ventures.</div>
+          <div class="work-card-desc">Architected Walmart's enterprise design system, delivering a 30% productivity boost and zero design debt for new product launches across Data Ventures.</div>
           <div class="work-card-footer">
             View case study
             <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
@@ -1016,7 +1027,7 @@
           <div class="work-card-thumb-inner">
             <div class="thumb-portal">
               <div class="thumb-portal-header">
-                <span class="thumb-portal-title">Orders — da Vinci Xi</span>
+                <span class="thumb-portal-title">Orders · da Vinci Xi</span>
               </div>
               <div class="thumb-treemap">
                 <div class="thumb-tm-cell"></div>
@@ -1033,7 +1044,7 @@
             <span class="tag">Enterprise</span>
           </div>
           <div class="work-card-title">Intuitive Customer Portal 2.0</div>
-          <div class="work-card-desc">Transformed Intuitive Surgical's hospital portal — turning a 75% dissatisfaction rate into a streamlined, insight-driven experience for surgical teams.</div>
+          <div class="work-card-desc">Transformed Intuitive Surgical's hospital portal, turning a 75% dissatisfaction rate into a streamlined, insight-driven experience for surgical teams.</div>
           <div class="work-card-footer">
             View case study
             <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
@@ -1043,7 +1054,7 @@
         </div>
       </a>
 
-      <!-- Raptor — Apple Pay Partner Analytics -->
+      <!-- Raptor · Apple Pay Partner Analytics -->
       <div class="work-card featured reveal reveal-delay-1">
         <div class="work-card-thumb raptor-thumb">
           <div class="raptor-ui">
@@ -1088,7 +1099,7 @@
             <span class="tag">Analytics</span>
             <span class="tag">Enterprise</span>
           </div>
-          <div class="work-card-title">Raptor — Apple Pay Partner Analytics</div>
+          <div class="work-card-title">Raptor · Apple Pay Partner Analytics</div>
           <div class="work-card-desc">Real-time integration health monitoring and corrective action workflows for Apple Pay's global partner ecosystem.</div>
           <div class="work-card-footer" style="color:var(--muted);font-style:italic;font-weight:400;">
             Available for discussion under NDA
@@ -1107,28 +1118,96 @@
         <h2 class="section-h2 reveal reveal-delay-1">Designer. Engineer.<br>Human who has shipped both.</h2>
         <div class="about-body reveal reveal-delay-2">
           <p>I started as a software engineer. That decision shaped everything.</p>
-          <p>Most designers hand off to engineering. I sit at the seam — where design decisions meet implementation reality, where a component architecture choice determines whether a product team moves fast or grinds to a halt. That's where I've spent 25 years.</p>
-          <p>At <strong>Walmart</strong> I architected the DV Design System and built the component foundation for Luminate Insights — a high-density analytics platform where merchants make multi-million dollar inventory decisions. At <strong>Apple's Wallet, Payments, and Commerce team</strong> I've been driving an AI-augmented workflow that takes features from brief to production-ready React in under two weeks, at Apple-standard quality.</p>
+          <p>Most designers hand off to engineering. I sit at the seam, where design decisions meet implementation reality, where a component architecture choice determines whether a product team moves fast or grinds to a halt. That's where I've spent 25 years.</p>
+          <p>At <strong>Walmart</strong> I architected the DV Design System and built the component foundation for Luminate Insights, a high-density analytics platform where merchants make multi-million dollar inventory decisions. At <strong>Apple's Wallet, Payments, and Commerce team</strong> I've been driving an AI-augmented workflow that takes features from brief to production-ready React in under two weeks, at Apple-standard quality.</p>
         </div>
       </div>
       <div class="about-right reveal reveal-delay-2">
         <div class="about-quote">
           <p>"A fool with a tool is still a fool."</p>
-          <cite>— Grady Booch</cite>
+          <cite>Grady Booch</cite>
         </div>
         <ul class="about-cred-list">
-          <li class="about-cred-item"><span class="about-cred-dot"></span>Apple — Wallet, Payments &amp; Commerce</li>
-          <li class="about-cred-item"><span class="about-cred-dot"></span>Walmart — Data Ventures</li>
+          <li class="about-cred-item"><span class="about-cred-dot"></span>Apple · Wallet, Payments &amp; Commerce</li>
+          <li class="about-cred-item"><span class="about-cred-dot"></span>Walmart · Data Ventures</li>
           <li class="about-cred-item"><span class="about-cred-dot"></span>Intuitive Surgical</li>
-          <li class="about-cred-item"><span class="about-cred-dot"></span>EB1A Green Card — Extraordinary Ability</li>
+          <li class="about-cred-item"><span class="about-cred-dot"></span>EB1A Green Card · Extraordinary Ability</li>
           <li class="about-cred-item"><span class="about-cred-dot"></span>IEEE Senior Member</li>
           <li class="about-cred-item"><span class="about-cred-dot"></span>ACM SIGCHI Member</li>
-          <li class="about-cred-item"><span class="about-cred-dot"></span>World Usability Congress 2025 — Speaker</li>
-          <li class="about-cred-item"><span class="about-cred-dot"></span>Author — Design AI Alchemy</li>
+          <li class="about-cred-item"><span class="about-cred-dot"></span>World Usability Congress 2025 · Speaker</li>
+          <li class="about-cred-item"><span class="about-cred-dot"></span>Author · Design AI Alchemy</li>
         </ul>
       </div>
     </div>
   </div>
+
+  <!-- PUBLICATIONS -->
+  <section id="writing">
+    <div class="section-label reveal">Publications</div>
+    <h2 class="section-h2 reveal reveal-delay-1">Writing &amp; research.</h2>
+    <p class="section-sub reveal reveal-delay-2">A selection of published work, from a book on AI-augmented design to peer-reviewed research and essays on enterprise UX.</p>
+
+    <div class="pub-ledger reveal reveal-delay-2">
+
+      <!-- ═══ TIER 1: BOOK ═══ -->
+      <div class="pub-tier">
+        <div class="pub-tier-label">Book</div>
+        <div class="pub-items">
+          <a href="https://cookbook.idyeah.studio" target="_blank" rel="noopener noreferrer" class="pub-item">
+            <div class="pub-item-head">
+              <span class="pub-item-title">Design AI Alchemy: 75 Prompts for UX Designers</span>
+              <span class="pub-item-meta">Author · 2025</span>
+              <svg class="pub-item-arrow" width="13" height="13" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M4 10l6-6M5 4h5v5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <p class="pub-item-desc">A working playbook of 75 prompts that put AI to work across the UX process, from research to production-ready design.</p>
+          </a>
+        </div>
+      </div>
+
+      <!-- ═══ TIER 2: PEER-REVIEWED ═══ -->
+      <div class="pub-tier">
+        <div class="pub-tier-label">Peer-Reviewed</div>
+        <div class="pub-items">
+          <a href="https://ieeexplore.ieee.org/abstract/document/10939687" target="_blank" rel="noopener noreferrer" class="pub-item">
+            <div class="pub-item-head">
+              <span class="pub-item-title">Real-Time Interaction in AR/VR Environments: A Deep Learning Approach to Human-Computer Interaction</span>
+              <span class="pub-item-meta">IEEE · Feb 2025</span>
+              <svg class="pub-item-arrow" width="13" height="13" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M4 10l6-6M5 4h5v5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <!-- ═══ TIER 3: SELECTED WRITING ═══ -->
+      <div class="pub-tier">
+        <div class="pub-tier-label">Selected Writing</div>
+        <div class="pub-items">
+          <a href="https://www.uxmatters.com/mt/archives/2025/02/smarter-faster-human-the-future-of-design-systems-with-ai.php" target="_blank" rel="noopener noreferrer" class="pub-item">
+            <div class="pub-item-head">
+              <span class="pub-item-title">Smarter, Faster, Human: The Future of Design Systems with AI</span>
+              <span class="pub-item-meta">UXmatters · Feb 2025</span>
+              <svg class="pub-item-arrow" width="13" height="13" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M4 10l6-6M5 4h5v5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+          </a>
+          <a href="https://medium.com/design-bootcamp/designing-for-trust-in-the-age-of-ai-agents-3cce73c7d8ef?sk=7fbb12f9ab2ca0c91ef530505afae2da" target="_blank" rel="noopener noreferrer" class="pub-item">
+            <div class="pub-item-head">
+              <span class="pub-item-title">Designing for Trust in the Age of AI Agents</span>
+              <span class="pub-item-meta">Bootcamp · Sep 2025</span>
+              <svg class="pub-item-arrow" width="13" height="13" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M4 10l6-6M5 4h5v5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+          </a>
+          <a href="https://medium.com/design-bootcamp/your-dashboard-is-lying-to-you-25a837e836db?sk=a7c2fb7f7008bc279019d1d4023e700f" target="_blank" rel="noopener noreferrer" class="pub-item">
+            <div class="pub-item-head">
+              <span class="pub-item-title">Your Dashboard Is Lying to You</span>
+              <span class="pub-item-meta">Bootcamp · Mar 2026</span>
+              <svg class="pub-item-arrow" width="13" height="13" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M4 10l6-6M5 4h5v5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </section>
 
   <!-- CONTACT -->
   <section id="contact">
@@ -1142,7 +1221,7 @@
         <div class="contact-card-title">Open to the right opportunity.</div>
         <div class="contact-card-body">Currently exploring:</div>
         <ul class="avail-list">
-          <li>Principal Product Design roles — enterprise and B2B</li>
+          <li>Principal Product Design roles for enterprise and B2B</li>
           <li>Design system architecture and component foundations</li>
           <li>AI-augmented design and prototyping workflows</li>
           <li>Fractional or advisory engagements</li>
