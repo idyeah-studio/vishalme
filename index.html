@@ -172,41 +172,6 @@
       background: var(--muted);
     }
 
-    /* ─── CREDENTIAL STRIP ───────────────────────────────── */
-    .cred-strip {
-      border-top: 1px solid rgba(0,0,0,0.07);
-      border-bottom: 1px solid rgba(0,0,0,0.07);
-      padding: 28px 24px;
-      overflow: hidden;
-    }
-    .cred-strip-inner {
-      max-width: var(--max);
-      margin: 0 auto;
-      display: flex;
-      align-items: center;
-      gap: 0;
-      flex-wrap: wrap;
-    }
-    .cred-item {
-      display: flex; align-items: center; gap: 10px;
-      padding: 8px 28px 8px 0;
-      font-size: 13px;
-      font-weight: 500;
-      color: var(--muted);
-      letter-spacing: 0.02em;
-      white-space: nowrap;
-    }
-    .cred-item + .cred-item {
-      border-left: 1px solid rgba(0,0,0,0.1);
-      padding-left: 28px;
-    }
-    .cred-dot {
-      width: 5px; height: 5px;
-      border-radius: 50%;
-      background: var(--gold);
-      flex-shrink: 0;
-    }
-
     /* ─── SECTION LABELS ─────────────────────────────────── */
     .section-label {
       font-size: 12px;
@@ -858,20 +823,6 @@
       .hero-sub { font-size: 17px; }
       .hero-scroll { margin-top: 48px; }
 
-      /* Cred strip */
-      .cred-strip-inner {
-        flex-direction: column;
-        gap: 0;
-        padding: 0 24px;
-      }
-      .cred-item {
-        font-size: 13px;
-        padding: 8px 0;
-        border-bottom: 1px solid rgba(0,0,0,0.05);
-      }
-      .cred-item + .cred-item { padding-left: 0; }
-      .cred-item:last-child { border-bottom: none; }
-
       /* Work grid */
       .work-grid { grid-template-columns: 1fr; gap: 20px; }
       .work-card.featured {
@@ -976,20 +927,6 @@
       Selected case studies below
     </div>
   </section>
-
-  <!-- CREDENTIAL STRIP -->
-  <div class="cred-strip">
-    <div class="cred-strip-inner">
-      <div class="cred-item"><span class="cred-dot"></span>Apple · Wallet, Payments &amp; Commerce</div>
-      <div class="cred-item"><span class="cred-dot"></span>Walmart · Data Ventures</div>
-      <div class="cred-item"><span class="cred-dot"></span>Intuitive Surgical</div>
-      <div class="cred-item"><span class="cred-dot"></span>EB1A · Extraordinary Ability</div>
-      <div class="cred-item"><span class="cred-dot"></span>IEEE Senior Member</div>
-      <div class="cred-item"><span class="cred-dot"></span>ACM SIGCHI Member</div>
-      <div class="cred-item"><span class="cred-dot"></span>World Usability Congress 2025</div>
-      <div class="cred-item"><span class="cred-dot"></span>Author · Design AI Alchemy</div>
-    </div>
-  </div>
 
   <!-- WORK -->
   <section id="work">
