@@ -146,6 +146,27 @@
     .fig2{grid-template-columns:1fr;gap:26px;}
     .quotes{grid-template-columns:1fr;}
   }
+
+  /* lightbox */
+  .figment:has(img){cursor:zoom-in;}
+  .figment:has(img)::after{content:"Click to enlarge";position:absolute;top:12px;right:12px;z-index:3;
+    font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#fff;
+    background:rgba(23,19,15,0.6);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
+    padding:6px 12px;border-radius:980px;opacity:0;transform:translateY(-3px);
+    transition:opacity .25s,transform .25s;pointer-events:none;}
+  .figment{position:relative;}
+  .figment:has(img):hover::after{opacity:1;transform:none;}
+  .lightbox{position:fixed;inset:0;z-index:100;display:none;background:rgba(20,16,12,0.94);
+    backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);overflow:auto;
+    padding:clamp(20px,4vw,64px);cursor:zoom-out;}
+  .lightbox.open{display:flex;align-items:flex-start;justify-content:center;}
+  .lightbox img{max-width:min(1500px,100%);height:auto;margin:auto;border-radius:10px;
+    box-shadow:0 40px 120px -40px rgba(0,0,0,0.7);}
+  .lightbox-close{position:fixed;top:18px;right:22px;width:44px;height:44px;border-radius:50%;border:none;
+    background:rgba(247,241,230,0.12);color:var(--cream);font-size:26px;line-height:1;cursor:pointer;z-index:101;
+    display:flex;align-items:center;justify-content:center;transition:background .2s;}
+  .lightbox-close:hover{background:rgba(247,241,230,0.24);}
+  @media (prefers-reduced-motion:reduce){.figment:has(img)::after{transition:none;}}
 </style>
 </head>
 <body>
@@ -333,6 +354,11 @@
     </div>
   </section>
 
+  <div class="lightbox" id="lightbox" aria-hidden="true">
+    <button class="lightbox-close" id="lightboxClose" aria-label="Close">&times;</button>
+    <img id="lightboxImg" src="" alt="" />
+  </div>
+
   <script>
     // reveal
     (function(){
@@ -346,6 +372,16 @@
       if(reduce){vids.forEach(v=>{v.removeAttribute('autoplay');v.setAttribute('controls','');});return;}
       const io=new IntersectionObserver((es)=>{es.forEach(e=>{const v=e.target;if(e.isIntersecting){v.play().catch(()=>{});}else{v.pause();}});},{threshold:0.25});
       vids.forEach(v=>io.observe(v));
+    })();
+    // lightbox: click any figure screenshot to view full size
+    (function(){
+      const lb=document.getElementById('lightbox'), img=document.getElementById('lightboxImg'), x=document.getElementById('lightboxClose');
+      const open=(s,a)=>{img.src=s;img.alt=a||'';lb.classList.add('open');lb.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';};
+      const close=()=>{lb.classList.remove('open');lb.setAttribute('aria-hidden','true');document.body.style.overflow='';img.src='';};
+      document.querySelectorAll('.figment img').forEach(el=>el.addEventListener('click',()=>open(el.currentSrc||el.src,el.alt)));
+      lb.addEventListener('click',()=>close());
+      x.addEventListener('click',(e)=>{e.stopPropagation();close();});
+      document.addEventListener('keydown',(e)=>{if(e.key==='Escape'&&lb.classList.contains('open'))close();});
     })();
   </script>
 </body>
