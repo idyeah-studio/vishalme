@@ -84,6 +84,8 @@
     font-weight:600;
     color:var(--ink-faint);
     transition:color .2s;
+    padding:12px 4px;
+    margin:-12px -4px;
   }
   .topnav-link:hover{color:var(--accent);}
 
@@ -588,6 +590,7 @@
   .contact{
     text-align:center;
     padding-block:clamp(96px,16vh,200px);
+    overflow:hidden;
   }
   .contact .glow-c{
     position:absolute;inset:0;z-index:0;pointer-events:none;
@@ -686,6 +689,7 @@
     .wrow{grid-template-columns:1fr;gap:12px;}
     .wrow .w-meta{justify-content:space-between;width:100%;}
     .work-head{align-items:flex-start;}
+    .metric{flex-direction:column;align-items:flex-start;gap:6px;}
   }
 
   @media (prefers-reduced-motion:reduce){
@@ -733,7 +737,7 @@
       </div>
       <div>
         <p class="body" data-reveal style="--d:120ms">
-          Stakeholders hand me a solution disguised as a problem. I find the real need they cannot name. Design system, analytics platform, or AI agent, my work is the same: fix the problem, not the symptom.
+          Stakeholders hand me a solution disguised as a problem. I find the real need they cannot name. Design system, analytics platform, or AI agent, my work is the same: name the real need, and design for that.
         </p>
         <div class="clarity-quotes">
           <p class="qtag strike" data-reveal style="--d:180ms">"We need a dashboard."</p>
@@ -854,7 +858,7 @@
       <div class="about-grid">
       <div class="origin">
         <p data-reveal style="--d:120ms">I came to design from engineering. Early on I watched someone struggle with a tool I had built and was proud of, and it landed hard: what was effortless for me, the maker, was a wall for them, the user.</p>
-        <p data-reveal style="--d:180ms">That flipped my question from what the technology can do to <span class="pop">who is using it, and why.</span> Twenty-five years later the job is the same: fix the real problem, not the symptom. I lead as a player-coach, so that judgment scales across the team.</p>
+        <p data-reveal style="--d:180ms">That flipped my question from what the technology can do to <span class="pop">who is using it, and why.</span> Twenty-five years later the job is the same: get to the need beneath what people ask for, and build for that. I lead as a player-coach, so that judgment scales across the team.</p>
       </div>
       <div class="creds" data-reveal style="--d:120ms">
         <div class="creds-label">Credentials</div>

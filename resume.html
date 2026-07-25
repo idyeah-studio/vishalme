@@ -29,7 +29,7 @@
     background:rgba(242,235,221,0.72);backdrop-filter:saturate(160%) blur(14px);-webkit-backdrop-filter:saturate(160%) blur(14px);}
   .nav-back{display:inline-flex;align-items:baseline;gap:.6ch;font-family:'Fraunces',serif;font-weight:600;font-size:clamp(15px,1.5vw,18px);letter-spacing:.01em;}
   .nav-back .dot{width:7px;height:7px;border-radius:50%;background:var(--accent);transform:translateY(-1px);flex:0 0 auto;}
-  .nav-right{font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-faint);font-weight:600;transition:color .2s;}
+  .nav-right{font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-faint);font-weight:600;transition:color .2s;padding:12px 4px;margin:-12px -4px;}
   .nav-right:hover{color:var(--accent);}
 
   .eyebrow{display:inline-flex;align-items:center;gap:.7ch;font-weight:600;font-size:clamp(11px,1.1vw,12.5px);letter-spacing:.22em;text-transform:uppercase;color:var(--accent);}
@@ -119,8 +119,15 @@
   @media (max-width:900px){
     .arc{grid-template-columns:1fr;gap:0;}
     .rail{display:none;}
-    .chapter{min-height:auto;padding:clamp(40px,8vh,80px) 0;border-top:1px solid var(--line);justify-content:flex-start;}
-    .narr .chapter:first-child{border-top:none;}
+    /* the sticky rail is desktop-only; on mobile each chapter carries its own
+       year marker on a vertical spine so the timeline/chronology survives */
+    .chapter{min-height:auto;position:relative;justify-content:flex-start;
+      padding:clamp(30px,6vh,56px) 0 clamp(30px,6vh,56px) 28px;border-left:2px solid var(--line);}
+    .chapter::before{content:attr(data-year);align-self:flex-start;display:inline-block;margin-bottom:16px;
+      padding:5px 13px;border-radius:980px;background:rgba(190,74,43,0.1);
+      font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--accent-deep);}
+    .chapter::after{content:"";position:absolute;left:-7px;top:calc(clamp(30px,6vh,56px) + 7px);
+      width:12px;height:12px;border-radius:50%;background:var(--accent);border:3px solid var(--bone);}
     .creds{grid-template-columns:1fr;}
   }
 </style>
@@ -138,7 +145,7 @@
     <span class="eyebrow" data-reveal>Resume &middot; Vishal Mehta</span>
     <h1 class="display" data-reveal style="--d:80ms">Twenty-five years, in one <em>scroll.</em></h1>
     <p class="dek" data-reveal style="--d:150ms">I did not set out to be a designer. An engineer, one frustrated user, and one hard lesson set the whole arc in motion. <b>Scroll to walk it.</b></p>
-    <span class="scrollcue" data-reveal style="--d:220ms"><span class="track"></span>The story, beside the timeline</span>
+    <span class="scrollcue" data-reveal style="--d:220ms"><span class="track"></span>The story, year by year</span>
   </header>
 
   <!-- THE ARC -->
