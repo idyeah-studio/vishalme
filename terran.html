@@ -133,7 +133,8 @@
   /* dashboard mock (premium light SaaS app screenshot, mock data) */
   .dashfig{max-width:1180px;margin:0;}
   .dashfig figcaption{margin-top:16px;font-size:13px;color:var(--ink-faint);}
-  .appui{--a-ink:#1D1D1F;--a-dim:#6E6E73;--a-sub:#86868B;--a-faint:#9A9A9F;
+  .dashscale{width:100%;overflow:hidden;}
+  .appui{width:1180px;transform-origin:top left;--a-ink:#1D1D1F;--a-dim:#6E6E73;--a-sub:#86868B;--a-faint:#9A9A9F;
     --a-line:#ECEAE4;--a-blue:#2563EB;--a-red:#C0392B;
     font-family:-apple-system,BlinkMacSystemFont,'Inter','Segoe UI',system-ui,sans-serif;
     color:var(--a-ink);background:#fff;border:1px solid #E4E1DB;border-radius:14px;overflow:hidden;line-height:1.4;
@@ -224,19 +225,8 @@
   .appui-rail-lbl{font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--a-faint);margin-bottom:8px;}
   .appui-rail-list a{display:block;font-size:10.5px;font-weight:400;color:#8A8A8F;padding:4.5px 0 4.5px 12px;line-height:1.3;}
   .appui-rail-list a.on{color:#1D1D1F;font-weight:500;border-left:2px solid #1D1D1F;padding-left:10px;}
-  @media (max-width:900px){
-    .appui-shell{grid-template-columns:200px minmax(0,1fr);}
-    .appui-rail{display:none;}
-  }
-  @media (max-width:640px){
-    .appui-shell{grid-template-columns:1fr;}
-    .appui-side{flex-direction:row;flex-wrap:wrap;align-items:center;gap:14px;border-right:none;border-bottom:1px solid #E4E1DB;}
-    .appui-wordmark{padding:2px;}
-    .appui-side-foot{margin:0 0 0 auto;flex-direction:row;align-items:center;padding-top:0;}
-    .appui-tiles{grid-template-columns:1fr;} .appui-blocked{grid-template-columns:1fr;gap:18px;}
-    .appui-issues{grid-template-columns:1fr;} .appui-head{flex-direction:column;}
-    .appui-head-right{align-items:flex-start;}
-  }
+  /* The dashboard is a fixed desktop web interface; it never reflows.
+     On narrow screens the whole thing scales down as one unit (see .dashscale + JS). */
 
   /* close */
   .close{background:radial-gradient(60% 70% at 50% 42%, rgba(190,74,43,0.18), transparent 72%), var(--ink);color:var(--cream);text-align:center;padding-block:clamp(90px,15vh,180px);}
@@ -362,7 +352,7 @@
     </div>
     <div class="wrap" style="margin-top:clamp(40px,5vw,68px)">
       <figure class="dashfig" data-reveal>
-        <div class="appui">
+        <div class="dashscale"><div class="appui">
           <div class="appui-chrome">
             <span class="appui-dot r"></span><span class="appui-dot y"></span><span class="appui-dot g"></span>
             <span class="appui-titlebar">terran / dashboard</span>
@@ -461,7 +451,7 @@
               </div>
             </aside>
           </div>
-        </div>
+        </div></div>
         <figcaption>The team dashboard, recreated with mock data. I sequenced it last, once the triage underneath it could be trusted.</figcaption>
       </figure>
     </div>
@@ -507,6 +497,25 @@
       const reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
       const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{rootMargin:'0px 0px -12% 0px',threshold:0.1});
       document.querySelectorAll('[data-reveal]').forEach(el=>io.observe(el));
+    })();
+
+    // dashboard: fixed desktop interface, scaled down as one unit to fit narrow screens (never reflows)
+    (function(){
+      const wraps=[...document.querySelectorAll('.dashscale')];
+      if(!wraps.length) return;
+      function fit(wrap){
+        const el=wrap.querySelector('.appui'); if(!el) return;
+        el.style.transform='none';
+        const nw=el.offsetWidth, nh=el.offsetHeight;
+        const s=Math.min(1, wrap.clientWidth/nw);
+        el.style.transform='scale('+s+')';
+        wrap.style.height=Math.ceil(nh*s)+'px';
+      }
+      const run=()=>wraps.forEach(fit);
+      run();
+      window.addEventListener('load',run);
+      window.addEventListener('resize',run);
+      if(window.ResizeObserver){const ro=new ResizeObserver(run);wraps.forEach(w=>ro.observe(w));}
     })();
 
     // live triage
