@@ -130,30 +130,108 @@
   .nda{margin-top:clamp(28px,3.4vw,40px);font-size:13.5px;line-height:1.55;color:var(--ink-faint);max-width:none;padding:16px 20px;border:1px solid var(--line);border-radius:10px;background:rgba(190,74,43,0.05);}
   .nda b{color:var(--accent-deep);font-weight:600;}
 
-  /* dashboard mock */
-  .dashfig{max-width:940px;margin:0;}
-  .dash{background:#FCF8F0;border:1px solid var(--line);border-radius:14px;padding:clamp(18px,2vw,26px);box-shadow:0 34px 66px -42px rgba(23,19,15,0.4);}
-  .dash-top{display:flex;justify-content:space-between;align-items:center;gap:14px;margin-bottom:20px;flex-wrap:wrap;}
-  .dash-title{font-family:'Fraunces',serif;font-size:20px;color:var(--ink);display:flex;align-items:center;gap:12px;}
-  .dash-status{font-family:'Inter';font-size:10.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);background:rgba(190,74,43,0.12);padding:4px 10px;border-radius:980px;display:inline-flex;align-items:center;gap:6px;}
-  .dash-status::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--accent);}
-  .dash-period{font-size:12px;color:var(--ink-faint);}
-  .dash-tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:22px;}
-  .dtile{border:1px solid var(--line);border-radius:10px;padding:16px;background:var(--bone);}
-  .dtile.bad{background:rgba(190,74,43,0.06);border-color:rgba(190,74,43,0.22);}
-  .dtile .n{font-family:'Fraunces',serif;font-size:30px;color:var(--ink);line-height:1;}
-  .dtile .l{margin-top:8px;font-size:12.5px;color:var(--ink-faint);}
-  .dtile .dt-top{display:flex;align-items:center;justify-content:space-between;gap:10px;}
-  .dt-of{font-size:10.5px;color:var(--ink-faint);background:rgba(23,19,15,0.06);padding:3px 9px;border-radius:980px;white-space:nowrap;}
-  .dt-of.good{color:#5a7a35;background:rgba(120,150,70,0.16);}
-  .dtile.ok{background:rgba(120,150,70,0.06);border-color:rgba(120,150,70,0.22);}
-  .dash-block-h{font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-faint);margin-bottom:2px;}
-  .dash-row{display:grid;grid-template-columns:150px 1fr auto;gap:16px;align-items:center;padding:13px 0;border-top:1px solid var(--line);font-size:13.5px;}
-  .dash-row .svc{font-weight:600;color:var(--accent-deep);}
-  .dash-row .dr-pr{color:var(--ink-soft);}
-  .dash-row .dr-fail{color:var(--accent);font-weight:500;white-space:nowrap;}
+  /* dashboard mock (realistic app screenshot, mock data) */
+  .dashfig{max-width:1040px;margin:0;}
   .dashfig figcaption{margin-top:16px;font-size:13px;color:var(--ink-faint);}
-  @media (max-width:680px){.dash-tiles{grid-template-columns:1fr;}.dash-row{grid-template-columns:1fr;gap:4px;}.dash-row .dr-fail{justify-self:start;}}
+  .appui{--a-ink:#1d1d1f;--a-dim:#6b6b70;--a-faint:#8a8a90;--a-line:#e6e6e8;--a-gray:#f6f6f7;
+    --a-red:#c0392b;--a-green:#2f8f57;--a-slate:#3a4270;
+    font-family:-apple-system,BlinkMacSystemFont,'Inter','Segoe UI',system-ui,sans-serif;
+    color:var(--a-ink);background:#fff;border:1px solid var(--a-line);border-radius:12px;overflow:hidden;line-height:1.4;
+    -webkit-font-smoothing:antialiased;box-shadow:0 44px 90px -50px rgba(23,19,15,0.5),0 10px 28px -18px rgba(23,19,15,0.22);}
+  /* window chrome */
+  .appui-chrome{position:relative;display:flex;align-items:center;gap:8px;padding:11px 14px;background:#f1f1f2;border-bottom:1px solid var(--a-line);}
+  .appui-dot{width:11px;height:11px;border-radius:50%;}
+  .appui-dot.r{background:#ec6a5e;} .appui-dot.y{background:#f4bf4f;} .appui-dot.g{background:#61c554;}
+  .appui-titlebar{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);font-size:12px;color:var(--a-dim);
+    background:#fff;border:1px solid var(--a-line);border-radius:7px;padding:4px 46px;white-space:nowrap;letter-spacing:.01em;}
+  /* shell */
+  .appui-shell{display:grid;grid-template-columns:208px 1fr;}
+  .appui-side{background:var(--a-gray);border-right:1px solid var(--a-line);padding:18px 16px;display:flex;flex-direction:column;gap:18px;}
+  .appui-wordmark{font-size:13px;font-weight:700;letter-spacing:.3em;color:var(--a-ink);padding:2px 4px;}
+  .appui-seg{display:flex;background:#eaeaec;border:1px solid var(--a-line);border-radius:8px;padding:3px;gap:3px;}
+  .appui-seg span{flex:1;text-align:center;font-size:11.5px;font-weight:600;letter-spacing:.02em;color:var(--a-dim);padding:6px 4px;border-radius:6px;}
+  .appui-seg span.on{background:#fff;color:var(--a-ink);box-shadow:0 1px 2px rgba(0,0,0,.09);}
+  .appui-nav{display:flex;flex-direction:column;gap:2px;}
+  .appui-nav a{display:flex;align-items:center;gap:10px;font-size:13.5px;font-weight:500;color:var(--a-dim);padding:8px 10px;border-radius:7px;}
+  .appui-nav a.on{background:#e9e9eb;color:var(--a-ink);font-weight:600;}
+  .appui-nav a svg{width:15px;height:15px;flex:none;color:var(--a-faint);}
+  .appui-nav a.on svg{color:var(--a-ink);}
+  .appui-side-foot{margin-top:auto;display:flex;flex-direction:column;gap:14px;padding-top:8px;}
+  .appui-ai{font-size:12.5px;font-weight:600;color:#fff;padding:9px 14px;border-radius:980px;text-align:center;
+    background:linear-gradient(120deg,#e0729e,#8a63c9);box-shadow:0 8px 18px -9px rgba(138,99,201,.75);}
+  .appui-avatar{width:30px;height:30px;border-radius:50%;background:#d7d7dc;color:var(--a-dim);font-size:11px;font-weight:700;letter-spacing:.04em;display:flex;align-items:center;justify-content:center;}
+  /* main */
+  .appui-main{padding:24px 26px 28px;background:#fff;min-width:0;}
+  .appui-head{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:26px;}
+  .appui-h{font-size:22px;font-weight:600;letter-spacing:-0.012em;color:var(--a-ink);}
+  .appui-subt{margin-top:4px;font-size:13px;color:var(--a-dim);}
+  .appui-head-right{display:flex;align-items:center;gap:14px;flex-shrink:0;}
+  .appui-proj{font-size:12px;font-weight:500;color:var(--a-ink);background:var(--a-gray);border:1px solid var(--a-line);border-radius:980px;padding:6px 12px;display:inline-flex;align-items:center;gap:7px;white-space:nowrap;}
+  .appui-proj::before{content:"";width:6px;height:6px;border-radius:50%;background:#b6b6bc;}
+  .appui-res{font-size:12.5px;color:var(--a-dim);}
+  .appui-sec{display:flex;align-items:center;gap:12px;margin-bottom:14px;}
+  .appui-sec-h{font-size:14px;font-weight:600;color:var(--a-ink);}
+  .appui-pill{font-size:10.5px;font-weight:700;letter-spacing:.06em;padding:4px 10px;border-radius:980px;display:inline-flex;align-items:center;gap:6px;}
+  .appui-pill .pd{width:6px;height:6px;border-radius:50%;background:currentColor;}
+  .appui-pill.red{color:var(--a-red);background:rgba(192,57,43,.1);}
+  /* tiles */
+  .appui-tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:16px;}
+  .appui-tile{border:1px solid var(--a-line);border-radius:12px;padding:16px 16px 15px;background:#fff;}
+  .appui-tile.red{background:rgba(192,57,43,.045);border-color:rgba(192,57,43,.2);}
+  .appui-tile.green{background:rgba(47,143,87,.05);border-color:rgba(47,143,87,.22);}
+  .appui-tile-top{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;}
+  .appui-num{font-size:32px;font-weight:600;line-height:1;letter-spacing:-0.02em;color:var(--a-ink);}
+  .appui-tile.red .appui-num{color:var(--a-red);}
+  .appui-tile.green .appui-num{color:var(--a-green);}
+  .appui-tile-l{margin-top:10px;font-size:12.5px;color:var(--a-dim);}
+  .appui-tag{font-size:10.5px;font-weight:600;padding:3px 9px;border-radius:980px;white-space:nowrap;background:rgba(23,19,15,.06);color:var(--a-dim);}
+  .appui-tag.green{background:rgba(47,143,87,.14);color:var(--a-green);}
+  .appui-tag.red{background:rgba(192,57,43,.12);color:var(--a-red);}
+  /* panels */
+  .appui-panel{background:var(--a-gray);border:1px solid var(--a-line);border-radius:12px;padding:16px 18px 18px;margin-bottom:16px;}
+  .appui-panel:last-of-type{margin-bottom:0;}
+  .appui-panel-h{font-size:11px;font-weight:700;letter-spacing:.12em;color:var(--a-faint);margin-bottom:14px;}
+  .appui-blocked{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  .appui-bcard{background:#fff;border:1px solid var(--a-line);border-left:3px solid var(--a-red);border-radius:8px;padding:13px 15px;}
+  .appui-bcard .svc{font-size:12px;font-weight:700;letter-spacing:.06em;color:var(--a-ink);}
+  .appui-bcard .pr{margin-top:8px;font-size:13px;color:var(--a-dim);}
+  .appui-bcard .pr a{color:var(--a-slate);font-weight:600;}
+  .appui-bcard .bmeta{margin-top:6px;font-size:11.5px;color:var(--a-faint);}
+  .appui-bcard .aff{margin-top:9px;font-size:12px;color:var(--a-dim);}
+  .appui-bcard .aff b{color:var(--a-ink);font-weight:600;}
+  .appui-bcard .appui-tag{margin-top:12px;display:inline-block;}
+  /* top issues */
+  .appui-issues{display:grid;grid-template-columns:236px 1fr;gap:18px;align-items:stretch;}
+  .appui-tree{display:flex;gap:4px;border-radius:8px;overflow:hidden;min-height:178px;}
+  .appui-tree-col{flex:2;display:flex;flex-direction:column;gap:4px;}
+  .appui-cell{border-radius:7px;padding:12px 13px;display:flex;flex-direction:column;justify-content:flex-end;color:#fff;flex:1;}
+  .appui-cell.big{flex:3;}
+  .appui-cell .ct{font-size:12px;font-weight:600;letter-spacing:.01em;}
+  .appui-cell .cp{font-size:17px;font-weight:700;margin-top:3px;}
+  .appui-cell.eng{background:#3a4270;} .appui-cell.test{background:#6d76a6;} .appui-cell.env{background:#a6abc9;color:#2b2f4e;}
+  .appui-table{width:100%;border-collapse:collapse;font-size:12.5px;}
+  .appui-table th{text-align:left;font-size:10px;font-weight:700;letter-spacing:.1em;color:var(--a-faint);padding:0 10px 9px;border-bottom:1px solid var(--a-line);}
+  .appui-table td{padding:10px;border-bottom:1px solid var(--a-line);color:var(--a-ink);vertical-align:middle;}
+  .appui-table tr:last-child td{border-bottom:none;}
+  .appui-table .iss{font-weight:500;}
+  .appui-table .svc-c{color:var(--a-dim);}
+  .appui-table .radar{color:var(--a-slate);font-weight:600;}
+  .appui-ctag{font-size:11px;font-weight:600;padding:2px 9px;border-radius:6px;display:inline-block;}
+  .appui-ctag.eng{background:rgba(58,66,112,.12);color:#3a4270;}
+  .appui-ctag.test{background:rgba(109,118,166,.18);color:#4b5488;}
+  .appui-ctag.env{background:rgba(120,130,180,.14);color:#5c65a0;}
+  @media (max-width:860px){
+    .appui-shell{grid-template-columns:1fr;}
+    .appui-side{flex-direction:row;flex-wrap:wrap;align-items:center;gap:12px;border-right:none;border-bottom:1px solid var(--a-line);}
+    .appui-wordmark{padding:2px 2px;}
+    .appui-seg{width:150px;} .appui-nav{flex-direction:row;flex:1;justify-content:center;}
+    .appui-side-foot{margin:0 0 0 auto;flex-direction:row;align-items:center;padding-top:0;}
+  }
+  @media (max-width:640px){
+    .appui-tiles{grid-template-columns:1fr;} .appui-blocked{grid-template-columns:1fr;}
+    .appui-issues{grid-template-columns:1fr;} .appui-head{flex-direction:column;}
+    .appui-nav{display:none;}
+  }
 
   /* close */
   .close{background:radial-gradient(60% 70% at 50% 42%, rgba(190,74,43,0.18), transparent 72%), var(--ink);color:var(--cream);text-align:center;padding-block:clamp(90px,15vh,180px);}
@@ -279,21 +357,89 @@
     </div>
     <div class="wrap" style="margin-top:clamp(40px,5vw,68px)">
       <figure class="dashfig" data-reveal>
-        <div class="dash">
-          <div class="dash-top">
-            <div class="dash-title">CICD Pipeline <span class="dash-status">Blocked</span></div>
-            <div class="dash-period">Last 24 hours</div>
+        <div class="appui">
+          <div class="appui-chrome">
+            <span class="appui-dot r"></span><span class="appui-dot y"></span><span class="appui-dot g"></span>
+            <span class="appui-titlebar">terran / dashboard</span>
           </div>
-          <div class="dash-tiles">
-            <div class="dtile bad"><div class="dt-top"><span class="n">2</span><span class="dt-of">Out of 6</span></div><div class="l">Services blocked</div></div>
-            <div class="dtile bad"><div class="dt-top"><span class="n">3</span><span class="dt-of">Out of 18</span></div><div class="l">Features failed</div></div>
-            <div class="dtile ok"><div class="dt-top"><span class="n">1</span><span class="dt-of good">120 this week</span></div><div class="l">PRs shipped (last 24h)</div></div>
+          <div class="appui-shell">
+            <aside class="appui-side">
+              <div class="appui-wordmark">TERRAN</div>
+              <div class="appui-seg"><span class="on">WDP</span><span>Non-WDP</span></div>
+              <div class="appui-nav">
+                <a class="on"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="5" height="5" rx="1"/><rect x="9" y="2" width="5" height="5" rx="1"/><rect x="2" y="9" width="5" height="5" rx="1"/><rect x="9" y="9" width="5" height="5" rx="1"/></svg>Dashboard</a>
+                <a><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="4" cy="3.6" r="1.6"/><circle cx="4" cy="12.4" r="1.6"/><circle cx="12" cy="6" r="1.6"/><path d="M4 5.2v5.6M4 8h4.2A3.4 3.4 0 0011.6 6.4"/></svg>CICD</a>
+                <a><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 1.8l5 1.9v4.1c0 3-2.1 5.2-5 6.2-2.9-1-5-3.2-5-6.2V3.7l5-1.9z"/><path d="M5.7 8l1.7 1.7L10.5 6.5"/></svg>QA</a>
+              </div>
+              <div class="appui-side-foot">
+                <div class="appui-ai">Ask Terran AI</div>
+                <span class="appui-avatar">VM</span>
+              </div>
+            </aside>
+            <main class="appui-main">
+              <div class="appui-head">
+                <div>
+                  <div class="appui-h">Dashboard</div>
+                  <div class="appui-subt">Release health and environment status</div>
+                </div>
+                <div class="appui-head-right">
+                  <span class="appui-proj">payments / sandbox</span>
+                  <span class="appui-res">Resources</span>
+                </div>
+              </div>
+              <div class="appui-sec">
+                <span class="appui-sec-h">CICD Pipeline</span>
+                <span class="appui-pill red"><span class="pd"></span>BLOCKED</span>
+              </div>
+              <div class="appui-tiles">
+                <div class="appui-tile red"><div class="appui-tile-top"><span class="appui-num">2</span><span class="appui-tag">Out of 6</span></div><div class="appui-tile-l">Services blocked</div></div>
+                <div class="appui-tile red"><div class="appui-tile-top"><span class="appui-num">3</span><span class="appui-tag">Out of 18</span></div><div class="appui-tile-l">Features failed</div></div>
+                <div class="appui-tile green"><div class="appui-tile-top"><span class="appui-num">1</span><span class="appui-tag green">120 this week</span></div><div class="appui-tile-l">PRs shipped (last 24h)</div></div>
+              </div>
+              <div class="appui-panel">
+                <div class="appui-panel-h">BLOCKED SERVICES</div>
+                <div class="appui-blocked">
+                  <div class="appui-bcard">
+                    <div class="svc">TRANSFER-SERVICE</div>
+                    <div class="pr"><a>PR #382</a> &middot; Add cart validation</div>
+                    <div class="bmeta">@a.rivera &middot; 3:00 PM</div>
+                    <div class="aff">Features affected: <b>Checkout V2</b></div>
+                    <span class="appui-tag red">14 of 246 failed</span>
+                  </div>
+                  <div class="appui-bcard">
+                    <div class="svc">INGRESS</div>
+                    <div class="pr"><a>PR #380</a> &middot; Fix retry logic</div>
+                    <div class="bmeta">@m.chen &middot; 1:39 PM</div>
+                    <div class="aff">Features affected: <b>Transfer Limits +1</b></div>
+                    <span class="appui-tag red">2 of 245 failed</span>
+                  </div>
+                </div>
+              </div>
+              <div class="appui-panel">
+                <div class="appui-panel-h">TOP ISSUES</div>
+                <div class="appui-issues">
+                  <div class="appui-tree">
+                    <div class="appui-cell big eng"><span class="ct">Engineering</span><span class="cp">60%</span></div>
+                    <div class="appui-tree-col">
+                      <div class="appui-cell test"><span class="ct">Test</span><span class="cp">20%</span></div>
+                      <div class="appui-cell env"><span class="ct">Environment</span><span class="cp">20%</span></div>
+                    </div>
+                  </div>
+                  <table class="appui-table">
+                    <thead><tr><th>ISSUE</th><th>CATEGORY</th><th>SERVICE</th><th>RADAR</th></tr></thead>
+                    <tbody>
+                      <tr><td class="iss">Payment retry timeout</td><td><span class="appui-ctag eng">engineering</span></td><td class="svc-c">transfer-service</td><td><a class="radar">R-40218</a></td></tr>
+                      <tr><td class="iss">Flaky assertion in checkout</td><td><span class="appui-ctag test">test</span></td><td class="svc-c">transfer-service</td><td><a class="radar">R-40255</a></td></tr>
+                      <tr><td class="iss">Redis cache cold start</td><td><span class="appui-ctag env">environment</span></td><td class="svc-c">ingress</td><td><a class="radar">R-40261</a></td></tr>
+                      <tr><td class="iss">Checkout total calculation</td><td><span class="appui-ctag eng">engineering</span></td><td class="svc-c">transfer-service</td><td><a class="radar">R-40234</a></td></tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </main>
           </div>
-          <div class="dash-block-h">Blocked services</div>
-          <div class="dash-row"><span class="svc">transfer-service</span><span class="dr-pr">PR 382 &middot; add cart validation</span><span class="dr-fail">14 of 246 failed</span></div>
-          <div class="dash-row"><span class="svc">ingress</span><span class="dr-pr">PR 380 &middot; fix retry logic</span><span class="dr-fail">2 of 245 failed</span></div>
         </div>
-        <figcaption>The team dashboard. I sequenced it last, once the triage underneath it could be trusted. Recreated with mock data.</figcaption>
+        <figcaption>The team dashboard, recreated with mock data. I sequenced it last, once the triage underneath it could be trusted.</figcaption>
       </figure>
     </div>
   </section>
