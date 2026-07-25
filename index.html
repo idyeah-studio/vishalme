@@ -1,579 +1,960 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Vishal Mehta · Enterprise &amp; AI-UX Design</title>
-  <meta name="description" content="Principal enterprise and AI-UX designer. I find the real problem under the noise, then ship the fix in code. Apple. Walmart. Intuitive Surgical." />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
-  <style>
-    /* ═══════════ TOKENS ═══════════ */
-    :root{
-      --bg:#ffffff; --bg-2:#f5f5f7; --surface:#ffffff;
-      --ink:#1d1d1f; --ink-2:#6e6e73; --ink-3:#86868b;
-      --line:rgba(0,0,0,0.08); --line-2:rgba(0,0,0,0.05);
-      --accent:#e0543a; --accent-2:#c33f27; --accent-soft:rgba(224,84,58,0.10);
-      --ok:#1a8f4c; --warn:#9a6a00; --fail:#e0543a; --info:#2563c9;
-      --sh-sm:0 1px 1px rgba(0,0,0,.03), 0 4px 12px rgba(0,0,0,.05);
-      --sh-md:0 1px 1px rgba(0,0,0,.03), 0 10px 24px rgba(0,0,0,.06), 0 30px 60px rgba(0,0,0,.07);
-      --sh-lg:0 2px 4px rgba(0,0,0,.04), 0 24px 48px rgba(0,0,0,.10), 0 48px 100px rgba(0,0,0,.10);
-      --max:1200px; --gutter:clamp(20px,5vw,80px);
-      --ff:'Inter',-apple-system,'SF Pro Display',BlinkMacSystemFont,sans-serif;
-      --mono:'JetBrains Mono',ui-monospace,monospace;
-      --ease:cubic-bezier(.2,.7,.2,1);
-    }
-    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-    html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;}
-    body{font-family:var(--ff);background:var(--bg);color:var(--ink);font-size:17px;line-height:1.6;letter-spacing:-0.011em;-webkit-font-smoothing:antialiased;overflow-x:hidden;}
-    a{color:inherit;text-decoration:none;} img{display:block;max-width:100%;}
-    ::selection{background:var(--accent);color:#fff;}
-    .wrap{max-width:var(--max);margin:0 auto;padding:0 var(--gutter);}
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Vishal Mehta</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,900;1,9..144,400;1,9..144,600;1,9..144,900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --bone:#F2EBDD;
+    --cream:#F7F1E6;
+    --ink:#17130F;
+    --ink-soft:#4A423A;
+    --ink-faint:#6E655A;
+    --sand:#E4D8C4;
+    --line:rgba(23,19,15,0.14);
+    --accent:#BE4A2B;      /* warm terracotta, no blue anywhere */
+    --accent-deep:#93341C;
+  }
 
-    /* ═══════════ NAV ═══════════ */
-    nav{position:fixed;inset:0 0 auto 0;height:60px;z-index:100;display:flex;align-items:center;
-      background:rgba(255,255,255,0.72);backdrop-filter:saturate(180%) blur(20px);-webkit-backdrop-filter:saturate(180%) blur(20px);
-      border-bottom:1px solid transparent;transition:border-color .3s var(--ease),box-shadow .3s var(--ease);}
-    nav.scrolled{border-bottom-color:var(--line);box-shadow:0 1px 0 rgba(0,0,0,.02);}
-    .nav-inner{width:100%;max-width:var(--max);margin:0 auto;padding:0 var(--gutter);display:flex;align-items:center;justify-content:space-between;}
-    .nav-logo{font-weight:700;font-size:17px;letter-spacing:-0.02em;}
-    .nav-links{display:flex;gap:30px;align-items:center;list-style:none;}
-    .nav-links a{font-size:13px;color:var(--ink-2);font-weight:500;transition:color .2s var(--ease);}
-    .nav-links a:hover{color:var(--ink);}
-    .nav-cta{border:1px solid var(--line);border-radius:980px;padding:8px 16px;color:var(--ink)!important;transition:all .2s var(--ease);}
-    .nav-cta:hover{background:var(--ink);color:#fff!important;border-color:var(--ink);}
-    .nav-burger{display:none;background:none;border:none;color:inherit;cursor:pointer;font-family:var(--mono);font-size:12px;text-transform:uppercase;}
+  *{box-sizing:border-box;margin:0;padding:0;}
 
-    /* ═══════════ HERO ═══════════ */
-    .hero{position:relative;overflow:hidden;padding:150px var(--gutter) 96px;
-      background:
-        radial-gradient(50% 44% at 78% 16%, rgba(224,84,58,0.07), transparent 72%),
-        radial-gradient(42% 42% at 8% 92%, rgba(37,99,201,0.05), transparent 72%),
-        linear-gradient(180deg,#ffffff 0%,#ffffff 58%,#f5f5f7 100%);}
-    .hero-inner{max-width:var(--max);margin:0 auto;display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:center;}
-    .eyebrow{display:inline-flex;align-items:center;gap:9px;font-family:var(--mono);font-size:12px;letter-spacing:.04em;text-transform:uppercase;color:var(--accent);margin-bottom:26px;}
-    .eyebrow .dot{width:7px;height:7px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 4px var(--accent-soft);}
-    h1.hero-h1{font-size:clamp(46px,6.4vw,92px);line-height:1.0;letter-spacing:-0.045em;font-weight:700;
-      background:linear-gradient(180deg,#1d1d1f 32%,#3a3a3c);-webkit-background-clip:text;background-clip:text;color:transparent;}
-    h1.hero-h1 .l{display:block;overflow:hidden;}
-    h1.hero-h1 .l>span{display:block;transform:translateY(103%);transition:transform .9s var(--ease);}
-    .hero.in h1.hero-h1 .l:nth-child(1)>span{transform:none;transition-delay:.1s;}
-    .hero.in h1.hero-h1 .l:nth-child(2)>span{transform:none;transition-delay:.22s;}
-    .hero-sub{margin-top:26px;font-size:clamp(18px,1.6vw,21px);line-height:1.5;color:var(--ink-2);max-width:34ch;font-weight:400;
-      opacity:0;transform:translateY(12px);transition:all .8s var(--ease) .4s;}
-    .hero.in .hero-sub{opacity:1;transform:none;}
-    .hero-sub b{color:var(--ink);font-weight:600;}
-    .hero-cta{margin-top:36px;display:flex;gap:14px;align-items:center;flex-wrap:wrap;opacity:0;transition:opacity .8s var(--ease) .55s;}
-    .hero.in .hero-cta{opacity:1;}
-    .btn{display:inline-flex;align-items:center;gap:8px;font-size:15px;font-weight:600;padding:13px 24px;border-radius:980px;transition:all .22s var(--ease);cursor:pointer;border:1px solid transparent;}
-    .btn-p{background:var(--ink);color:#fff;box-shadow:var(--sh-sm);} .btn-p:hover{transform:translateY(-2px);box-shadow:var(--sh-md);}
-    .btn-g{color:var(--ink);border-color:var(--line);} .btn-g:hover{border-color:var(--ink);}
-    .hero-logos{margin-top:52px;display:flex;gap:26px;flex-wrap:wrap;font-family:var(--mono);font-size:12px;color:var(--ink-2);letter-spacing:.02em;
-      opacity:0;transition:opacity .8s var(--ease) .7s;}
-    .hero.in .hero-logos{opacity:1;}
-    .hero-logos b{color:var(--ink);font-weight:600;}
-    /* floating product card */
-    .float{opacity:0;transform:translateY(20px);transition:opacity 1s var(--ease) .5s,transform 1s var(--ease) .5s;}
-    .hero.in .float{opacity:1;transform:none;}
-    .float .fcard{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:24px;box-shadow:var(--sh-lg);
-      transform:perspective(1500px) rotateY(-9deg) rotateX(3deg);transition:transform .6s var(--ease);}
-    .float:hover .fcard{transform:perspective(1500px) rotateY(-5deg) rotateX(2deg) translateY(-4px);}
-    .fc-top{display:flex;align-items:center;gap:10px;margin-bottom:18px;}
-    .fc-top .who{font-family:var(--mono);font-size:12px;color:var(--ink-2);}
-    .pill{font-family:var(--mono);font-size:11px;padding:4px 11px;border-radius:980px;display:inline-flex;align-items:center;gap:6px;font-weight:500;}
-    .pill .d{width:6px;height:6px;border-radius:50%;background:currentColor;}
-    .pill.fail{background:rgba(224,84,58,.1);color:var(--fail);}
-    .pill.ok{background:rgba(26,143,76,.1);color:var(--ok);}
-    .rc{background:linear-gradient(180deg,#fff,#fbfbfd);border:1px solid var(--line);border-radius:14px;padding:20px;box-shadow:var(--sh-sm);}
-    .rc-k{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-2);margin-bottom:10px;}
-    .rc-cause{font-family:var(--mono);font-size:15px;color:var(--ink);font-weight:500;word-break:break-word;}
-    .rc-sub{margin-top:12px;font-size:14px;color:var(--ink-2);} .rc-sub b{color:var(--ink);font-weight:600;}
-    .rc-steps{margin-top:16px;display:flex;flex-direction:column;gap:9px;}
-    .rc-step{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--ink-2);} .rc-step .c{color:var(--ok);font-weight:700;}
-    .rc-actions{margin-top:16px;display:flex;gap:7px;flex-wrap:wrap;}
-    .rc-actions span{font-family:var(--mono);font-size:11px;border:1px solid var(--line);border-radius:980px;padding:6px 11px;color:var(--ink-2);}
-    .rc-actions span.p{background:var(--accent);color:#fff;border-color:var(--accent);}
+  html{scroll-behavior:smooth;}
 
-    /* ═══════════ SECTIONS ═══════════ */
-    section{position:relative;}
-    .sec{padding:clamp(72px,10vh,128px) 0;}
-    .sec.alt{background:var(--bg-2);}
-    .kicker{font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);margin-bottom:16px;}
-    .h2{font-size:clamp(30px,3.8vw,54px);font-weight:700;letter-spacing:-0.035em;line-height:1.04;max-width:18ch;}
-    .lede{margin-top:18px;color:var(--ink-2);font-size:18px;max-width:46ch;}
+  body{
+    background:var(--bone);
+    color:var(--ink);
+    font-family:'Inter',system-ui,sans-serif;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
 
-    /* ═══════════ LIVE COMPONENT ═══════════ */
-    .proof-note{margin-top:18px;color:var(--ink-2);font-size:18px;max-width:52ch;}
-    .proof-note b{color:var(--ink);font-weight:600;}
-    .lab{margin-top:48px;border:1px solid var(--line);border-radius:20px;overflow:hidden;background:var(--surface);box-shadow:var(--sh-md);
-      display:grid;grid-template-columns:330px 1fr;}
-    .lab-side{background:var(--bg-2);padding:22px;border-right:1px solid var(--line);}
-    .lab-tag{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-2);margin-bottom:14px;}
-    pre.schema{font-family:var(--mono);font-size:12.5px;line-height:1.85;color:var(--ink);white-space:pre-wrap;word-break:break-word;}
-    pre.schema .k{color:var(--accent);} pre.schema .v{color:var(--ok);} pre.schema .c{color:var(--ink-3);}
-    .lab-main{display:flex;flex-direction:column;min-width:0;}
-    .lab-controls{padding:16px 20px;border-bottom:1px solid var(--line);display:flex;flex-wrap:wrap;gap:16px 24px;align-items:flex-end;}
-    .ctrl{display:flex;flex-direction:column;gap:8px;min-width:0;}
-    .ctrl-label{font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);}
-    .seg{display:inline-flex;border:1px solid var(--line);border-radius:980px;padding:3px;gap:2px;background:var(--surface);}
-    .seg button{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.02em;background:none;border:none;color:var(--ink-2);cursor:pointer;padding:6px 12px;border-radius:980px;transition:all .18s var(--ease);white-space:nowrap;}
-    .seg button:hover{color:var(--ink);}
-    .seg button.active{background:var(--accent);color:#fff;}
-    .chips{display:flex;flex-wrap:wrap;gap:6px;}
-    .chip{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.02em;background:none;border:1px solid var(--line);color:var(--ink-2);cursor:pointer;padding:5px 11px;border-radius:980px;transition:all .18s var(--ease);}
-    .chip:hover{border-color:var(--ink-2);color:var(--ink);}
-    .chip.on{background:var(--accent-soft);border-color:var(--accent);color:var(--accent-2);}
-    .chip.on::before{content:'✓ ';}
-    .lab-table-wrap{overflow-x:auto;flex:1;}
-    table.lab-table{width:100%;border-collapse:collapse;font-size:14px;}
-    table.lab-table thead th{font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-2);text-align:left;font-weight:500;padding:14px 18px;border-bottom:1px solid var(--line);cursor:pointer;white-space:nowrap;user-select:none;transition:color .15s var(--ease);}
-    table.lab-table thead th:hover{color:var(--ink);}
-    table.lab-table thead th .ar{color:var(--accent);margin-left:5px;}
-    table.lab-table td{padding:14px 18px;border-bottom:1px solid var(--line-2);white-space:nowrap;color:var(--ink);}
-    table.lab-table.compact td{padding:8px 18px;} table.lab-table.compact thead th{padding:9px 18px;}
-    table.lab-table tbody tr{transition:background .15s var(--ease);}
-    table.lab-table tbody tr:hover{background:rgba(224,84,58,.03);}
-    table.lab-table tbody tr:last-child td{border-bottom:none;}
-    .cell-num{font-family:var(--mono);} .cell-strong{color:var(--ink);font-weight:600;}
-    .badge{font-family:var(--mono);font-size:11px;padding:2px 9px;border-radius:980px;display:inline-block;}
-    .badge.ok{background:rgba(26,143,76,.1);color:var(--ok);}
-    .badge.warn{background:rgba(154,106,0,.12);color:var(--warn);}
-    .badge.hot{background:rgba(224,84,58,.1);color:var(--fail);}
-    .badge.info{background:rgba(37,99,201,.1);color:var(--info);}
-    .spark{color:var(--accent);font-family:var(--mono);}
-    .lab-foot{font-family:var(--mono);font-size:11px;color:var(--ink-2);padding:12px 20px;border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;}
-    .lab-caption{margin-top:22px;color:var(--ink-2);font-size:15px;max-width:70ch;} .lab-caption b{color:var(--ink);font-weight:600;}
+  a{color:inherit;}
 
-    /* ═══════════ WORK ═══════════ */
-    .cards{margin-top:52px;display:grid;grid-template-columns:1fr 1fr;gap:28px;}
-    .card{background:var(--surface);border:1px solid var(--line);border-radius:22px;overflow:hidden;box-shadow:var(--sh-sm);
-      transition:transform .3s var(--ease),box-shadow .3s var(--ease);display:flex;flex-direction:column;}
-    .card:hover{transform:translateY(-6px);box-shadow:var(--sh-lg);}
-    .card .media{aspect-ratio:16/10;overflow:hidden;background:#0d0d0f;position:relative;flex-shrink:0;}
-    .card .media img{width:100%;height:100%;object-fit:cover;transition:transform .5s var(--ease);}
-    .card:hover .media img{transform:scale(1.04);}
-    .card .media.recreate{background:var(--bg-2);display:flex;flex-direction:column;justify-content:center;gap:14px;padding:26px;}
-    .tag{position:absolute;top:14px;left:14px;font-family:var(--mono);font-size:10.5px;text-transform:uppercase;letter-spacing:.06em;color:#fff;background:rgba(0,0,0,.5);backdrop-filter:blur(6px);padding:5px 11px;border-radius:980px;z-index:2;}
-    .card .body{padding:28px 30px 30px;display:flex;flex-direction:column;flex:1;}
-    .card .ey{font-family:var(--mono);font-size:12px;color:var(--ink-2);} .card .ey b{color:var(--accent);}
-    .card h3{margin-top:14px;font-size:clamp(22px,2.3vw,27px);font-weight:700;letter-spacing:-0.03em;line-height:1.12;}
-    .card .desc{margin-top:12px;color:var(--ink-2);font-size:15.5px;line-height:1.55;flex:1;} .card .desc b{color:var(--ink);font-weight:600;}
-    .card .metric{margin-top:24px;display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;}
-    .card .big{font-size:clamp(38px,4vw,50px);font-weight:700;letter-spacing:-0.04em;line-height:1;background:linear-gradient(180deg,#1d1d1f,#3a3a3c);-webkit-background-clip:text;background-clip:text;color:transparent;}
-    .card .lbl{font-family:var(--mono);font-size:11.5px;color:var(--ink-2);max-width:22ch;line-height:1.4;}
-    .card .link{margin-top:24px;font-family:var(--mono);font-size:12.5px;color:var(--accent);display:inline-flex;gap:8px;transition:gap .2s var(--ease);}
-    .card:hover .link{gap:13px;}
-    /* recreated Terran mini card */
-    .tmini-top{display:flex;align-items:center;gap:9px;font-family:var(--mono);font-size:11px;color:var(--ink-2);}
-    .tmini-rc{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px;box-shadow:var(--sh-sm);}
-    .tmini-k{font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-2);margin-bottom:8px;}
-    .tmini-cause{font-family:var(--mono);font-size:13px;color:var(--ink);font-weight:500;word-break:break-word;}
-    .tmini-sub{margin-top:9px;font-size:13px;color:var(--ink-2);} .tmini-sub b{color:var(--ink);font-weight:600;}
+  /* ---------- shared decorative layers ---------- */
+  .grain{
+    position:fixed;
+    inset:-50%;
+    z-index:1;
+    opacity:0.045;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    pointer-events:none;
+    mix-blend-mode:multiply;
+  }
 
-    /* ═══════════ ORIGIN ═══════════ */
-    .origin-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(40px,6vw,84px);align-items:start;margin-top:12px;}
-    .origin-lead{font-size:clamp(24px,3vw,38px);font-weight:700;letter-spacing:-0.03em;line-height:1.14;}
-    .origin-lead b{color:var(--accent);font-weight:700;}
-    .origin-body{margin-top:26px;color:var(--ink-2);font-size:17px;line-height:1.7;}
-    .origin-body p+p{margin-top:18px;} .origin-body b{color:var(--ink);font-weight:600;}
-    .cred-rail{border-top:1px solid var(--line);}
-    .cred-row{display:flex;gap:14px;align-items:baseline;padding:15px 0;border-bottom:1px solid var(--line);}
-    .cred-row .n{font-family:var(--mono);font-size:11px;color:var(--accent);width:24px;flex-shrink:0;}
-    .cred-row .t{font-size:15px;color:var(--ink-2);} .cred-row .t b{color:var(--ink);font-weight:600;}
+  /* ---------- floating wordmark ---------- */
+  .topnav{
+    position:sticky;
+    top:0;
+    z-index:20;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:20px clamp(24px,5vw,72px);
+    background:rgba(242,235,221,0.72);
+    backdrop-filter:saturate(160%) blur(14px);
+    -webkit-backdrop-filter:saturate(160%) blur(14px);
+    opacity:0;
+    animation:fade 1.1s ease .1s forwards;
+  }
+  .brand{
+    display:inline-flex;
+    align-items:baseline;
+    gap:.6ch;
+    font-family:'Fraunces',serif;
+    font-weight:600;
+    font-size:clamp(15px,1.5vw,18px);
+    letter-spacing:.01em;
+    color:var(--ink);
+    text-decoration:none;
+  }
+  .brand .dot{
+    width:7px;height:7px;border-radius:50%;
+    background:var(--accent);
+    transform:translateY(-1px);
+    flex:0 0 auto;
+  }
+  .topnav-link{
+    font-size:12.5px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    font-weight:600;
+    color:var(--ink-faint);
+    transition:color .2s;
+  }
+  .topnav-link:hover{color:var(--accent);}
 
-    /* ═══════════ PUBLICATIONS ═══════════ */
-    .pub-ledger{border-top:1px solid var(--line);margin-top:44px;}
-    .pub-tier{display:grid;grid-template-columns:210px 1fr;gap:44px;padding:32px 0;border-bottom:1px solid var(--line);}
-    .pub-tier-label{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);padding-top:6px;}
-    .pub-items{display:flex;flex-direction:column;gap:24px;}
-    .pub-item{display:block;} .pub-head{display:flex;align-items:baseline;gap:8px 14px;flex-wrap:wrap;}
-    .pub-title{font-size:19px;font-weight:600;letter-spacing:-0.01em;transition:color .18s var(--ease);}
-    a.pub-item:hover .pub-title{color:var(--accent);}
-    .pub-meta{font-family:var(--mono);font-size:12px;color:var(--ink-2);}
-    .pub-arrow{color:var(--accent);opacity:0;transform:translateX(-4px);transition:all .18s var(--ease);}
-    a.pub-item:hover .pub-arrow{opacity:1;transform:none;}
-    .pub-desc{margin-top:7px;color:var(--ink-2);font-size:15px;max-width:62ch;}
+  .wrap{
+    position:relative;
+    z-index:2;
+    padding-inline:clamp(24px,5vw,72px);
+    max-width:1360px;
+    margin:0 auto;
+  }
 
-    /* ═══════════ CLOSE ═══════════ */
-    #contact{background:linear-gradient(180deg,#f5f5f7,#ececee);}
-    .close-h{font-size:clamp(40px,6.5vw,92px);font-weight:700;letter-spacing:-0.045em;line-height:1.0;
-      background:linear-gradient(180deg,#1d1d1f,#3a3a3c);-webkit-background-clip:text;background-clip:text;color:transparent;}
-    .close-sub{margin-top:24px;max-width:50ch;color:var(--ink-2);font-size:19px;}
-    .close-actions{margin-top:40px;display:flex;flex-wrap:wrap;gap:14px;align-items:center;}
-    .close-links{margin-top:40px;display:flex;gap:28px;flex-wrap:wrap;font-family:var(--mono);font-size:13px;}
-    .close-links a{color:var(--ink-2);transition:color .18s var(--ease);} .close-links a:hover{color:var(--accent);}
+  /* =================================================
+     1. HERO
+  ==================================================*/
+  .stage{
+    position:relative;
+    min-height:calc(100svh - 62px);
+    width:100%;
+    padding:clamp(16px,4vw,56px) clamp(24px,5vw,72px) clamp(24px,5vw,72px);
+    display:grid;
+    grid-template-rows:auto 1fr auto;
+    isolation:isolate;
+    overflow:hidden;
+  }
+  .glow{
+    position:absolute;
+    inset:0;
+    z-index:-2;
+    background:
+      radial-gradient(60% 55% at 32% 42%, rgba(190,74,43,0.10), rgba(190,74,43,0) 70%),
+      radial-gradient(70% 60% at 78% 78%, rgba(210,180,140,0.22), rgba(210,180,140,0) 72%);
+    animation:breathe 14s ease-in-out infinite;
+  }
+  @keyframes breathe{
+    0%,100%{transform:scale(1);opacity:.85;}
+    50%{transform:scale(1.06);opacity:1;}
+  }
 
-    footer{background:var(--bg-2);border-top:1px solid var(--line);}
-    .foot-inner{max-width:var(--max);margin:0 auto;padding:26px var(--gutter);display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-family:var(--mono);font-size:12px;color:var(--ink-2);letter-spacing:.02em;}
+  .stage .mark-spacer{height:0;}
 
-    /* ═══════════ MOTION ═══════════ */
-    .reveal{opacity:0;transform:translateY(24px);transition:opacity .8s var(--ease),transform .8s var(--ease);}
-    .reveal.in{opacity:1;transform:none;}
-    .reveal.d1{transition-delay:.08s;} .reveal.d2{transition-delay:.16s;}
-    @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important;}
-      .reveal,.hero-sub,.hero-cta,.hero-logos,.float{opacity:1!important;transform:none!important;}
-      h1.hero-h1 .l>span{transform:none!important;}}
+  .hero{
+    align-self:center;
+    width:100%;
+    max-width:min(94vw,1040px);
+    margin-bottom:clamp(52px,10vh,132px);
+  }
+  .line{
+    overflow:hidden;
+    display:block;
+    padding:.06em .03em .18em;
+    margin-bottom:-.14em;
+  }
+  .line > span{
+    display:block;
+    font-family:'Fraunces',serif;
+    font-weight:300;
+    font-size:clamp(44px,9vw,116px);
+    line-height:.98;
+    letter-spacing:-0.02em;
+    transform:translateY(118%);
+    will-change:transform;
+  }
+  .line--two > span{font-weight:400;}
 
-    /* ═══════════ RESPONSIVE ═══════════ */
-    @media (max-width:900px){
-      .hero-inner{grid-template-columns:1fr;gap:48px;} .float{max-width:460px;}
-      .float .fcard{transform:none;} .float:hover .fcard{transform:translateY(-4px);}
-      .lab{grid-template-columns:1fr;} .lab-side{border-right:none;border-bottom:1px solid var(--line);}
-      .cards{grid-template-columns:1fr;} .origin-grid{grid-template-columns:1fr;gap:36px;}
-      .pub-tier{grid-template-columns:1fr;gap:14px;}
-    }
-    @media (max-width:640px){
-      .nav-links{display:none;} .nav-burger{display:inline-block;}
-      .nav-links.open{display:flex;position:fixed;top:60px;left:0;right:0;flex-direction:column;gap:0;background:rgba(255,255,255,0.96);backdrop-filter:blur(20px);padding:8px 0;border-bottom:1px solid var(--line);}
-      .nav-links.open a{padding:14px var(--gutter);}
-      .hero{padding-top:120px;} .lab-controls{flex-direction:column;align-items:stretch;} .seg{width:100%;justify-content:space-between;}
-    }
-  </style>
+  .ship{
+    font-weight:900;
+    font-style:italic;
+    color:var(--accent);
+    position:relative;
+  }
+  .ship::after{
+    content:"";
+    position:absolute;
+    left:0;right:.02em;
+    bottom:.08em;
+    height:.06em;
+    background:var(--accent);
+    transform:scaleX(0);
+    transform-origin:left;
+    border-radius:2px;
+  }
+  .caret{
+    display:inline-block;
+    width:.5ch;
+    height:.72em;
+    margin-left:.06em;
+    background:var(--ink);
+    transform:translateY(.04em);
+    opacity:0;
+  }
+
+  .reveal .line--one > span{animation:rise 1.05s cubic-bezier(.19,1,.22,1) .35s forwards;}
+  .reveal .line--two > span{animation:rise 1.05s cubic-bezier(.19,1,.22,1) .52s forwards;}
+  .reveal .ship::after{animation:draw .7s cubic-bezier(.65,0,.35,1) 1.35s forwards;}
+  .reveal .caret{animation:caretIn .01s linear 1.5s forwards, blink 1.05s steps(1) 1.6s infinite;}
+
+  @keyframes rise{to{transform:translateY(0);}}
+  @keyframes draw{to{transform:scaleX(1);}}
+  @keyframes caretIn{to{opacity:1;}}
+  @keyframes blink{50%{opacity:0;}}
+  @keyframes fade{to{opacity:1;}}
+
+  .foot{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-end;
+    gap:16px;
+    flex-wrap:wrap;
+    opacity:0;
+    animation:fade 1.2s ease 1.7s forwards;
+  }
+  .endline{
+    font-family:'Fraunces',serif;
+    font-style:italic;
+    font-weight:400;
+    font-size:clamp(16px,2vw,22px);
+    color:var(--ink);
+    max-width:22ch;
+  }
+  .sub{
+    font-size:clamp(12px,1.2vw,13.5px);
+    letter-spacing:.02em;
+    color:var(--ink-soft);
+    max-width:38ch;
+    text-align:right;
+    line-height:1.55;
+  }
+
+  /* =================================================
+     shared section scaffolding
+  ==================================================*/
+  section.band{
+    position:relative;
+    padding-block:clamp(80px,12vh,160px);
+  }
+  .band.cream{background:var(--cream);}
+  .band.ink{background:radial-gradient(78% 60% at 88% -8%, rgba(190,74,43,0.15), transparent 56%), var(--ink);color:var(--cream);}
+
+  .eyebrow{
+    display:inline-flex;
+    align-items:center;
+    gap:.7ch;
+    font-family:'Inter',sans-serif;
+    font-weight:600;
+    font-size:clamp(11px,1.1vw,12.5px);
+    letter-spacing:.22em;
+    text-transform:uppercase;
+    color:var(--accent);
+  }
+  .eyebrow::before{
+    content:"";
+    width:7px;height:7px;border-radius:50%;
+    background:var(--accent);
+  }
+  .band.ink .eyebrow{color:#E8996F;}
+  .band.ink .eyebrow::before{background:#E8996F;}
+
+  h2.display{
+    font-family:'Fraunces',serif;
+    font-weight:300;
+    font-size:clamp(38px,6.4vw,92px);
+    line-height:1.0;
+    letter-spacing:-0.02em;
+    margin-top:.5em;
+  }
+  h2.display em{
+    font-style:italic;
+    font-weight:900;
+    color:var(--accent);
+  }
+  .band.ink h2.display em{color:#E8996F;}
+
+  .lede{
+    font-family:'Fraunces',serif;
+    font-weight:400;
+    font-size:clamp(20px,2.5vw,30px);
+    line-height:1.42;
+    color:var(--ink-soft);
+    max-width:26ch;
+  }
+  .band.ink .lede{color:rgba(247,241,230,0.82);}
+
+  p.body{
+    font-size:clamp(15px,1.35vw,17.5px);
+    line-height:1.7;
+    color:var(--ink-soft);
+    max-width:60ch;
+  }
+  .band.ink p.body{color:rgba(247,241,230,0.74);}
+
+  /* =================================================
+     2. CLARITY
+  ==================================================*/
+  .clarity-grid{
+    display:grid;
+    grid-template-columns:1.05fr 1fr;
+    gap:clamp(32px,5vw,80px);
+    align-items:end;
+  }
+  .clarity-quotes{
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+    margin-top:32px;
+  }
+  .qtag{
+    font-family:'Fraunces',serif;
+    font-style:italic;
+    font-weight:400;
+    font-size:clamp(19px,2.4vw,30px);
+    color:var(--ink);
+    padding-left:20px;
+    border-left:2px solid var(--accent);
+    line-height:1.2;
+  }
+  .qtag.strike{
+    color:var(--ink-faint);
+    text-decoration:line-through;
+    text-decoration-color:rgba(190,74,43,0.55);
+    text-decoration-thickness:2px;
+  }
+
+  /* =================================================
+     3. SELECTED WORK
+  ==================================================*/
+  .work-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-end;
+    gap:24px;
+    flex-wrap:wrap;
+    margin-bottom:clamp(40px,6vw,72px);
+  }
+  .work-count{
+    font-family:'Fraunces',serif;
+    font-size:clamp(14px,1.4vw,16px);
+    color:var(--ink-faint);
+    font-style:italic;
+  }
+  .cases{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:clamp(20px,2.6vw,40px);
+  }
+  .case{
+    display:flex;
+    flex-direction:column;
+    text-decoration:none;
+    color:inherit;
+    background:var(--bone);
+    border:1px solid var(--line);
+    border-radius:14px;
+    overflow:hidden;
+    transition:transform .5s cubic-bezier(.19,1,.22,1), box-shadow .5s, border-color .5s;
+  }
+  .band.cream .case{background:#FBF6EC;}
+  .case:hover{
+    transform:translateY(-6px);
+    box-shadow:0 26px 50px -30px rgba(23,19,15,0.5);
+    border-color:rgba(190,74,43,0.4);
+  }
+  .case-media{
+    aspect-ratio:16/10;
+    overflow:hidden;
+    background:var(--sand);
+    position:relative;
+  }
+  .case-media img{
+    width:100%;height:100%;
+    object-fit:cover;
+    display:block;
+    transition:transform .8s cubic-bezier(.19,1,.22,1);
+  }
+  .case:hover .case-media img{transform:scale(1.045);}
+
+  /* Terran typographic card (no screenshot) */
+  .case-media.terran{
+    background:
+      radial-gradient(120% 120% at 80% 10%, rgba(190,74,43,0.28), rgba(190,74,43,0) 60%),
+      linear-gradient(160deg,#211A14,#0E0B08);
+    display:flex;
+    align-items:center;
+    padding:26px;
+  }
+  .terran-card{width:100%;font-family:'Inter',sans-serif;}
+  .terran-status{display:flex;align-items:center;gap:9px;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:rgba(247,241,230,0.6);margin-bottom:14px;}
+  .terran-status .d{width:7px;height:7px;border-radius:50%;background:#E8996F;box-shadow:0 0 8px rgba(232,153,111,0.8);flex-shrink:0;}
+  .terran-rc{background:rgba(190,74,43,0.10);border:1px solid rgba(232,153,111,0.28);border-radius:12px;padding:16px 18px;}
+  .terran-rc .k{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:rgba(247,241,230,0.5);margin-bottom:9px;}
+  .terran-rc .cause{font-weight:600;font-size:clamp(15px,1.7vw,18px);color:var(--cream);letter-spacing:-0.01em;}
+  .terran-rc .sub{margin-top:10px;font-size:13.5px;color:rgba(247,241,230,0.72);}
+  .terran-rc .sub b{color:var(--cream);font-weight:600;}
+  .terran-steps{margin-top:14px;display:flex;flex-direction:column;gap:7px;}
+  .terran-steps span{display:flex;align-items:center;gap:9px;font-size:12.5px;color:rgba(247,241,230,0.68);}
+  .terran-steps span::before{content:"\2713";color:#8FD3A6;font-weight:700;}
+
+  .case-body{
+    padding:clamp(20px,2vw,30px);
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+    flex:1;
+  }
+  .case-eyebrow{
+    font-size:11.5px;
+    font-weight:600;
+    letter-spacing:.18em;
+    text-transform:uppercase;
+    color:var(--ink-faint);
+  }
+  .case h3{
+    font-family:'Fraunces',serif;
+    font-weight:400;
+    font-size:clamp(23px,2.6vw,34px);
+    line-height:1.08;
+    letter-spacing:-0.01em;
+  }
+  .case p{
+    font-size:14.5px;
+    line-height:1.62;
+    color:var(--ink-soft);
+    max-width:46ch;
+  }
+  .metric{
+    margin-top:auto;
+    padding-top:18px;
+    display:flex;
+    align-items:baseline;
+    gap:.6ch;
+    border-top:1px solid var(--line);
+    font-family:'Fraunces',serif;
+    font-style:italic;
+    font-weight:600;
+    font-size:clamp(16px,1.7vw,21px);
+    color:var(--accent);
+  }
+  .metric .label{
+    font-family:'Inter',sans-serif;
+    font-style:normal;
+    font-weight:600;
+    font-size:10.5px;
+    letter-spacing:.16em;
+    text-transform:uppercase;
+    color:var(--ink-faint);
+    margin-right:auto;
+    align-self:center;
+  }
+
+  /* =================================================
+     4. HOW I WORK
+  ==================================================*/
+  .beats{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:clamp(24px,3vw,48px);
+    margin-top:clamp(44px,6vw,72px);
+    counter-reset:beat;
+  }
+  .beat{
+    position:relative;
+    padding-top:26px;
+    border-top:2px solid rgba(232,153,111,0.4);
+  }
+  .beat .num{
+    font-family:'Fraunces',serif;
+    font-style:italic;
+    font-weight:600;
+    font-size:14px;
+    color:#E8996F;
+    letter-spacing:.04em;
+  }
+  .beat h3{
+    font-family:'Fraunces',serif;
+    font-weight:400;
+    font-size:clamp(22px,2.3vw,30px);
+    line-height:1.06;
+    margin:14px 0 12px;
+    letter-spacing:-0.01em;
+  }
+  .beat p{
+    font-size:14.5px;
+    line-height:1.62;
+    color:rgba(247,241,230,0.72);
+  }
+  .work-note{
+    margin-top:clamp(48px,6vw,72px);
+    font-family:'Fraunces',serif;
+    font-style:italic;
+    font-size:clamp(15px,1.5vw,18px);
+    color:rgba(247,241,230,0.6);
+    max-width:52ch;
+  }
+
+  /* =================================================
+     5. ABOUT / ORIGIN
+  ==================================================*/
+  .about-grid{
+    display:grid;
+    grid-template-columns:1fr 0.86fr;
+    gap:clamp(40px,6vw,96px);
+    align-items:start;
+    margin-top:clamp(22px,2.8vw,40px);
+  }
+  .origin p{
+    font-family:'Fraunces',serif;
+    font-weight:300;
+    font-size:clamp(20px,2.2vw,29px);
+    line-height:1.5;
+    color:var(--ink);
+    letter-spacing:-0.005em;
+  }
+  .origin p + p{margin-top:1em;}
+  .origin .pop{font-style:italic;font-weight:600;color:var(--accent);}
+
+  .creds{
+    border-top:1px solid var(--line);
+  }
+  .creds .creds-label{
+    font-size:11.5px;
+    font-weight:600;
+    letter-spacing:.2em;
+    text-transform:uppercase;
+    color:var(--ink-faint);
+    padding:22px 0 8px;
+  }
+  .cred{
+    padding:18px 0;
+    border-top:1px solid var(--line);
+  }
+  .cred .c-title{
+    font-family:'Fraunces',serif;
+    font-size:clamp(17px,1.8vw,21px);
+    font-weight:600;
+    line-height:1.2;
+  }
+  .cred .c-title em{font-style:italic;font-weight:400;}
+  .cred .c-sub{
+    font-size:13px;
+    color:var(--ink-faint);
+    margin-top:4px;
+    letter-spacing:.02em;
+  }
+
+  /* =================================================
+     6. WRITING
+  ==================================================*/
+  .writing-list{
+    margin-top:clamp(40px,5vw,64px);
+    border-top:1px solid var(--line);
+  }
+  .wrow{
+    display:grid;
+    grid-template-columns:1fr auto;
+    gap:20px 40px;
+    align-items:baseline;
+    padding:clamp(22px,2.6vw,34px) 0;
+    border-bottom:1px solid var(--line);
+    text-decoration:none;
+    color:inherit;
+    position:relative;
+    transition:padding-left .45s cubic-bezier(.19,1,.22,1), color .45s;
+  }
+  .wrow:hover{padding-left:22px;color:var(--accent-deep);}
+  .wrow::before{
+    content:"";
+    position:absolute;
+    left:0;top:50%;
+    width:0;height:2px;
+    background:var(--accent);
+    transform:translateY(-50%);
+    transition:width .45s cubic-bezier(.19,1,.22,1);
+  }
+  .wrow:hover::before{width:12px;}
+  .wrow .w-title{
+    font-family:'Fraunces',serif;
+    font-weight:400;
+    font-size:clamp(20px,2.4vw,31px);
+    line-height:1.18;
+    letter-spacing:-0.01em;
+    max-width:24ch;
+  }
+  .wrow .w-meta{
+    display:flex;
+    align-items:center;
+    gap:16px;
+    font-size:13px;
+    letter-spacing:.02em;
+    color:var(--ink-faint);
+    white-space:nowrap;
+  }
+  .wrow .w-outlet{font-weight:600;color:var(--ink-soft);}
+  .wrow .arrow{
+    font-size:15px;
+    color:var(--accent);
+    transition:transform .45s cubic-bezier(.19,1,.22,1);
+  }
+  .wrow:hover .arrow{transform:translate(4px,-4px);}
+
+  /* =================================================
+     7. CONTACT
+  ==================================================*/
+  .contact{
+    text-align:center;
+    padding-block:clamp(96px,16vh,200px);
+  }
+  .contact .glow-c{
+    position:absolute;inset:0;z-index:0;pointer-events:none;
+    background:radial-gradient(closest-side at 50% 58%, rgba(214,96,54,0.34), rgba(150,54,30,0.12) 52%, transparent 74%);
+    background-repeat:no-repeat;background-size:900px 900px;background-position:center 60%;
+    animation:orbBreathe 7.5s ease-in-out infinite;
+  }
+  @keyframes orbBreathe{0%,100%{opacity:.8;transform:scale(1) translateY(0);}50%{opacity:1;transform:scale(1.06) translateY(-12px);}}
+  .contact .inner{position:relative;z-index:1;}
+  .contact h2{
+    margin-top:clamp(24px,3.2vw,44px);
+    font-family:'Fraunces',serif;
+    font-weight:300;
+    font-size:clamp(44px,9.5vw,150px);
+    line-height:.95;
+    letter-spacing:-0.03em;
+  }
+  .contact h2 em{font-style:italic;font-weight:900;color:#E8996F;}
+  .contact .avail{
+    margin:clamp(26px,3.5vw,40px) auto 0;
+    max-width:44ch;
+    font-size:clamp(15px,1.5vw,18px);
+    line-height:1.6;
+    color:rgba(247,241,230,0.74);
+  }
+  .contact-links{
+    display:flex;
+    justify-content:center;
+    flex-wrap:wrap;
+    gap:14px 18px;
+    margin-top:clamp(34px,4vw,52px);
+  }
+  .clink{
+    display:inline-flex;
+    align-items:center;
+    gap:.6ch;
+    padding:14px 26px;
+    border:1px solid rgba(247,241,230,0.28);
+    border-radius:100px;
+    font-size:14.5px;
+    letter-spacing:.02em;
+    text-decoration:none;
+    color:var(--cream);
+    transition:background .4s, color .4s, border-color .4s, transform .4s;
+  }
+  .clink.primary{background:var(--accent);border-color:var(--accent);}
+  .clink:hover{background:var(--cream);color:var(--ink);border-color:var(--cream);transform:translateY(-3px);}
+  .clink.primary:hover{background:#E8996F;color:var(--ink);border-color:#E8996F;}
+
+  .colophon{
+    margin-top:clamp(60px,9vw,110px);
+    padding-top:26px;
+    border-top:1px solid rgba(247,241,230,0.16);
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:16px;
+    flex-wrap:wrap;
+    font-size:12.5px;
+    color:rgba(247,241,230,0.5);
+    letter-spacing:.02em;
+  }
+  .colophon .cmark{
+    font-family:'Fraunces',serif;
+    font-weight:600;
+    color:rgba(247,241,230,0.82);
+    display:flex;align-items:center;gap:.6ch;
+  }
+  .colophon .cmark .dot{width:6px;height:6px;border-radius:50%;background:#E8996F;}
+
+  /* =================================================
+     scroll reveal
+  ==================================================*/
+  [data-reveal]{
+    opacity:0;
+    transform:translateY(28px);
+    transition:opacity .9s cubic-bezier(.19,1,.22,1), transform .9s cubic-bezier(.19,1,.22,1);
+    transition-delay:var(--d,0ms);
+  }
+  [data-reveal].in{opacity:1;transform:none;}
+
+  /* =================================================
+     responsive
+  ==================================================*/
+  @media (max-width:900px){
+    .clarity-grid{grid-template-columns:1fr;align-items:start;}
+    .cases{grid-template-columns:1fr;}
+    .beats{grid-template-columns:repeat(2,1fr);}
+    .about-grid{grid-template-columns:1fr;}
+  }
+  @media (max-width:640px){
+    .sub{text-align:left;max-width:100%;}
+    .hero{max-width:12ch;}
+    .foot{gap:22px;}
+    .beats{grid-template-columns:1fr;}
+    .wrow{grid-template-columns:1fr;gap:12px;}
+    .wrow .w-meta{justify-content:space-between;width:100%;}
+    .work-head{align-items:flex-start;}
+  }
+
+  @media (prefers-reduced-motion:reduce){
+    .glow,.contact .glow-c{animation:none;opacity:1;}
+    .topnav,.foot{opacity:1;animation:none;}
+    .line > span{transform:none;animation:none;}
+    .line{margin-bottom:0;padding-bottom:.05em;}
+    .ship::after{transform:scaleX(1);animation:none;}
+    .caret{opacity:1;animation:none;}
+    [data-reveal]{opacity:1;transform:none;transition:none;}
+    html{scroll-behavior:auto;}
+  }
+</style>
 </head>
 <body>
-
-  <!-- NAV -->
-  <nav id="nav">
-    <div class="nav-inner">
-      <a href="#hero" class="nav-logo">Vishal Mehta</a>
-      <button class="nav-burger" id="burger" aria-label="Menu">Menu</button>
-      <ul class="nav-links" id="navlinks">
-        <li><a href="#proof">Proof</a></li>
-        <li><a href="#work">Work</a></li>
-        <li><a href="#origin">Origin</a></li>
-        <li><a href="#writing">Writing</a></li>
-        <li><a href="#contact" class="nav-cta">Get in touch</a></li>
-      </ul>
-    </div>
+  <div class="grain" aria-hidden="true"></div>
+  <nav class="topnav">
+    <a href="#top" class="brand"><span class="dot"></span>Vishal Mehta</a>
+    <a href="resume.html" class="topnav-link">Resume</a>
   </nav>
 
-  <!-- HERO -->
-  <header class="hero" id="hero">
-    <div class="hero-inner">
+  <!-- ============ 1. HERO ============ -->
+  <main class="stage reveal" id="stage">
+    <a id="top"></a>
+    <div class="glow" aria-hidden="true"></div>
+    <div class="mark-spacer"></div>
+
+    <section class="hero" aria-label="Vishal Mehta, enterprise and AI-UX design leader">
+      <span class="line line--one"><span>I design it.</span></span>
+      <span class="line line--two"><span>Then I <span class="ship">ship</span> it.<span class="caret" aria-hidden="true"></span></span></span>
+    </section>
+
+    <footer class="foot">
+      <p class="endline">Staff and Principal design leader for enterprise and AI.</p>
+      <p class="sub">I find the real problem under the noise, and make complex, high-stakes systems clear.</p>
+    </footer>
+  </main>
+
+  <!-- ============ 2. CLARITY ============ -->
+  <section class="band" aria-labelledby="clarity-h">
+    <div class="wrap clarity-grid">
       <div>
-        <div class="eyebrow"><span class="dot"></span>Enterprise &amp; AI-UX Design</div>
-        <h1 class="hero-h1"><span class="l"><span>I design it.</span></span><span class="l"><span>Then I ship it.</span></span></h1>
-        <p class="hero-sub">Twenty-five years making complex, high-stakes systems clear. I find the real problem under the noise, and because I design in <b>code</b>, I ship the fix myself.</p>
-        <div class="hero-cta">
-          <a href="#proof" class="btn btn-p">See it running →</a>
-          <a href="#work" class="btn btn-g">Selected work</a>
-        </div>
-        <div class="hero-logos"><span><b>Apple</b> Wallet</span><span><b>Walmart</b> Data Ventures</span><span><b>Intuitive</b> Surgical</span></div>
+        <span class="eyebrow" data-reveal>The spine</span>
+        <h2 class="display" id="clarity-h" data-reveal style="--d:80ms">Clarity is the<br>whole <em>job.</em></h2>
       </div>
-      <div class="float">
-        <div class="fcard">
-          <div class="fc-top"><span class="pill fail"><span class="d"></span>Blocked</span><span class="who">Terran · CICD pipeline</span></div>
-          <div class="rc">
-            <div class="rc-k">Root cause · found by Terran AI</div>
-            <div class="rc-cause">gRPC deadline timeout at IP 10.100</div>
-            <div class="rc-sub">One cause. <b>17 failures explained.</b></div>
-            <div class="rc-steps">
-              <div class="rc-step"><span class="c">✓</span> Gathered logs · 2,847 lines</div>
-              <div class="rc-step"><span class="c">✓</span> Correlated signals · 6 services</div>
-              <div class="rc-step"><span class="c">✓</span> Identified root cause</div>
-            </div>
-            <div class="rc-actions"><span class="p">Create Radar</span><span>See code fix</span><span>Share to Slack</span></div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </header>
-
-  <!-- PROOF (live component) -->
-  <section class="sec" id="proof">
-    <div class="wrap">
-      <div class="reveal">
-        <div class="kicker">02 · Proof you can touch</div>
-        <h2 class="h2">Every portfolio shows screenshots. This one is running.</h2>
-        <p class="proof-note">
-          One real component from the design system I built at Walmart Data Ventures, <b>live in your browser right now.</b>
-          Change the data it carries, its density, or its columns, and watch it hold its shape without breaking. The config on
-          the left is the design intent. The table on the right is the shipped reality. I build both.
+      <div>
+        <p class="body" data-reveal style="--d:120ms">
+          Stakeholders hand me a solution disguised as a problem. I find the real need they cannot name. Design system, analytics platform, or AI agent, my work is the same: fix the problem, not the symptom.
         </p>
-      </div>
-
-      <div class="lab reveal d1">
-        <div class="lab-side">
-          <div class="lab-tag">Design intent · config</div>
-          <pre class="schema" id="schema"></pre>
-        </div>
-        <div class="lab-main">
-          <div class="lab-controls">
-            <div class="ctrl">
-              <span class="ctrl-label">Data source</span>
-              <div class="seg" id="seg-source">
-                <button data-src="shipments" class="active">Shipments</button>
-                <button data-src="merchants">Merchants</button>
-                <button data-src="instruments">Instruments</button>
-              </div>
-            </div>
-            <div class="ctrl">
-              <span class="ctrl-label">Density</span>
-              <div class="seg" id="seg-density">
-                <button data-den="comfortable" class="active">Comfortable</button>
-                <button data-den="compact">Compact</button>
-              </div>
-            </div>
-            <div class="ctrl" style="flex:1;min-width:200px;">
-              <span class="ctrl-label">Columns</span>
-              <div class="chips" id="chips"></div>
-            </div>
-          </div>
-          <div class="lab-table-wrap"><table class="lab-table" id="table"></table></div>
-          <div class="lab-foot"><span id="foot-count">·</span><span>schema-agnostic · one component · zero forks</span></div>
+        <div class="clarity-quotes">
+          <p class="qtag strike" data-reveal style="--d:180ms">"We need a dashboard."</p>
+          <p class="qtag strike" data-reveal style="--d:240ms">"Add AI to it."</p>
+          <p class="qtag" data-reveal style="--d:300ms">What's the real problem?</p>
         </div>
       </div>
-      <p class="lab-caption reveal">
-        Three teams, three data shapes, one component. The tempting path was to let every team copy and modify a table until
-        there were six of them. I said no. Configuration, not forks, is why one system held across the whole suite.
-      </p>
     </div>
   </section>
 
-  <!-- WORK -->
-  <section class="sec alt" id="work">
+  <!-- ============ 3. SELECTED WORK ============ -->
+  <section class="band cream" aria-labelledby="work-h">
     <div class="wrap">
-      <div class="reveal">
-        <div class="kicker">03 · Selected work</div>
-        <h2 class="h2">Four bets, not four deliverables.</h2>
-        <p class="lede">Each turned on a single hard decision. Here is the decision, and what it bought.</p>
+      <div class="work-head">
+        <div>
+          <span class="eyebrow" data-reveal>Selected work</span>
+          <h2 class="display" id="work-h" data-reveal style="--d:80ms">Decisions,<br>not <em>decks.</em></h2>
+        </div>
+        <p class="work-count" data-reveal style="--d:140ms">Four systems, shipped.</p>
       </div>
-      <div class="cards">
 
+      <div class="cases">
         <!-- Terran -->
-        <a href="terran.html" class="card reveal">
-          <div class="media recreate">
-            <span class="tag">Shipped · Apple Pay</span>
-            <div class="tmini-top"><span class="pill fail"><span class="d"></span>Blocked</span> CICD pipeline</div>
-            <div class="tmini-rc">
-              <div class="tmini-k">Root cause · found by Terran AI</div>
-              <div class="tmini-cause">gRPC deadline timeout at IP 10.100</div>
-              <div class="tmini-sub">One cause. <b>17 failures explained.</b></div>
+        <a class="case" href="terran.html" data-reveal>
+          <div class="case-media terran" aria-hidden="true">
+            <div class="terran-card">
+              <div class="terran-status"><span class="d"></span>Blocked &middot; CICD pipeline</div>
+              <div class="terran-rc">
+                <div class="k">Root cause &middot; found by Terran AI</div>
+                <div class="cause">gRPC deadline timeout at IP 10.100</div>
+                <div class="sub">One cause. <b>17 failures explained.</b></div>
+                <div class="terran-steps"><span>Gathered logs</span><span>Correlated 6 services</span><span>Found root cause</span></div>
+              </div>
             </div>
           </div>
-          <div class="body">
-            <div class="ey"><b>Apple</b> · Apple Pay Engineering</div>
-            <h3>From noise to signal.</h3>
-            <p class="desc">Terran is an AI-native observability tool I <b>designed and shipped in the codebase</b>. It does the digging, so an engineer reads a failure instead of chasing it.</p>
-            <div class="metric"><span class="big">3 min</span><span class="lbl">to read a failure that used to cost an hour across four tools</span></div>
-            <span class="link">Run the live triage →</span>
+          <div class="case-body">
+            <span class="case-eyebrow">Terran &middot; Apple</span>
+            <h3>AI-triaging for Apple Pay</h3>
+            <p>When a build breaks, engineers used to chase one failure across four tools for an hour. Terran does the digging: it surfaces the root cause and its reasoning, and leaves the call to the human.</p>
+            <div class="metric"><span class="label">Time to answer</span>1 hour &rarr; 3 minutes</div>
           </div>
         </a>
 
-        <!-- Walmart -->
-        <a href="dv-design-system.html" class="card reveal d1">
-          <div class="media"><img src="dv-thumb.png" alt="Walmart Data Ventures DV Design System" loading="lazy" /><span class="tag">Shipped · Walmart</span></div>
-          <div class="body">
-            <div class="ey"><b>Walmart</b> · Data Ventures</div>
-            <h3>Nobody called it a problem. I did.</h3>
-            <p class="desc">Six products, six teams, no shared foundation. I ran the audit that made the case, then architected the system on Walmart's own design language. <b>Configurable, not forkable.</b></p>
-            <div class="metric"><span class="big">30%</span><span class="lbl">faster delivery once six teams moved onto one foundation</span></div>
-            <span class="link">Read the decision →</span>
+        <!-- Walmart DV -->
+        <a class="case" href="walmart-dv.html" data-reveal style="--d:90ms">
+          <div class="case-media"><img src="dv-thumb.png" alt="Walmart Data Ventures design system cover" loading="lazy" /></div>
+          <div class="case-body">
+            <span class="case-eyebrow">Walmart Data Ventures</span>
+            <h3>One design system, six products</h3>
+            <p>Six products, six teams, 40% design debt. I audited the landscape, anchored a new system on Walmart's own design language, and proved it on one beta product before the rest followed.</p>
+            <div class="metric"><span class="label">Six months</span>Zero debt, 30% faster</div>
           </div>
         </a>
 
-        <!-- Apple shipping -->
-        <a href="apple-shipping.html" class="card reveal">
-          <div class="media"><img src="apple-s01.png" alt="Apple Intelligence Shipping dashboard" loading="lazy" /><span class="tag">Shipped · Apple</span></div>
-          <div class="body">
-            <div class="ey"><b>Apple</b> · Wallet, Payments &amp; Commerce</div>
-            <h3>I let the AI suggest, never silently act.</h3>
-            <p class="desc">Internal logistics ran on manual workflows. The temptation was full automation. I made every AI action <b>named, explainable, and reversible</b>, so managers stayed in control.</p>
-            <div class="metric"><span class="big">50%</span><span class="lbl">faster shipment creation, with humans still holding the wheel</span></div>
-            <span class="link">Read the decision →</span>
+        <!-- Intuitive Surgical -->
+        <a class="case" href="customer-portal.html" data-reveal style="--d:60ms">
+          <div class="case-media"><img src="cp-hero.png" alt="Intuitive Surgical customer portal treemap" loading="lazy" style="object-position:top" /></div>
+          <div class="case-body">
+            <span class="case-eyebrow">Intuitive Surgical</span>
+            <h3>The reorder signal, in one glance</h3>
+            <p>Surgical teams ordered inventory blind, where availability affects outcomes. I found the decision the data was hiding and made the reorder signal a treemap you read in a single look, not a spreadsheet you dig through.</p>
+            <div class="metric"><span class="label">Navigation</span>3&ndash;4 levels &rarr; 1 step</div>
           </div>
         </a>
 
-        <!-- Intuitive -->
-        <a href="customer-portal.html" class="card reveal d1">
-          <div class="media"><img src="cp-hero.png" alt="Intuitive Surgical customer portal" loading="lazy" /><span class="tag">Shipped · Intuitive</span></div>
-          <div class="body">
-            <div class="ey"><b>Intuitive Surgical</b> · da Vinci</div>
-            <h3>I showed nurses the decision, not the data.</h3>
-            <p class="desc">Surgical teams were ordering inventory blind, where availability affects outcomes. I made the reorder signal a <b>treemap you read in one glance</b>, not a spreadsheet you decode.</p>
-            <div class="metric"><span class="big">3-4 → 1</span><span class="lbl">navigation depth, from levels deep to a single step</span></div>
-            <span class="link">Read the decision →</span>
+        <!-- Apple Intelligence Shipping -->
+        <a class="case" href="apple-shipping.html" data-reveal style="--d:120ms">
+          <div class="case-media"><img src="apple-s01w.png" alt="Apple intelligence shipping logistics dashboard" loading="lazy" style="object-position:top" /></div>
+          <div class="case-body">
+            <span class="case-eyebrow">Apple &middot; Intelligence Shipping</span>
+            <h3>AI that keeps humans in charge</h3>
+            <p>Internal logistics ran by hand. The temptation was full automation; instead I made every AI action named, explainable, and reversible, so managers stayed in control of the call the machine only recommends.</p>
+            <div class="metric"><span class="label">Throughput</span>50% faster, humans in control</div>
           </div>
         </a>
-
       </div>
     </div>
   </section>
 
-  <!-- ORIGIN -->
-  <section class="sec" id="origin">
+  <!-- ============ 4. HOW I WORK ============ -->
+  <section class="band ink" aria-labelledby="how-h">
     <div class="wrap">
-      <div class="reveal"><div class="kicker">04 · Origin</div></div>
-      <div class="origin-grid">
-        <div class="reveal">
-          <p class="origin-lead">One word runs through everything I build: <b>clarity.</b></p>
-          <div class="origin-body">
-            <p>
-              I came to design from engineering. Early on, I watched someone struggle with a tool I had built and was proud of,
-              and it landed hard: what was effortless for me, the maker, was a wall for them, the user. That flipped my question
-              from what the technology can do to who is using it, and why. Twenty-five years later the job is the same. Find the
-              real problem, not the symptom, and fix it.
-            </p>
-            <p>
-              I never left engineering behind. I design in code, so what ships is what I designed, with nothing lost in a handoff.
-              At <b>Walmart</b> I built the Data Ventures design system from scratch on the company's own design language. At
-              <b>Apple</b> I lead design for the AI-native platforms behind Apple Pay, and I build design systems in code that
-              extend Apple's own.
-            </p>
-            <p>
-              I lead as a player-coach. I set direction by building alongside the team, raise the craft bar in the open, and try
-              to scale judgment rather than hoard it. The systems I am proudest of kept growing after I stepped back, because the
-              people using them could extend them themselves.
-            </p>
-          </div>
+      <span class="eyebrow" data-reveal>How I work</span>
+      <h2 class="display" id="how-h" data-reveal style="--d:80ms">Find it. Make it clear.<br><em>Prove</em> it. Lead it.</h2>
+
+      <div class="beats">
+        <div class="beat" data-reveal style="--d:60ms">
+          <span class="num">01</span>
+          <h3>Find the root</h3>
+          <p>Research first. Ask why until it hurts. Watch what people actually do, not what they say they do.</p>
         </div>
-        <div class="reveal d1">
-          <div class="cred-rail">
-            <div class="cred-row"><span class="n">01</span><span class="t"><b>EB1A</b> Green Card · Extraordinary Ability</span></div>
-            <div class="cred-row"><span class="n">02</span><span class="t"><b>IEEE</b> Senior Member</span></div>
-            <div class="cred-row"><span class="n">03</span><span class="t"><b>Author</b> · Design AI Alchemy</span></div>
-            <div class="cred-row"><span class="n">04</span><span class="t"><b>Speaker</b> · World Usability Congress 2025</span></div>
-            <div class="cred-row"><span class="n">05</span><span class="t"><b>Peer-reviewed</b> · IEEE, AR/VR + Deep Learning HCI</span></div>
-            <div class="cred-row"><span class="n">06</span><span class="t"><b>Member</b> · ACM SIGCHI</span></div>
-          </div>
+        <div class="beat" data-reveal style="--d:140ms">
+          <span class="num">02</span>
+          <h3>Make it clear</h3>
+          <p>Systems thinking. Reduce cognitive load. Design the order the eye travels: status first, detail last.</p>
+        </div>
+        <div class="beat" data-reveal style="--d:220ms">
+          <span class="num">03</span>
+          <h3>Prove it</h3>
+          <p>Prototype. Test with real users. Tie the outcome to a business number I am willing to be measured on.</p>
+        </div>
+        <div class="beat" data-reveal style="--d:300ms">
+          <span class="num">04</span>
+          <h3>Lead it</h3>
+          <p>Player-coach. Scale judgment, not just headcount. The best mentoring makes you unnecessary.</p>
         </div>
       </div>
+
+      <p class="work-note" data-reveal style="--d:120ms">And when it matters, I build in code, so what ships is exactly what I designed.</p>
     </div>
   </section>
 
-  <!-- PUBLICATIONS -->
-  <section class="sec alt" id="writing">
+  <!-- ============ 5. ABOUT / ORIGIN ============ -->
+  <section class="band" aria-labelledby="about-h">
     <div class="wrap">
-      <div class="reveal">
-        <div class="kicker">05 · Writing &amp; research</div>
-        <h2 class="h2">I write about where enterprise AI-UX is going.</h2>
+      <span class="eyebrow" data-reveal>Origin</span>
+      <h2 class="display" id="about-h" data-reveal style="--d:70ms;margin-bottom:.6em">Who is using it,<br>and <em>why?</em></h2>
+      <div class="about-grid">
+      <div class="origin">
+        <p data-reveal style="--d:120ms">I came to design from engineering. Early on I watched someone struggle with a tool I had built and was proud of, and it landed hard: what was effortless for me, the maker, was a wall for them, the user.</p>
+        <p data-reveal style="--d:180ms">That flipped my question from what the technology can do to <span class="pop">who is using it, and why.</span> Twenty-five years later the job is the same: fix the real problem, not the symptom. I lead as a player-coach, so that judgment scales across the team.</p>
       </div>
-      <div class="pub-ledger reveal d1">
-        <div class="pub-tier">
-          <div class="pub-tier-label">Book</div>
-          <div class="pub-items">
-            <a href="https://cookbook.idyeah.studio" target="_blank" rel="noopener noreferrer" class="pub-item">
-              <div class="pub-head"><span class="pub-title">Design AI Alchemy: 75 Prompts for UX Designers</span><span class="pub-meta">Author · 2025</span><span class="pub-arrow">↗</span></div>
-              <p class="pub-desc">A working playbook of 75 prompts that put AI to work across the UX process, from research to production-ready design.</p>
-            </a>
-          </div>
+      <div class="creds" data-reveal style="--d:120ms">
+        <div class="creds-label">Credentials</div>
+        <div class="cred">
+          <div class="c-title">EB1A</div>
+          <div class="c-sub">US visa for Extraordinary Ability</div>
         </div>
-        <div class="pub-tier">
-          <div class="pub-tier-label">Peer-Reviewed</div>
-          <div class="pub-items">
-            <a href="https://ieeexplore.ieee.org/abstract/document/10939687" target="_blank" rel="noopener noreferrer" class="pub-item">
-              <div class="pub-head"><span class="pub-title">Real-Time Interaction in AR/VR Environments: A Deep Learning Approach to Human-Computer Interaction</span><span class="pub-meta">IEEE · Feb 2025</span><span class="pub-arrow">↗</span></div>
-            </a>
-          </div>
+        <div class="cred">
+          <div class="c-title">IEEE Senior Member</div>
+          <div class="c-sub">Top tier of professional membership</div>
         </div>
-        <div class="pub-tier">
-          <div class="pub-tier-label">Selected Writing</div>
-          <div class="pub-items">
-            <a href="https://www.uxmatters.com/mt/archives/2025/02/smarter-faster-human-the-future-of-design-systems-with-ai.php" target="_blank" rel="noopener noreferrer" class="pub-item">
-              <div class="pub-head"><span class="pub-title">Smarter, Faster, Human: The Future of Design Systems with AI</span><span class="pub-meta">UXmatters · Feb 2025</span><span class="pub-arrow">↗</span></div>
-            </a>
-            <a href="https://medium.com/design-bootcamp/designing-for-trust-in-the-age-of-ai-agents-3cce73c7d8ef?sk=7fbb12f9ab2ca0c91ef530505afae2da" target="_blank" rel="noopener noreferrer" class="pub-item">
-              <div class="pub-head"><span class="pub-title">Designing for Trust in the Age of AI Agents</span><span class="pub-meta">Bootcamp · Sep 2025</span><span class="pub-arrow">↗</span></div>
-            </a>
-            <a href="https://medium.com/design-bootcamp/your-dashboard-is-lying-to-you-25a837e836db?sk=a7c2fb7f7008bc279019d1d4023e700f" target="_blank" rel="noopener noreferrer" class="pub-item">
-              <div class="pub-head"><span class="pub-title">Your Dashboard Is Lying to You</span><span class="pub-meta">Bootcamp · Mar 2026</span><span class="pub-arrow">↗</span></div>
-            </a>
-          </div>
+        <div class="cred">
+          <div class="c-title">Author, <em>Design AI Alchemy</em></div>
+          <div class="c-sub">Published 2025</div>
         </div>
+        <div class="cred">
+          <div class="c-title">Speaker</div>
+          <div class="c-sub">World Usability Congress 2025</div>
+        </div>
+        <div class="cred">
+          <div class="c-title">ACM SIGCHI</div>
+          <div class="c-sub">Human-computer interaction community</div>
+        </div>
+      </div>
       </div>
     </div>
   </section>
 
-  <!-- CLOSE -->
-  <section class="sec" id="contact">
+  <!-- ============ 6. WRITING ============ -->
+  <section class="band cream" aria-labelledby="writing-h">
     <div class="wrap">
-      <div class="reveal">
-        <div class="kicker">06 · Close</div>
-        <h2 class="close-h">What's the real problem?</h2>
-        <p class="close-sub">
-          I do my best work close to engineering, on hard, high-stakes systems. Open to Principal, Staff, and Director roles in
-          enterprise and AI-UX, plus fractional and advisory work. If that is what you are building, let's find the real problem together.
-        </p>
-        <div class="close-actions">
-          <a href="mailto:knock@vishalme.com" class="btn btn-p">knock@vishalme.com →</a>
-          <a href="https://linkedin.com/in/vishalme" target="_blank" rel="noopener noreferrer" class="btn btn-g">LinkedIn</a>
-        </div>
-        <div class="close-links">
-          <a href="https://linkedin.com/in/vishalme" target="_blank" rel="noopener noreferrer">linkedin.com/in/vishalme ↗</a>
-          <a href="https://medium.com/@vishalme" target="_blank" rel="noopener noreferrer">medium.com/@vishalme ↗</a>
-        </div>
+      <span class="eyebrow" data-reveal>Writing</span>
+      <h2 class="display" id="writing-h" data-reveal style="--d:80ms">Thinking, in <em>public.</em></h2>
+
+      <div class="writing-list">
+        <a class="wrow" href="https://cookbook.idyeah.studio" target="_blank" rel="noopener" data-reveal>
+          <span class="w-title">Design AI Alchemy: 75 Prompts for UX Designers</span>
+          <span class="w-meta"><span class="w-outlet">Author</span><span>2025</span><span class="arrow">&#8599;</span></span>
+        </a>
+        <a class="wrow" href="https://ieeexplore.ieee.org/abstract/document/10939687" target="_blank" rel="noopener" data-reveal style="--d:60ms">
+          <span class="w-title">Real-Time Interaction in AR/VR Environments: A Deep Learning Approach to HCI</span>
+          <span class="w-meta"><span class="w-outlet">IEEE</span><span>Feb 2025</span><span class="arrow">&#8599;</span></span>
+        </a>
+        <a class="wrow" href="https://www.uxmatters.com/mt/archives/2025/02/smarter-faster-human-the-future-of-design-systems-with-ai.php" target="_blank" rel="noopener" data-reveal style="--d:120ms">
+          <span class="w-title">Smarter, Faster, Human: The Future of Design Systems with AI</span>
+          <span class="w-meta"><span class="w-outlet">UXmatters</span><span>Feb 2025</span><span class="arrow">&#8599;</span></span>
+        </a>
+        <a class="wrow" href="https://medium.com/design-bootcamp/designing-for-trust-in-the-age-of-ai-agents-3cce73c7d8ef?sk=7fbb12f9ab2ca0c91ef530505afae2da" target="_blank" rel="noopener" data-reveal style="--d:60ms">
+          <span class="w-title">Designing for Trust in the Age of AI Agents</span>
+          <span class="w-meta"><span class="w-outlet">Bootcamp</span><span>Sep 2025</span><span class="arrow">&#8599;</span></span>
+        </a>
+        <a class="wrow" href="https://medium.com/design-bootcamp/your-dashboard-is-lying-to-you-25a837e836db?sk=a7c2fb7f7008bc279019d1d4023e700f" target="_blank" rel="noopener" data-reveal style="--d:120ms">
+          <span class="w-title">Your Dashboard Is Lying to You</span>
+          <span class="w-meta"><span class="w-outlet">Bootcamp</span><span>Mar 2026</span><span class="arrow">&#8599;</span></span>
+        </a>
       </div>
     </div>
   </section>
 
-  <footer>
-    <div class="foot-inner"><span>© 2026 Vishal Mehta</span><span>Design → Engineering</span></div>
-  </footer>
+  <!-- ============ 7. CONTACT ============ -->
+  <section class="band ink contact" aria-labelledby="contact-h">
+    <div class="glow-c" aria-hidden="true"></div>
+    <div class="wrap inner">
+      <span class="eyebrow" data-reveal style="justify-content:center;display:flex">Contact</span>
+      <h2 id="contact-h" data-reveal style="--d:70ms">What's the<br><em>real problem?</em></h2>
+      <p class="avail" data-reveal style="--d:140ms">Open to Principal, Staff, and Director roles in enterprise and AI-UX, plus advisory work.</p>
+
+      <div class="contact-links" data-reveal style="--d:200ms">
+        <a class="clink primary" href="mailto:knock@vishalme.com">knock@vishalme.com</a>
+        <a class="clink" href="https://linkedin.com/in/vishalme" target="_blank" rel="noopener">LinkedIn &#8599;</a>
+        <a class="clink" href="https://medium.com/@vishalme" target="_blank" rel="noopener">Medium &#8599;</a>
+      </div>
+
+      <div class="colophon">
+        <span class="cmark"><span class="dot"></span>Vishal Mehta</span>
+        <span>I design it. Then I ship it.</span>
+        <span>&copy; 2026</span>
+      </div>
+    </div>
+  </section>
 
   <script>
-  /* MOTION + NAV */
-  (function(){
-    const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:0.14});
-    document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
-    const hero=document.getElementById('hero'); requestAnimationFrame(()=>hero.classList.add('in'));
-    const nav=document.getElementById('nav');
-    const onScroll=()=>nav.classList.toggle('scrolled',window.scrollY>8);
-    window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
-    const burger=document.getElementById('burger'), links=document.getElementById('navlinks');
-    burger.addEventListener('click',()=>links.classList.toggle('open'));
-    links.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>links.classList.remove('open')));
-  })();
+    // Hero load reveal: paint the initial (masked) state first, then run.
+    const stage = document.getElementById('stage');
+    stage.classList.remove('reveal');
+    requestAnimationFrame(() => requestAnimationFrame(() => stage.classList.add('reveal')));
 
-  /* LIVE COMPONENT · schema-agnostic DataTable */
-  (function(){
-    const DATA={
-      shipments:{component:'ShipmentTable',columns:[
-        {key:'id',label:'Shipment',type:'strong'},{key:'dest',label:'Destination'},{key:'carrier',label:'Carrier'},
-        {key:'status',label:'Status',type:'badge'},{key:'eta',label:'ETA',type:'num'},{key:'flag',label:'Priority',type:'badge'}],
-        rows:[
-          {id:'AP-4821',dest:'Cupertino, CA',carrier:'FedEx',status:['ok','On track'],eta:'2d',flag:['info','VIP']},
-          {id:'AP-4822',dest:'Austin, TX',carrier:'UPS',status:['warn','Delayed'],eta:'5d',flag:['hot','Escalate']},
-          {id:'AP-4823',dest:'Cork, IE',carrier:'DHL',status:['ok','On track'],eta:'3d',flag:['info','VIP']},
-          {id:'AP-4824',dest:'Shenzhen, CN',carrier:'SF Exp',status:['ok','On track'],eta:'6d',flag:['','Standard']},
-          {id:'AP-4825',dest:'Sydney, AU',carrier:'DHL',status:['hot','Held'],eta:'8d',flag:['hot','Escalate']}]},
-      merchants:{component:'MerchantTable',columns:[
-        {key:'name',label:'Merchant',type:'strong'},{key:'cat',label:'Category'},{key:'gmv',label:'GMV',type:'num'},
-        {key:'trend',label:'Trend',type:'spark'},{key:'share',label:'Share',type:'num'}],
-        rows:[
-          {name:'Northwind Foods',cat:'Grocery',gmv:'$4.2M',trend:'▁▃▅▆█',share:'18.4%'},
-          {name:'Apex Home',cat:'Home',gmv:'$3.1M',trend:'▂▄▃▅▆',share:'12.1%'},
-          {name:'Volt Electronics',cat:'Electronics',gmv:'$6.8M',trend:'▃▅█▆█',share:'24.7%'},
-          {name:'Meadow Apparel',cat:'Apparel',gmv:'$1.9M',trend:'▅▄▃▂▁',share:'7.3%'},
-          {name:'Cedar Outdoor',cat:'Sporting',gmv:'$2.6M',trend:'▂▃▄▆▇',share:'9.9%'}]},
-      instruments:{component:'InventoryTable',columns:[
-        {key:'name',label:'Instrument',type:'strong'},{key:'sys',label:'System'},{key:'uses',label:'Uses',type:'num'},
-        {key:'util',label:'Utilization',type:'badge'},{key:'reorder',label:'Reorder',type:'badge'}],
-        rows:[
-          {name:'EndoWrist Needle',sys:'da Vinci Xi',uses:'148',util:['ok','High'],reorder:['hot','Now']},
-          {name:'Fenestrated Bipolar',sys:'da Vinci Xi',uses:'92',util:['warn','Med'],reorder:['warn','Soon']},
-          {name:'Cadiere Forceps',sys:'da Vinci X',uses:'61',util:['warn','Med'],reorder:['','OK']},
-          {name:'Vessel Sealer',sys:'da Vinci SP',uses:'203',util:['ok','High'],reorder:['hot','Now']},
-          {name:'Suction Irrigator',sys:'da Vinci Xi',uses:'37',util:['hot','Low'],reorder:['','OK']}]}
-    };
-    const state={src:'shipments',den:'comfortable',hidden:new Set(),sortKey:null,sortDir:1};
-    const tableEl=document.getElementById('table'),schemaEl=document.getElementById('schema'),chipsEl=document.getElementById('chips'),footEl=document.getElementById('foot-count');
-    const activeCols=()=>DATA[state.src].columns.filter(c=>!state.hidden.has(c.key));
-    function renderChips(){const cols=DATA[state.src].columns;chipsEl.innerHTML='';cols.forEach(c=>{const b=document.createElement('button');b.className='chip'+(state.hidden.has(c.key)?'':' on');b.textContent=c.label;b.onclick=()=>{if(state.hidden.has(c.key))state.hidden.delete(c.key);else if(activeCols().length>2)state.hidden.add(c.key);renderChips();renderTable();renderSchema();};chipsEl.appendChild(b);});}
-    function renderSchema(){const d=DATA[state.src];const cols=activeCols().map(c=>c.key);const sort=state.sortKey?`\n  sortBy=<span class="v">"${state.sortKey}"</span> dir=<span class="v">"${state.sortDir>0?'asc':'desc'}"</span>`:'';
-      schemaEl.innerHTML=`<span class="c">// one component, any shape</span>\n<span class="k">&lt;DataTable</span>\n  <span class="k">source</span>=<span class="v">"${state.src}"</span>\n  <span class="k">density</span>=<span class="v">"${state.den}"</span>\n  <span class="k">columns</span>={[<span class="v">${cols.map(c=>`"${c}"`).join(', ')}</span>]}${sort}\n<span class="k">/&gt;</span>\n\n<span class="c">// resolves to &lt;${d.component} /&gt;</span>\n<span class="c">// rows: ${d.rows.length} · cols: ${cols.length}</span>`;}
-    function cell(col,val){if(col.type==='badge'){const[tone,text]=Array.isArray(val)?val:['',val];return`<td><span class="badge ${tone||'info'}">${text}</span></td>`;}if(col.type==='num')return`<td class="cell-num">${val}</td>`;if(col.type==='spark')return`<td class="spark">${val}</td>`;if(col.type==='strong')return`<td class="cell-strong">${val}</td>`;return`<td>${val}</td>`;}
-    function renderTable(){const d=DATA[state.src];const cols=activeCols();let rows=d.rows.slice();
-      if(state.sortKey){rows.sort((a,b)=>{const av=a[state.sortKey],bv=b[state.sortKey];const as=Array.isArray(av)?av[1]:av,bs=Array.isArray(bv)?bv[1]:bv;return String(as).localeCompare(String(bs),undefined,{numeric:true})*state.sortDir;});}
-      const thead=`<thead><tr>${cols.map(c=>`<th data-key="${c.key}">${c.label}${state.sortKey===c.key?`<span class="ar">${state.sortDir>0?'↑':'↓'}</span>`:''}</th>`).join('')}</tr></thead>`;
-      const tbody=`<tbody>${rows.map(r=>`<tr>${cols.map(c=>cell(c,r[c.key])).join('')}</tr>`).join('')}</tbody>`;
-      tableEl.className='lab-table'+(state.den==='compact'?' compact':'');tableEl.innerHTML=thead+tbody;
-      tableEl.querySelectorAll('th').forEach(th=>{th.onclick=()=>{const k=th.dataset.key;if(state.sortKey===k)state.sortDir*=-1;else{state.sortKey=k;state.sortDir=1;}renderTable();renderSchema();};});
-      footEl.textContent=`source: ${state.src}  ·  ${rows.length} rows  ·  ${cols.length} columns`;}
-    document.getElementById('seg-source').addEventListener('click',(e)=>{const b=e.target.closest('button');if(!b)return;state.src=b.dataset.src;state.hidden.clear();state.sortKey=null;state.sortDir=1;document.querySelectorAll('#seg-source button').forEach(x=>x.classList.toggle('active',x===b));renderChips();renderTable();renderSchema();});
-    document.getElementById('seg-density').addEventListener('click',(e)=>{const b=e.target.closest('button');if(!b)return;state.den=b.dataset.den;document.querySelectorAll('#seg-density button').forEach(x=>x.classList.toggle('active',x===b));renderTable();renderSchema();});
-    renderChips();renderTable();renderSchema();
-  })();
+    // Scroll-reveal for the rest of the page.
+    const reduce = window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+    const items = document.querySelectorAll('[data-reveal]');
+    if (reduce || !('IntersectionObserver' in window)) {
+      items.forEach(el => el.classList.add('in'));
+    } else {
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+          if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+        });
+      }, { rootMargin: '0px 0px -12% 0px', threshold: 0.08 });
+      items.forEach(el => io.observe(el));
+    }
   </script>
 </body>
 </html>

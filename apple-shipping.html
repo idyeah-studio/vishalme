@@ -1,386 +1,358 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Apple Intelligence Shipping · Vishal Mehta</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
-  <style>
-    :root {
-      --bg: #F5F5F7; --surface: #FFFFFF; --ink: #1D1D1F; --muted: #6E6E73;
-      --gold: #C9A84C; --gold-dim: rgba(201,168,76,0.12);
-      --radius: 18px; --shadow: 0 2px 16px rgba(0,0,0,0.07);
-      --shadow-lg: 0 8px 40px rgba(0,0,0,0.10); --max: 800px;
-      --nav-h: 64px; --ff-serif: 'Playfair Display', Georgia, serif;
-      --ff-sans: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-      --ease: cubic-bezier(.4,0,.2,1);
-    }
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-    body { font-family: var(--ff-sans); background: var(--bg); color: var(--ink); font-size: 17px; line-height: 1.65; -webkit-font-smoothing: antialiased; }
-    a { color: inherit; text-decoration: none; }
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Apple Intelligence Shipping · Vishal Mehta</title>
+<meta name="description" content="Apple wanted to automate its shipping operations away. I designed the AI to do the work and show its reasoning, so the manager stays the one who decides." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,900;1,9..144,400;1,9..144,600;1,9..144,900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --bone:#F2EBDD; --cream:#F7F1E6; --ink:#17130F; --ink-soft:#4A423A; --ink-faint:#6E655A;
+    --sand:#E4D8C4; --line:rgba(23,19,15,0.14); --accent:#BE4A2B; --accent-deep:#93341C;
+    --glow:#E8996F; --ok:#8FB865;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;}
+  body{background:var(--bone);color:var(--ink);font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden;}
+  a{color:inherit;text-decoration:none;}
+  .grain{position:fixed;inset:-50%;z-index:1;opacity:0.045;pointer-events:none;mix-blend-mode:multiply;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");}
 
-    nav {
-      position: fixed; top: 0; left: 0; right: 0; height: var(--nav-h);
-      background: rgba(245,245,247,0.82); backdrop-filter: blur(20px) saturate(180%);
-      -webkit-backdrop-filter: blur(20px) saturate(180%);
-      border-bottom: 1px solid rgba(0,0,0,0.06); z-index: 100;
-      display: flex; align-items: center;
-    }
-    .nav-inner { max-width: 980px; width: 100%; margin: 0 auto; padding: 0 24px; display: flex; align-items: center; justify-content: space-between; }
-    .nav-logo { font-family: var(--ff-serif); font-size: 20px; font-weight: 600; color: var(--ink); }
-    .nav-logo span { color: var(--gold); }
-    .nav-back { display: flex; align-items: center; gap: 8px; font-size: 15px; color: var(--muted); transition: color 180ms var(--ease); }
-    .nav-back:hover { color: var(--ink); }
-    .nav-back svg { transition: transform 180ms var(--ease); }
-    .nav-back:hover svg { transform: translateX(-3px); }
+  .wrap{position:relative;z-index:2;padding-inline:clamp(24px,5vw,72px);max-width:1360px;margin:0 auto;}
+  .col{max-width:760px;}
 
-    .case-hero {
-      max-width: var(--max); margin: 0 auto;
-      padding: calc(var(--nav-h) + 72px) 24px 64px;
-    }
-    .case-back-pill {
-      display: inline-flex; align-items: center; gap: 6px;
-      font-size: 13px; font-weight: 500; color: var(--muted);
-      margin-bottom: 32px;
-      transition: color 180ms var(--ease);
-    }
-    .case-back-pill:hover { color: var(--gold); }
-    .case-eyebrow {
-      display: inline-flex; align-items: center; gap: 8px;
-      font-size: 12px; font-weight: 500; letter-spacing: 0.1em;
-      text-transform: uppercase; color: var(--gold); margin-bottom: 20px;
-    }
-    .case-eyebrow::before { content: ''; display: block; width: 20px; height: 1px; background: var(--gold); }
-    .case-h1 {
-      font-family: var(--ff-serif); font-size: clamp(36px, 5vw, 54px);
-      font-weight: 600; letter-spacing: -1.2px; line-height: 1.1;
-      margin-bottom: 20px;
-    }
-    .case-tagline { font-size: 20px; font-weight: 300; color: var(--muted); line-height: 1.55; margin-bottom: 36px; max-width: 600px; }
-    .case-meta {
-      display: flex; flex-wrap: wrap; gap: 24px;
-      padding: 24px 0; border-top: 1px solid rgba(0,0,0,0.07); border-bottom: 1px solid rgba(0,0,0,0.07);
-      margin-bottom: 48px;
-    }
-    .case-meta-item { display: flex; flex-direction: column; gap: 4px; }
-    .case-meta-label { font-size: 11px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gold); }
-    .case-meta-value { font-size: 15px; font-weight: 400; color: var(--ink); }
+  /* nav */
+  nav{position:sticky;top:0;z-index:20;padding:20px clamp(24px,5vw,72px);display:flex;justify-content:space-between;align-items:center;
+    background:rgba(242,235,221,0.72);backdrop-filter:saturate(160%) blur(14px);-webkit-backdrop-filter:saturate(160%) blur(14px);}
+  .nav-back{display:inline-flex;align-items:baseline;gap:.6ch;font-family:'Fraunces',serif;font-weight:600;font-size:clamp(15px,1.5vw,18px);letter-spacing:.01em;}
+  .nav-back .dot{width:7px;height:7px;border-radius:50%;background:var(--accent);transform:translateY(-1px);flex:0 0 auto;}
+  .nav-right{font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-faint);font-weight:600;}
 
-    .nda-notice {
-      background: var(--gold-dim); border: 1px solid rgba(201,168,76,0.25);
-      border-radius: 12px; padding: 16px 20px;
-      display: flex; align-items: flex-start; gap: 12px;
-      margin-bottom: 56px;
-    }
-    .nda-icon { font-size: 16px; flex-shrink: 0; margin-top: 1px; }
-    .nda-text { font-size: 14px; font-weight: 400; color: var(--muted); line-height: 1.55; }
-    .nda-text strong { color: var(--ink); font-weight: 500; }
+  /* bands */
+  section.band{position:relative;padding-block:clamp(72px,11vh,150px);}
+  .band.cream{background:var(--cream);}
+  .band.ink{background:radial-gradient(78% 60% at 84% -6%, rgba(190,74,43,0.16), transparent 56%), var(--ink);color:var(--cream);}
+  .band.ink .eyebrow{color:var(--glow);} .band.ink .eyebrow::before{background:var(--glow);}
+  .band.ink h2.display em{color:var(--glow);}
+  .band.ink .body{color:rgba(247,241,230,0.76);}
+  .band.ink .body b{color:var(--cream);}
 
-    .case-body { max-width: var(--max); margin: 0 auto; padding: 0 24px 120px; }
-    .case-section { margin-bottom: 64px; }
-    .case-section-label {
-      font-size: 11px; font-weight: 500; letter-spacing: 0.1em;
-      text-transform: uppercase; color: var(--gold);
-      display: flex; align-items: center; gap: 10px;
-      margin-bottom: 16px;
-    }
-    .case-section h2 {
-      font-family: var(--ff-serif); font-size: 28px; font-weight: 600;
-      letter-spacing: -0.5px; line-height: 1.2; margin-bottom: 16px;
-    }
-    .case-section p { font-size: 17px; font-weight: 300; color: var(--muted); line-height: 1.75; margin-bottom: 16px; }
-    .case-section p strong { color: var(--ink); font-weight: 500; }
-    .case-section p:last-child { margin-bottom: 0; }
+  .eyebrow{display:inline-flex;align-items:center;gap:.7ch;font-weight:600;font-size:clamp(11px,1.1vw,12.5px);letter-spacing:.22em;text-transform:uppercase;color:var(--accent);}
+  .eyebrow::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--accent);}
 
-    .impact-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 8px; }
-    .impact-card {
-      background: var(--surface); border-radius: var(--radius);
-      padding: 28px 24px; box-shadow: var(--shadow);
-      display: flex; flex-direction: column; gap: 8px;
-    }
-    .impact-num {
-      font-family: var(--ff-serif); font-size: 42px; font-weight: 600;
-      color: var(--gold); letter-spacing: -1px; line-height: 1;
-    }
-    .impact-label { font-size: 14px; font-weight: 300; color: var(--muted); line-height: 1.4; }
+  h1.display{font-family:'Fraunces',serif;font-weight:300;font-size:clamp(44px,7.4vw,112px);line-height:.98;letter-spacing:-0.025em;}
+  h2.display{font-family:'Fraunces',serif;font-weight:300;font-size:clamp(34px,5.4vw,74px);line-height:1.0;letter-spacing:-0.02em;margin-top:.5em;}
+  h1.display em,h2.display em{font-style:italic;font-weight:900;color:var(--accent);}
+  .body{font-size:clamp(16px,1.4vw,18.5px);line-height:1.72;color:var(--ink-soft);max-width:62ch;}
+  .body + .body{margin-top:1.1em;}
+  .body b{color:var(--ink);font-weight:600;}
+  .lead{font-family:'Fraunces',serif;font-weight:400;font-size:clamp(20px,2.4vw,30px);line-height:1.4;color:var(--ink);max-width:30ch;}
 
-    .screen-img {
-      width: 100%; display: block; border-radius: var(--radius);
-      box-shadow: var(--shadow-lg);
-    }
-    .visual-caption {
-      font-size: 13px; color: var(--muted); text-align: center;
-      margin-top: 10px; font-style: italic;
-    }
-    .screen-grid {
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 16px; margin-top: 8px;
-    }
-    .screen-item { display: flex; flex-direction: column; gap: 8px; }
-    .screen-item img {
-      width: 100%; display: block; border-radius: 14px;
-      box-shadow: var(--shadow-lg);
-    }
-    .screen-label {
-      font-size: 12px; font-weight: 400; color: var(--muted);
-      text-align: center; font-style: italic; line-height: 1.5;
-    }
+  /* case hero */
+  .chero{padding-top:clamp(48px,9vh,110px);padding-bottom:clamp(56px,9vh,120px);}
+  .chero h1{margin-top:.34em;max-width:15ch;}
+  .chero .dek{margin-top:clamp(26px,3.4vw,42px);font-family:'Fraunces',serif;font-weight:400;font-size:clamp(20px,2.5vw,30px);line-height:1.42;color:var(--ink-soft);max-width:42ch;}
+  .chero .dek b{color:var(--ink);font-weight:600;}
+  .meta{margin-top:clamp(44px,6vw,72px);display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:28px;border-top:1px solid var(--line);padding-top:26px;}
+  .meta .k{font-size:11px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-faint);margin-bottom:8px;}
+  .meta .v{font-size:15px;color:var(--ink);max-width:34ch;}
 
-    @media (max-width: 640px) {
-      .screen-grid { grid-template-columns: 1fr; }
-    }
+  /* pull quote */
+  .pq{margin:clamp(40px,6vh,80px) 0 0;padding-left:26px;border-left:2px solid var(--accent);}
+  .pq p{font-family:'Fraunces',serif;font-style:italic;font-weight:400;font-size:clamp(24px,3.4vw,42px);line-height:1.18;letter-spacing:-0.02em;color:var(--ink);max-width:24ch;}
+  .band.ink .pq p{color:var(--cream);}
 
-    .process-steps { display: flex; flex-direction: column; gap: 0; margin-top: 8px; }
-    .process-step {
-      display: flex; gap: 20px; padding: 24px 0;
-      border-bottom: 1px solid rgba(0,0,0,0.06);
-    }
-    .process-step:last-child { border-bottom: none; }
-    .process-num {
-      font-family: var(--ff-serif); font-size: 32px; font-weight: 600;
-      color: var(--gold); opacity: 0.4; line-height: 1; flex-shrink: 0;
-      width: 40px;
-    }
-    .process-content h3 { font-size: 17px; font-weight: 500; margin-bottom: 6px; }
-    .process-content p { font-size: 15px; font-weight: 300; color: var(--muted); line-height: 1.65; margin: 0; }
+  .sechead{max-width:22ch;}
+  .secbody{margin-top:clamp(24px,3vw,40px);}
 
-    .tradeoff-block { display: flex; flex-direction: column; gap: 0; margin-top: 8px; }
-    .tradeoff-item { display: flex; gap: 24px; padding: 32px 0; border-bottom: 1px solid rgba(0,0,0,0.06); }
-    .tradeoff-item:last-child { border-bottom: none; }
-    .tradeoff-num {
-      font-family: var(--ff-serif); font-size: 32px; font-weight: 600;
-      color: var(--gold); opacity: 0.25; line-height: 1; flex-shrink: 0; width: 40px;
-    }
-    .tradeoff-content h3 { font-size: 18px; font-weight: 500; margin-bottom: 12px; color: var(--ink); }
-    .tradeoff-content p { font-size: 16px; font-weight: 300; color: var(--muted); line-height: 1.75; margin-bottom: 12px; }
-    .tradeoff-content p:last-child { margin-bottom: 0; }
-    .tradeoff-content p strong { color: var(--ink); font-weight: 500; }
+  /* principle tiers */
+  .tiers{margin-top:clamp(30px,4vw,52px);display:grid;grid-template-columns:repeat(3,1fr);gap:14px;max-width:820px;}
+  .tier{border:1px solid var(--line);border-radius:12px;padding:20px;background:var(--bone);}
+  .band.cream .tier{background:var(--bone);}
+  .tier .t{font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:10px;}
+  .tier .d{font-family:'Fraunces',serif;font-size:20px;color:var(--ink);line-height:1.25;}
+  .tier .s{margin-top:8px;font-size:13px;color:var(--ink-faint);}
 
-    .cta-block {
-      background: var(--ink); border-radius: var(--radius);
-      padding: 48px; text-align: center;
-      display: flex; flex-direction: column; align-items: center; gap: 20px;
-    }
-    .cta-block h3 {
-      font-family: var(--ff-serif); font-size: 28px; font-weight: 600;
-      color: #F5F5F7; letter-spacing: -0.5px; line-height: 1.2;
-    }
-    .cta-block p { font-size: 16px; font-weight: 300; color: rgba(245,245,247,0.6); max-width: 480px; line-height: 1.65; }
-    .btn {
-      display: inline-flex; align-items: center; gap: 8px;
-      padding: 14px 32px; border-radius: 980px;
-      font-family: var(--ff-sans); font-size: 15px; font-weight: 500;
-      transition: all 200ms var(--ease); cursor: pointer; border: none;
-    }
-    .btn-gold { background: var(--gold); color: #000; }
-    .btn-gold:hover { background: #d4b050; transform: translateY(-1px); box-shadow: 0 4px 20px rgba(201,168,76,0.35); }
+  /* decisions / calls */
+  .calls{margin-top:clamp(30px,4vw,52px);display:flex;flex-direction:column;gap:clamp(22px,3vw,34px);max-width:760px;}
+  .call{padding-left:24px;border-left:2px solid var(--line);}
+  .call .ct{font-family:'Fraunces',serif;font-size:clamp(20px,2.4vw,26px);color:var(--ink);letter-spacing:-0.01em;line-height:1.2;}
+  .call .cd{margin-top:12px;font-size:clamp(15px,1.35vw,17px);line-height:1.68;color:var(--ink-soft);}
+  .call .cd b{color:var(--ink);font-weight:600;}
 
-    .reveal {
-      opacity: 1;
-      transform: none;
-    }
-    @media (prefers-reduced-motion: no-preference) {
-      .reveal { opacity: 1; transform: none; }
-      .reveal.visible {
-        opacity: 1;
-        transform: none;
-      }
-    }
-    .reveal-delay-1 { transition-delay: 80ms; }
-    .reveal-delay-2 { transition-delay: 160ms; }
+  /* figures */
+  .proof-intro{max-width:62ch;}
+  .figrow{margin-top:clamp(34px,4.6vw,66px);max-width:1080px;}
+  .figrow.narrow{max-width:640px;}
+  .figment{border-radius:16px;overflow:hidden;border:1px solid var(--line);background:#fff;
+    box-shadow:0 46px 92px -60px rgba(40,34,24,0.5),0 12px 30px -22px rgba(40,34,24,0.16);}
+  .figment img{display:block;width:100%;height:auto;}
+  .figcap{margin-top:15px;font-size:13.5px;color:var(--ink-faint);line-height:1.55;max-width:64ch;}
+  .figcap b{color:var(--ink-soft);font-weight:600;}
+  .fig2{display:grid;grid-template-columns:1fr 1fr;gap:clamp(16px,2vw,22px);align-items:start;}
+  .fig2 .figcap{margin-top:13px;}
 
-    footer { border-top: 1px solid rgba(0,0,0,0.07); padding: 32px 24px; }
-    .footer-inner { max-width: 980px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; }
-    .footer-logo { font-family: var(--ff-serif); font-size: 16px; font-weight: 600; color: var(--muted); }
-    .footer-logo span { color: var(--gold); }
-    .footer-copy { font-size: 13px; color: var(--muted); }
+  /* scoreboard */
+  .score{margin-top:clamp(30px,4vw,52px);display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(18px,2.6vw,34px);max-width:920px;}
+  .score .m .big{font-family:'Fraunces',serif;font-weight:300;font-size:clamp(38px,4.6vw,60px);line-height:1;letter-spacing:-0.02em;color:var(--ink);}
+  .score .m .big em{font-style:italic;font-weight:900;color:var(--accent);}
+  .score .m .lbl{margin-top:15px;font-size:14.5px;line-height:1.5;color:var(--ink-soft);max-width:30ch;}
 
-    @media (max-width: 640px) {
-      .impact-grid { grid-template-columns: 1fr 1fr; }
-      .dash-stats { grid-template-columns: repeat(2, 1fr); }
-      .dash-charts { grid-template-columns: 1fr; }
-    }
-  </style>
+  /* note */
+  .nda{margin-top:clamp(28px,3.4vw,40px);font-size:13.5px;line-height:1.55;color:var(--ink-faint);max-width:none;padding:16px 20px;border:1px solid var(--line);border-radius:10px;background:rgba(190,74,43,0.05);}
+  .nda b{color:var(--accent-deep);font-weight:600;}
+
+  /* close */
+  .close{background:radial-gradient(60% 70% at 50% 42%, rgba(190,74,43,0.18), transparent 72%), var(--ink);color:var(--cream);text-align:center;padding-block:clamp(90px,15vh,180px);}
+  .close h2{margin-top:clamp(24px,3.4vw,44px);font-family:'Fraunces',serif;font-weight:300;font-size:clamp(40px,8vw,116px);line-height:.96;letter-spacing:-0.03em;}
+  .close h2 em{font-style:italic;font-weight:900;color:var(--glow);}
+  .close .cbody{margin:clamp(24px,3.4vw,38px) auto 0;max-width:56ch;font-size:clamp(16px,1.6vw,19px);line-height:1.6;color:rgba(247,241,230,0.78);}
+  .close-actions{margin-top:clamp(34px,4vw,50px);display:flex;justify-content:center;gap:14px;flex-wrap:wrap;}
+  .btn{display:inline-flex;align-items:center;gap:.6ch;padding:14px 26px;border-radius:100px;font-size:14.5px;font-weight:600;transition:.2s;}
+  .btn.primary{background:var(--accent);color:#fff;} .btn.primary:hover{background:var(--accent-deep);}
+  .btn.ghost{border:1px solid rgba(247,241,230,0.28);color:var(--cream);} .btn.ghost:hover{border-color:var(--cream);}
+
+  /* next case */
+  .nextcase{display:grid;grid-template-columns:1fr auto;align-items:center;gap:18px 24px;
+    max-width:640px;margin:clamp(48px,6vw,76px) auto 0;padding-top:clamp(30px,3.6vw,42px);
+    border-top:1px solid rgba(247,241,230,0.16);text-align:left;transition:border-color .3s;}
+  .nextcase-eye{grid-column:1;font-weight:600;font-size:clamp(11px,1.1vw,12.5px);letter-spacing:.22em;text-transform:uppercase;color:var(--glow);}
+  .nextcase-line{grid-column:1;display:block;margin-top:10px;}
+  .nextcase-line em{font-family:'Fraunces',serif;font-style:normal;font-weight:400;font-size:clamp(24px,3.2vw,38px);line-height:1.08;letter-spacing:-0.02em;color:var(--cream);transition:color .3s;}
+  .nextcase-sep{color:rgba(247,241,230,0.32);margin:0 .5ch;}
+  .nextcase-metric{font-size:clamp(14px,1.4vw,16px);color:rgba(247,241,230,0.62);}
+  .nextcase-arrow{grid-column:2;grid-row:1 / span 2;align-self:center;font-family:'Fraunces',serif;font-size:clamp(28px,3vw,40px);color:var(--glow);transition:transform .35s cubic-bezier(.16,1,.3,1);}
+  .nextcase:hover{border-color:rgba(247,241,230,0.32);}
+  .nextcase:hover .nextcase-line em{color:var(--glow);}
+  .nextcase:hover .nextcase-arrow{transform:translateX(8px);}
+
+  /* reveal */
+  [data-reveal]{opacity:0;transform:translateY(22px);transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1);transition-delay:var(--d,0ms);}
+  [data-reveal].in{opacity:1;transform:none;}
+  @media (prefers-reduced-motion:reduce){
+    *{animation:none!important;}
+    [data-reveal]{opacity:1;transform:none;transition:none;}
+    .nextcase-arrow{transition:none;} .nextcase:hover .nextcase-arrow{transform:none;}
+  }
+  @media (max-width:760px){
+    .meta{grid-template-columns:1fr;gap:20px;}
+    .tiers{grid-template-columns:1fr;}
+    .fig2{grid-template-columns:1fr;gap:26px;}
+    .score{grid-template-columns:1fr;gap:26px;}
+  }
+
+  /* lightbox */
+  .figment:has(img){cursor:zoom-in;}
+  .figment:has(img)::after{content:"Click to enlarge";position:absolute;top:12px;right:12px;z-index:3;
+    font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#fff;
+    background:rgba(23,19,15,0.6);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
+    padding:6px 12px;border-radius:980px;opacity:0;transform:translateY(-3px);
+    transition:opacity .25s,transform .25s;pointer-events:none;}
+  .figment{position:relative;}
+  .figment:has(img):hover::after{opacity:1;transform:none;}
+  .lightbox{position:fixed;inset:0;z-index:100;display:none;background:rgba(20,16,12,0.94);
+    backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);overflow:auto;
+    padding:clamp(20px,4vw,64px);cursor:zoom-out;}
+  .lightbox.open{display:flex;align-items:flex-start;justify-content:center;}
+  .lightbox img{max-width:min(1500px,100%);height:auto;margin:auto;border-radius:10px;
+    box-shadow:0 40px 120px -40px rgba(0,0,0,0.7);}
+  .lightbox-close{position:fixed;top:18px;right:22px;width:44px;height:44px;border-radius:50%;border:none;
+    background:rgba(247,241,230,0.12);color:var(--cream);font-size:26px;line-height:1;cursor:pointer;z-index:101;
+    display:flex;align-items:center;justify-content:center;transition:background .2s;}
+  .lightbox-close:hover{background:rgba(247,241,230,0.24);}
+  @media (prefers-reduced-motion:reduce){.figment:has(img)::after{transition:none;}}
+</style>
 </head>
 <body>
+  <div class="grain"></div>
+
   <nav>
-    <div class="nav-inner">
-      <a href="index.html" class="nav-logo">Vishal Mehta</a>
-      <a href="index.html#work" class="nav-back">
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-          <path d="M10 3L5 8l5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-        All Work
-      </a>
-    </div>
+    <a class="nav-back" href="index.html"><span class="dot"></span>Vishal Mehta</a>
+    <span class="nav-right">Case study</span>
   </nav>
 
-  <div class="case-hero">
-    <div class="case-eyebrow reveal">Apple · AI-Enhanced · Enterprise</div>
-    <h1 class="case-h1 reveal reveal-delay-1">Apple Intelligence Shipping</h1>
-    <p class="case-tagline reveal reveal-delay-2">Redesigning internal shipping operations through AI-powered workflows built for trust, transparency, and human oversight.</p>
-    <div class="case-meta reveal reveal-delay-2">
-      <div class="case-meta-item">
-        <span class="case-meta-label">My Role</span>
-        <span class="case-meta-value">UX Design Lead</span>
+  <!-- CASE HERO -->
+  <header class="band chero">
+    <div class="wrap">
+      <span class="eyebrow" data-reveal>Apple &middot; Intelligence Shipping</span>
+      <h1 class="display" data-reveal style="--d:80ms">The AI suggests.<br>The human <em>decides.</em></h1>
+      <p class="dek" data-reveal style="--d:140ms">Apple's logistics managers ran shipping by hand, and the plan was to automate it away. <b>I designed the AI to do the work and show its reasoning, so the manager stays the one who decides.</b></p>
+      <div class="meta" data-reveal style="--d:200ms">
+        <div><div class="k">Role</div><div class="v">UX design lead. Research, interaction, AI-UX, data visualization, and the design-to-code build.</div></div>
+        <div><div class="k">Built</div><div class="v">The AI action surface and the shipping dashboard: named, explainable, reversible.</div></div>
+        <div><div class="k">Context</div><div class="v">Apple internal logistics. Shipping operations.</div></div>
       </div>
-      <div class="case-meta-item">
-        <span class="case-meta-label">Team</span>
-        <span class="case-meta-value">Logistics, PM, Engineering</span>
+      <p class="nda" data-reveal style="--d:260ms"><b>A note.</b> Apple's internal tool and its data stay private. The screens here are approved, representative views of my redesign with mock data, and I am glad to walk through more in depth privately.</p>
+    </div>
+  </header>
+
+  <!-- THE PROBLEM -->
+  <section class="band cream">
+    <div class="wrap col">
+      <span class="eyebrow" data-reveal>The problem</span>
+      <h2 class="display sechead" data-reveal style="--d:80ms">Shipping, run by <em>hand.</em></h2>
+      <div class="secbody">
+        <p class="body" data-reveal style="--d:120ms">Apple's logistics managers created and tracked every shipment through a fragmented, manual workflow. No proactive alerts, no consolidation, no assistance. Just volume and complexity, held together by people cross-referencing one tab against another.</p>
+        <p class="body" data-reveal style="--d:160ms">The obvious fix was speed. But the question underneath was harder, and it was the one everyone was about to skip past.</p>
       </div>
-      <div class="case-meta-item">
-        <span class="case-meta-label">Timeline</span>
-        <span class="case-meta-value">6 months</span>
+      <div class="pq" data-reveal style="--d:200ms"><p>The problem was not speed. It was <em>trust.</em></p></div>
+    </div>
+  </section>
+
+  <!-- THE REAL PROBLEM (the room) -->
+  <section class="band">
+    <div class="wrap col">
+      <span class="eyebrow" data-reveal>The real problem</span>
+      <h2 class="display sechead" data-reveal style="--d:80ms">The room wanted to automate it <em>away.</em></h2>
+      <div class="secbody">
+        <p class="body" data-reveal style="--d:120ms">On a leadership call, the team pitched an AI agent that would run the whole workflow: reroute delayed shipments, auto-generate the missing forms, consolidate on its own. Everyone was thrilled. I was the only designer in the room, and I asked one question. Would a manager sign an auto-generated form without reading every line? Would they hand over a decision they could not undo?</p>
+        <p class="body" data-reveal style="--d:160ms">That reframed the whole project. This was not an efficiency problem; it was a trust problem. <b>An AI that acts silently in a high-stakes operation does not save time. It spends trust, and the first surprise action costs more than every second it ever saved.</b> So we changed the goal. The AI does the work and shows its reasoning, and the manager keeps the call.</p>
       </div>
-      <div class="case-meta-item">
-        <span class="case-meta-label">Platform</span>
-        <span class="case-meta-value">Internal Web</span>
+      <div class="pq" data-reveal style="--d:200ms"><p>A silent action does not save time. It spends <em>trust.</em></p></div>
+    </div>
+  </section>
+
+  <!-- THE PRINCIPLE -->
+  <section class="band cream">
+    <div class="wrap">
+      <div class="col">
+        <span class="eyebrow" data-reveal>The principle</span>
+        <h2 class="display sechead" data-reveal style="--d:80ms">Suggest, don't <em>act.</em></h2>
+        <div class="secbody">
+          <p class="body" data-reveal style="--d:120ms">Every AI move surfaces as a named action, not a silent automation. The manager sees what the system caught, why it matters, and stays one tap from accept, change, or dismiss. Nothing happens to a shipment without a person saying yes.</p>
+        </div>
+      </div>
+      <div class="tiers">
+        <div class="tier" data-reveal style="--d:120ms"><div class="t">Named, not silent</div><div class="d">Every action says what it is and why it fired.</div><div class="s">You see what it caught.</div></div>
+        <div class="tier" data-reveal style="--d:180ms"><div class="t">Reversible by default</div><div class="d">Nothing is a one-way door; undo is always in reach.</div><div class="s">Saying yes feels safe.</div></div>
+        <div class="tier" data-reveal style="--d:240ms"><div class="t">The human holds the call</div><div class="d">The AI proposes; the manager decides, because they carry the outcome.</div><div class="s">Suggest, never act.</div></div>
       </div>
     </div>
-    <div class="nda-notice reveal">
-      <span class="nda-icon">🔒</span>
-      <div class="nda-text"><strong>NDA applies to this project.</strong> Select materials shown here are approved for public display. Detailed process, research synthesis, and additional visuals are available in a private walkthrough.</div>
+  </section>
+
+  <!-- THE ACTION SURFACE -->
+  <section class="band">
+    <div class="wrap">
+      <span class="eyebrow" data-reveal>The action surface</span>
+      <h2 class="display sechead" data-reveal style="--d:80ms">Four suggestions. Four <em>decisions.</em></h2>
+      <p class="body proof-intro" data-reveal style="--d:120ms">The heart of the redesign is the AI action surface. The system watches for delay risk, missing documents, SLA breaches, and repeat destinations, and surfaces each as a proposal the manager can accept, modify, or dismiss in one tap. Reroute. Prepare docs. Notify ops. Consolidate. The work is done for them; the judgment stays with them.</p>
+
+      <div class="figrow" data-reveal style="--d:120ms">
+        <figure class="figment"><img src="apple-s02w.png" alt="The AI Actions panel expanded beside the dashboard, showing four proactive suggestions each with a one-tap resolution" loading="lazy" /></figure>
+        <p class="figcap"><b>The AI action surface.</b> Each proposal names what it caught, why it matters, and the single action that resolves it. Reroute a delay, prepare missing docs, notify ops on an SLA breach, consolidate repeat destinations.</p>
+      </div>
+
+      <div class="figrow" data-reveal style="--d:120ms">
+        <div class="fig2">
+          <div>
+            <figure class="figment"><img src="apple-s01w.png" alt="My Shipments dashboard: totals, carrier performance, volume trends, and SLA risk" loading="lazy" /></figure>
+            <p class="figcap"><b>The dashboard.</b> Carrier performance, volume, and SLA risk, ambient instead of cross-referenced by hand.</p>
+          </div>
+          <div>
+            <figure class="figment"><img src="apple-s03w.png" alt="Shipments inbox: a dense, filterable table with VIP flags, status badges, and carrier icons" loading="lazy" /></figure>
+            <p class="figcap"><b>The inbox.</b> A dense, filterable view with VIP flags and status you read at a glance.</p>
+          </div>
+        </div>
+      </div>
     </div>
+  </section>
+
+  <!-- THE DECISIONS -->
+  <section class="band cream">
+    <div class="wrap">
+      <div class="col">
+        <span class="eyebrow" data-reveal>The decisions</span>
+        <h2 class="display sechead" data-reveal style="--d:80ms">Two calls that kept it <em>trustworthy.</em></h2>
+        <div class="calls">
+          <div class="call" data-reveal style="--d:120ms">
+            <div class="ct">Confirmation over silent automation.</div>
+            <div class="cd">The engine could have rerouted, consolidated, and generated documents on its own. Fewer clicks, faster. We chose an explicit suggestion with a one-tap confirm instead. The cost is a slightly longer interaction. The return is <b>a manager who is never surprised, and trust that does not erode.</b></div>
+          </div>
+          <div class="call" data-reveal style="--d:160ms">
+            <div class="ct">A separate AI path, not an AI-stuffed form.</div>
+            <div class="cd">The obvious integration was to bolt AI onto the existing create-shipment form with inline autofill and predictive fields. It tangled two mental models in one surface. So I split them: a three-path entry, upload a file, start from scratch, or use Apple Intelligence, chosen before the form. <b>People who do not want AI are never interrupted by it; people who do get a clean conversational path.</b></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="figrow" data-reveal style="--d:120ms">
+        <div class="fig2">
+          <div>
+            <figure class="figment"><img src="apple-s01bw.png" alt="The create-shipment entry modal with three paths: Upload File, From Scratch, Use Apple Intelligence" loading="lazy" /></figure>
+            <p class="figcap"><b>The choice, up front.</b> Pick a mode before the form, so each path stays clean.</p>
+          </div>
+          <div>
+            <figure class="figment"><img src="apple-s04w.png" alt="Create Shipment form with the Apple Intelligence Assist panel guiding conversational data entry" loading="lazy" /></figure>
+            <p class="figcap"><b>The conversational path.</b> Apple Intelligence Assist fills the form by asking, then hands the result back for review.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SCOREBOARD -->
+  <section class="band">
+    <div class="wrap">
+      <span class="eyebrow" data-reveal>The scoreboard</span>
+      <div class="score">
+        <div class="m" data-reveal style="--d:120ms">
+          <div class="big">50<em>%</em></div>
+          <div class="lbl">faster to create a shipment, without automating the manager out of the decision.</div>
+        </div>
+        <div class="m" data-reveal style="--d:180ms">
+          <div class="big">Four</div>
+          <div class="lbl">kinds of proactive help surfaced in real time, each one a suggestion, not an action.</div>
+        </div>
+        <div class="m" data-reveal style="--d:240ms">
+          <div class="big"><em>2 weeks</em></div>
+          <div class="lbl">from brief to Apple-standard React, because I designed it in code.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CLOSE -->
+  <section class="close">
+    <div class="wrap">
+      <span class="eyebrow" data-reveal style="justify-content:center;display:inline-flex">Outcome</span>
+      <h2 data-reveal style="--d:70ms">Half the time. All the <em>control.</em></h2>
+      <p class="cbody" data-reveal style="--d:140ms">Shipment creation dropped by half, with four kinds of proactive help surfaced in real time, and I took it from brief to Apple-standard React in under two weeks. Not by automating the manager out of the decision, but by doing the work in front of them and leaving the call where it belongs.</p>
+      <div class="close-actions" data-reveal style="--d:200ms">
+        <a class="btn ghost" href="index.html#work">See the other work</a>
+        <a class="btn primary" href="index.html#contact">What's the real problem?</a>
+      </div>
+
+      <a class="nextcase" data-reveal style="--d:260ms" href="terran.html">
+        <span class="nextcase-eye">Next case</span>
+        <span class="nextcase-line"><em>Terran</em><span class="nextcase-sep">&middot;</span><span class="nextcase-metric">AI-triaging for Apple Pay</span></span>
+        <span class="nextcase-arrow" aria-hidden="true">&rarr;</span>
+      </a>
+    </div>
+  </section>
+
+  <div class="lightbox" id="lightbox" aria-hidden="true">
+    <button class="lightbox-close" id="lightboxClose" aria-label="Close">&times;</button>
+    <img id="lightboxImg" src="" alt="" />
   </div>
 
-  <div class="case-body">
-
-    <div class="case-section reveal">
-      <div class="case-section-label">The Challenge</div>
-      <h2>Shipping operations that couldn't keep pace.</h2>
-      <p>Apple's internal logistics managers were creating and tracking shipments through a fragmented, manual workflow. No AI assistance, no proactive alerts, no consolidation of action items. Just volume and complexity managed by hand.</p>
-      <p>The challenge wasn't just speed. It was <strong>trust</strong>. Introducing AI into a high-stakes operational workflow means every suggestion has to be explainable, every automated action has to be reversible, and managers have to feel in control, not replaced.</p>
-    </div>
-
-    <div class="case-section reveal">
-      <div class="case-section-label">My Approach</div>
-      <h2>Human oversight at every AI touchpoint.</h2>
-      <div class="process-steps">
-        <div class="process-step">
-          <div class="process-num">01</div>
-          <div class="process-content">
-            <h3>Research with logistics managers</h3>
-            <p>Shadowed the actual workflow: every manual step, every workaround, every moment of friction. The goal was to understand the cognitive load before designing any AI intervention.</p>
-          </div>
-        </div>
-        <div class="process-step">
-          <div class="process-num">02</div>
-          <div class="process-content">
-            <h3>Designing the AI action surface</h3>
-            <p>Every AI suggestion is surfaced as a named, explainable action, not a silent automation. Managers see what the system detected, why it matters, and can accept, modify, or dismiss with one tap.</p>
-          </div>
-        </div>
-        <div class="process-step">
-          <div class="process-num">03</div>
-          <div class="process-content">
-            <h3>Transparency as a design principle</h3>
-            <p>The dashboard surfaces carrier performance, SLA risk, and delay patterns in real time. Information that previously required manual cross-referencing became ambient and actionable.</p>
-          </div>
-        </div>
-        <div class="process-step">
-          <div class="process-num">04</div>
-          <div class="process-content">
-            <h3>AI-augmented prototyping workflow</h3>
-            <p>The design-to-production workflow itself was AI-augmented, moving from brief to Apple-standard React in under two weeks without compromising engineering quality.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="case-section reveal">
-      <div class="case-section-label">Tradeoffs</div>
-      <h2>Two decisions that shaped the design.</h2>
-
-      <div class="tradeoff-block">
-        <div class="tradeoff-item">
-          <div class="tradeoff-num">01</div>
-          <div class="tradeoff-content">
-            <h3>Human confirmation over silent automation</h3>
-            <p>The AI engine could have applied corrections automatically (rerouting a delayed shipment, consolidating duplicate destinations, generating missing documents) without asking. Faster, fewer clicks.</p>
-            <p>We chose not to. Every AI action is surfaced as an explicit suggestion with a one-tap confirmation. The tradeoff is a slightly longer interaction in exchange for something more important: <strong>managers stay in the loop and trust doesn't erode</strong>. In a high-stakes internal ops tool, a single unexpected automated action could cost more in lost trust than it ever saved in seconds.</p>
-          </div>
-        </div>
-        <div class="tradeoff-item">
-          <div class="tradeoff-num">02</div>
-          <div class="tradeoff-content">
-            <h3>Parallel AI path over AI-augmented form</h3>
-            <p>The early direction was to embed AI assistance directly into the existing Create Shipment form: inline suggestions, smart autofill, predictive field completion. It felt like the obvious integration point.</p>
-            <p>The problem: it tangled two different mental models in one surface. We separated them. The three-path entry modal (Upload File, From Scratch, Use Apple Intelligence) <strong>lets users choose their mode before entering the form</strong>, keeping each path clean. Users who don't want AI aren't interrupted by it. Users who do get a fully conversational experience without the friction of a traditional form fighting for the same space.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="case-section reveal">
-      <div class="case-section-label">Interface</div>
-      <h2>Five screens. One cohesive experience.</h2>
-
-      <!-- Screen 1: Dashboard hero -->
-      <img src="apple-s01.png" alt="My Shipments dashboard: overview with carrier breakdown, shipment volume, and AI actions" class="screen-img" style="margin-bottom:10px;">
-      <p class="visual-caption" style="margin-bottom:40px;">Dashboard overview: carrier performance, volume trends, and AI action surface</p>
-
-      <!-- Screen 2 + 3: AI panels side by side -->
-      <div class="screen-grid" style="margin-bottom:10px;">
-        <div class="screen-item">
-          <img src="apple-s01b.png" alt="AI Actions panel expanded showing four proactive suggestions">
-          <div class="screen-label">AI Actions panel: 4 proactive suggestions, each with one-tap resolution</div>
-        </div>
-        <div class="screen-item">
-          <img src="apple-s02.png" alt="Create shipment entry modal with three paths including Apple Intelligence">
-          <div class="screen-label">Shipment creation entry: three paths, AI as a first-class option</div>
-        </div>
-      </div>
-
-      <!-- Screen 4: Inbox table -->
-      <img src="apple-s03.png" alt="Shipments inbox table with VIP flags, status badges, and carrier icons" class="screen-img" style="margin-top:16px; margin-bottom:10px;">
-      <p class="visual-caption" style="margin-bottom:40px;">Inbox view: high-density table with VIP flags, status badges, and multi-filter architecture</p>
-
-      <!-- Screen 5: Create shipment form with AI Assist -->
-      <img src="apple-s04.png" alt="Create Shipment form with Apple Intelligence Assist panel open" class="screen-img" style="margin-bottom:10px;">
-      <p class="visual-caption">Create Shipment + AI Assist: conversational data entry alongside the traditional form</p>
-    </div>
-
-    <div class="case-section reveal">
-      <div class="case-section-label">Impact</div>
-      <h2>Results that management noticed.</h2>
-      <div class="impact-grid">
-        <div class="impact-card">
-          <div class="impact-num">50%</div>
-          <div class="impact-label">Reduction in shipment creation time</div>
-        </div>
-        <div class="impact-card">
-          <div class="impact-num">4</div>
-          <div class="impact-label">Proactive AI action types surfaced in real time</div>
-        </div>
-        <div class="impact-card">
-          <div class="impact-num">&lt;2wk</div>
-          <div class="impact-label">Brief to production-ready React delivery</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="case-section reveal">
-      <div class="cta-block">
-        <h3>The full story is better told in person.</h3>
-        <p>The complete case study (research synthesis, design iterations, AI action framework, and engineering collaboration) is available in a live walkthrough.</p>
-        <a href="mailto:knock@vishalme.com?subject=Walkthrough Request: Apple Intelligence Shipping" class="btn btn-gold">Request a Walkthrough →</a>
-      </div>
-    </div>
-
-  </div>
-
-  <footer>
-    <div class="footer-inner">
-      <a href="index.html" class="footer-logo">VM</a>
-      <div class="footer-copy">© 2026 Vishal Mehta. All rights reserved.</div>
-    </div>
-  </footer>
-
-  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-    const reveals = document.querySelectorAll('.reveal');
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
-    }, { threshold: 0.1 })
+  <script>
+    (function(){
+      const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{rootMargin:'0px 0px -12% 0px',threshold:0.1});
+      document.querySelectorAll('[data-reveal]').forEach(el=>io.observe(el));
+    })();
+    // lightbox: click any figure screenshot to view full size
+    (function(){
+      const lb=document.getElementById('lightbox'), img=document.getElementById('lightboxImg'), x=document.getElementById('lightboxClose');
+      const open=(s,a)=>{img.src=s;img.alt=a||'';lb.classList.add('open');lb.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';};
+      const close=()=>{lb.classList.remove('open');lb.setAttribute('aria-hidden','true');document.body.style.overflow='';img.src='';};
+      document.querySelectorAll('.figment img').forEach(el=>el.addEventListener('click',()=>open(el.currentSrc||el.src,el.alt)));
+      lb.addEventListener('click',()=>close());
+      x.addEventListener('click',(e)=>{e.stopPropagation();close();});
+      document.addEventListener('keydown',(e)=>{if(e.key==='Escape'&&lb.classList.contains('open'))close();});
+    })();
+  </script>
+</body>
+</html>
