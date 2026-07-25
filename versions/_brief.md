@@ -33,7 +33,7 @@ Images available in the PARENT directory if your language wants them: `../dv-thu
 Beats: **Find the real problem** (research; ask why; watch what people do). **Make it clear** (systems thinking; reduce cognitive load; design the order the eye travels: status first, detail last). **Prove it** (prototype; test with real users; tie it to a business number). **Lead it** (player-coach; scale judgment; the best mentoring makes you unnecessary). You may mention ONCE that he builds in code so what ships is what he designed.
 
 ### 5. ABOUT / ORIGIN
-*I came to design from engineering. Early on I watched someone struggle with a tool I had built and was proud of, and it landed hard: what was effortless for me, the maker, was a wall for them, the user. That flipped my question from what the technology can do to who is using it, and why. Twenty-five years later the job is the same: find the real problem, not the symptom, and fix it. I lead as a player-coach, and the systems I am proudest of kept growing after I stepped back.*
+*I came to design from engineering. Early on I watched someone struggle with a tool I had built and was proud of, and it landed hard: what was effortless for me, the maker, was a wall for them, the user. That flipped my question from what the technology can do to who is using it, and why. Twenty-five years later the job is the same: fix the real problem, not the symptom. I lead as a player-coach, so that judgment scales across the team.*
 CREDENTIALS: EB1A (Extraordinary Ability), IEEE Senior Member, Author of *Design AI Alchemy*, Speaker at World Usability Congress 2025, ACM SIGCHI.
 
 ### 6. WRITING (links open in a new tab)
