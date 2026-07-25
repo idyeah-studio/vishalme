@@ -89,14 +89,14 @@
   .triage-run[disabled]{opacity:.55;cursor:default;}
   .triage-body{padding:4px 20px 20px;}
   .triage-body:empty{display:none;}
-  .tstep{display:grid;grid-template-columns:16px 1fr auto;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid rgba(247,241,230,0.07);opacity:0;transition:opacity .4s;}
+  .tstep{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid rgba(247,241,230,0.07);opacity:0;transition:opacity .4s;}
   .tstep.show{opacity:1;}
   .tstep .ic{width:16px;height:16px;flex-shrink:0;display:inline-flex;align-items:center;justify-content:center;}
   .tstep .spin{width:12px;height:12px;border:2px solid rgba(232,153,111,0.3);border-top-color:var(--glow);border-radius:50%;animation:sp .7s linear infinite;}
   @keyframes sp{to{transform:rotate(360deg);}}
   .tstep .chk{color:var(--ok);font-size:14px;}
-  .tstep .lbl{font-size:14.5px;color:rgba(247,241,230,0.86);}
-  .tstep .meta{font-size:12.5px;color:rgba(247,241,230,0.5);}
+  .tstep .lbl{flex:1 1 auto;min-width:0;display:flex;align-items:baseline;justify-content:space-between;gap:16px;font-size:14.5px;color:rgba(247,241,230,0.86);}
+  .tstep .meta{flex:0 0 auto;display:block;margin:0;padding:0;border:0;grid-template-columns:none;font-size:12.5px;color:rgba(247,241,230,0.5);white-space:nowrap;}
   .rc{margin-top:20px;padding:20px;background:rgba(190,74,43,0.08);border:1px solid rgba(232,153,111,0.28);border-radius:12px;opacity:0;transform:translateY(10px);transition:opacity .5s,transform .5s;}
   .rc.show{opacity:1;transform:none;}
   .rc .k{font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:rgba(247,241,230,0.55);margin-bottom:10px;}
@@ -127,7 +127,7 @@
   .acc-note{margin-top:22px;font-size:14px;color:var(--ink-faint);max-width:56ch;line-height:1.6;}
 
   /* nda note */
-  .nda{margin-top:clamp(28px,3.4vw,40px);font-size:13.5px;line-height:1.55;color:var(--ink-faint);max-width:60ch;padding:15px 18px;border:1px solid var(--line);border-radius:10px;background:rgba(190,74,43,0.05);}
+  .nda{margin-top:clamp(28px,3.4vw,40px);font-size:13.5px;line-height:1.55;color:var(--ink-faint);max-width:none;padding:16px 20px;border:1px solid var(--line);border-radius:10px;background:rgba(190,74,43,0.05);}
   .nda b{color:var(--accent-deep);font-weight:600;}
 
   /* dashboard mock */
@@ -143,6 +143,10 @@
   .dtile.bad{background:rgba(190,74,43,0.06);border-color:rgba(190,74,43,0.22);}
   .dtile .n{font-family:'Fraunces',serif;font-size:30px;color:var(--ink);line-height:1;}
   .dtile .l{margin-top:8px;font-size:12.5px;color:var(--ink-faint);}
+  .dtile .dt-top{display:flex;align-items:center;justify-content:space-between;gap:10px;}
+  .dt-of{font-size:10.5px;color:var(--ink-faint);background:rgba(23,19,15,0.06);padding:3px 9px;border-radius:980px;white-space:nowrap;}
+  .dt-of.good{color:#5a7a35;background:rgba(120,150,70,0.16);}
+  .dtile.ok{background:rgba(120,150,70,0.06);border-color:rgba(120,150,70,0.22);}
   .dash-block-h{font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-faint);margin-bottom:2px;}
   .dash-row{display:grid;grid-template-columns:150px 1fr auto;gap:16px;align-items:center;padding:13px 0;border-top:1px solid var(--line);font-size:13.5px;}
   .dash-row .svc{font-weight:600;color:var(--accent-deep);}
@@ -153,7 +157,7 @@
 
   /* close */
   .close{background:radial-gradient(60% 70% at 50% 42%, rgba(190,74,43,0.18), transparent 72%), var(--ink);color:var(--cream);text-align:center;padding-block:clamp(90px,15vh,180px);}
-  .close h2{font-family:'Fraunces',serif;font-weight:300;font-size:clamp(40px,8vw,116px);line-height:.96;letter-spacing:-0.03em;}
+  .close h2{margin-top:clamp(24px,3.4vw,44px);font-family:'Fraunces',serif;font-weight:300;font-size:clamp(40px,8vw,116px);line-height:.96;letter-spacing:-0.03em;}
   .close h2 em{font-style:italic;font-weight:900;color:var(--glow);}
   .close .cbody{margin:clamp(24px,3.4vw,38px) auto 0;max-width:52ch;font-size:clamp(16px,1.6vw,19px);line-height:1.6;color:rgba(247,241,230,0.78);}
   .close-actions{margin-top:clamp(34px,4vw,50px);display:flex;justify-content:center;gap:14px;flex-wrap:wrap;}
@@ -209,7 +213,7 @@
         <p class="body" data-reveal style="--d:120ms">Not one failure. Ninety-six. To find which one matters, an engineer opens the logs in one tab, Radar in another, Splunk in a third, and the dashboards in a fourth, then correlates it all by hand.</p>
         <p class="body" data-reveal style="--d:160ms">Two hours later they have twelve tabs and no answer. The problem is not that engineers are slow. It is that we asked a person to do the machine's job, ninety-six times over.</p>
       </div>
-      <div class="pq" data-reveal style="--d:200ms"><p>A wall of red is not information. It is <em>noise.</em></p></div>
+      <div class="pq" data-reveal style="--d:200ms"><p>A wall of red is just <em>noise.</em></p></div>
     </div>
   </section>
 
@@ -222,7 +226,7 @@
         <p class="body" data-reveal style="--d:120ms">The obvious move was to drop an AI chat box on the screen and let engineers prompt their way through. But I had watched them work, and a blank chat box is more work, not less.</p>
         <p class="body" data-reveal style="--d:160ms">The real problem was that engineers were doing all the digging themselves. So I flipped it. <b>The AI does the digging in the background, and the conversation picks up with the context already loaded.</b></p>
       </div>
-      <div class="pq" data-reveal style="--d:200ms"><p>Replacing a wall of red with a wall of AI text is still a wall. Just a <em>prettier one.</em></p></div>
+      <div class="pq" data-reveal style="--d:200ms"><p>A prettier wall is <em>still a wall.</em></p></div>
     </div>
   </section>
 
@@ -281,9 +285,9 @@
             <div class="dash-period">Last 24 hours</div>
           </div>
           <div class="dash-tiles">
-            <div class="dtile bad"><div class="n">2</div><div class="l">Services blocked</div></div>
-            <div class="dtile bad"><div class="n">3</div><div class="l">Features failed</div></div>
-            <div class="dtile"><div class="n">120</div><div class="l">PRs shipped this week</div></div>
+            <div class="dtile bad"><div class="dt-top"><span class="n">2</span><span class="dt-of">Out of 6</span></div><div class="l">Services blocked</div></div>
+            <div class="dtile bad"><div class="dt-top"><span class="n">3</span><span class="dt-of">Out of 18</span></div><div class="l">Features failed</div></div>
+            <div class="dtile ok"><div class="dt-top"><span class="n">1</span><span class="dt-of good">120 this week</span></div><div class="l">PRs shipped (last 24h)</div></div>
           </div>
           <div class="dash-block-h">Blocked services</div>
           <div class="dash-row"><span class="svc">transfer-service</span><span class="dr-pr">PR 382 &middot; add cart validation</span><span class="dr-fail">14 of 246 failed</span></div>
@@ -320,7 +324,7 @@
     <div class="wrap">
       <span class="eyebrow" data-reveal style="justify-content:center;display:inline-flex">Outcome</span>
       <h2 data-reveal style="--d:70ms">One hour, to <em>three minutes.</em></h2>
-      <p class="cbody" data-reveal style="--d:140ms">Terran turns the 2am scramble into a three-minute read. It ships in production for Apple Pay engineering, and the same approach now runs Raptor. I designed it in the codebase, so what shipped is what I designed.</p>
+      <p class="cbody" data-reveal style="--d:140ms">Terran turns the 2am scramble into a three-minute read. It ships in production for Apple Pay engineering. I designed it in the codebase, so what shipped is what I designed.</p>
       <div class="close-actions" data-reveal style="--d:200ms">
         <a class="btn ghost" href="v1a.html#work">Back to work</a>
         <a class="btn primary" href="v1a.html#contact">What's the real problem?</a>
@@ -340,13 +344,13 @@
     (function(){
       const reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
       const runBtn=document.getElementById('triageRun'), body=document.getElementById('triageBody');
-      const steps=['Gathering logs','Correlating signals across services','Analyzing failure patterns','Identifying root cause'];
+      const steps=[['Gathering logs','2,847 lines'],['Correlating signals','6 services'],['Analyzing failure patterns','17 failures'],['Identifying root cause','1 cause']];
       const wait=(ms)=>new Promise(r=>setTimeout(r,reduce?0:ms));
       async function run(){
         runBtn.disabled=true; runBtn.textContent='Triaging'; body.innerHTML='';
         for(let i=0;i<steps.length;i++){
           const row=document.createElement('div'); row.className='tstep';
-          row.innerHTML='<span class="ic"><span class="spin"></span></span><span class="lbl">'+steps[i]+'</span>';
+          row.innerHTML='<span class="ic"><span class="spin"></span></span><span class="lbl">'+steps[i][0]+'<span class="meta">'+steps[i][1]+'</span></span>';
           body.appendChild(row); requestAnimationFrame(()=>row.classList.add('show'));
           await wait(720);
           row.querySelector('.ic').innerHTML='<span class="chk">&#10003;</span>';
