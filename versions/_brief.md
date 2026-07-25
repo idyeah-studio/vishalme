@@ -22,7 +22,7 @@ Heading around clarity / the real problem. Body:
 
 ### 3. SELECTED WORK (4 cases)
 Each: eyebrow (company), a decision-led headline, one line of substance, one real metric. Cards link to "#".
-- **Terran — Apple · AI-native observability.** When an Apple Pay build breaks, an engineer used to chase one failure across four tools for an hour. I designed Terran to do the digging, so they read the answer instead. The AI finds the root cause and shows its reasoning; the human keeps the call. **METRIC: 1 hour to 3 minutes.**
+- **Terran — Apple · AI-native monitoring.** When an Apple Pay build breaks, engineers used to chase one failure across four tools for an hour. Terran does the digging: it surfaces the root cause and its reasoning, and leaves the call to the human. **METRIC: 1 hour to 3 minutes.**
 - **Walmart Data Ventures — design system.** Six products, six teams, 40% design debt. I audited the landscape, anchored a new system on Walmart's own design language, and proved it on one beta product before the rest followed. **METRIC: 6 months, zero design debt, 30% faster.**
 - **Intuitive Surgical — Customer Portal.** Surgical teams ordered inventory blind, where availability affects outcomes. I found the decision the data was hiding and made the reorder signal a treemap you read in one glance. **METRIC: navigation 3-4 levels to 1 step.**
 - **Apple — Intelligence Shipping.** Internal logistics ran by hand. The temptation was full automation; I made every AI action named, explainable, and reversible, so managers stayed in control. **METRIC: 50% faster, humans in control.**
