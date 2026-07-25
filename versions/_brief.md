@@ -18,7 +18,7 @@ No em-dashes anywhere. No blue (keep your warm/mono palette from your hero).
 
 ### 2. CLARITY (the spine)
 Heading around clarity / the real problem. Body:
-*Stakeholders hand me a solution disguised as a problem. "We need a dashboard." "Add AI to it." My job is to find the real need, the one they cannot quite name, and make it clear. Whether the surface is a design system, an analytics platform, or an AI agent, the work is the same: find the real problem, not the symptom, and solve it.*
+*Stakeholders hand me a solution disguised as a problem. "We need a dashboard." "Add AI to it." I find the real need they cannot name, and make it clear. Design system, analytics platform, or AI agent, the work is the same: solve the real problem, not the symptom.*
 
 ### 3. SELECTED WORK (4 cases)
 Each: eyebrow (company), a decision-led headline, one line of substance, one real metric. Cards link to "#".
