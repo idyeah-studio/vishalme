@@ -112,6 +112,7 @@
     align-self:center;
     width:100%;
     max-width:min(94vw,1040px);
+    margin-bottom:clamp(52px,10vh,132px);
   }
   .line{
     overflow:hidden;
@@ -216,10 +217,13 @@
     text-transform:uppercase;
     color:var(--accent);
   }
-  .eyebrow::before{display:none;}
-  .eyebrow .ch{font-weight:700;letter-spacing:.02em;}
-  .eyebrow .rule{display:inline-block;width:24px;height:1px;background:currentColor;opacity:.45;}
+  .eyebrow::before{
+    content:"";
+    width:7px;height:7px;border-radius:50%;
+    background:var(--accent);
+  }
   .band.ink .eyebrow{color:#E8996F;}
+  .band.ink .eyebrow::before{background:#E8996F;}
 
   h2.display{
     font-family:'Fraunces',serif;
@@ -465,6 +469,7 @@
     grid-template-columns:1fr 0.86fr;
     gap:clamp(40px,6vw,96px);
     align-items:start;
+    margin-top:clamp(22px,2.8vw,40px);
   }
   .origin p{
     font-family:'Fraunces',serif;
@@ -577,6 +582,7 @@
   @keyframes orbBreathe{0%,100%{opacity:.8;transform:scale(1) translateY(0);}50%{opacity:1;transform:scale(1.06) translateY(-12px);}}
   .contact .inner{position:relative;z-index:1;}
   .contact h2{
+    margin-top:clamp(24px,3.2vw,44px);
     font-family:'Fraunces',serif;
     font-weight:300;
     font-size:clamp(44px,9.5vw,150px);
@@ -703,7 +709,7 @@
   <section class="band" aria-labelledby="clarity-h">
     <div class="wrap clarity-grid">
       <div>
-        <span class="eyebrow" data-reveal><span class="ch">I</span><span class="rule"></span>The spine</span>
+        <span class="eyebrow" data-reveal>The spine</span>
         <h2 class="display" id="clarity-h" data-reveal style="--d:80ms">Clarity is the<br>whole <em>job.</em></h2>
       </div>
       <div>
@@ -724,7 +730,7 @@
     <div class="wrap">
       <div class="work-head">
         <div>
-          <span class="eyebrow" data-reveal><span class="ch">II</span><span class="rule"></span>Selected work</span>
+          <span class="eyebrow" data-reveal>Selected work</span>
           <h2 class="display" id="work-h" data-reveal style="--d:80ms">Decisions,<br>not <em>decks.</em></h2>
         </div>
         <p class="work-count" data-reveal style="--d:140ms">Four systems, shipped.</p>
@@ -791,7 +797,7 @@
   <!-- ============ 4. HOW I WORK ============ -->
   <section class="band ink" aria-labelledby="how-h">
     <div class="wrap">
-      <span class="eyebrow" data-reveal><span class="ch">III</span><span class="rule"></span>How I work</span>
+      <span class="eyebrow" data-reveal>How I work</span>
       <h2 class="display" id="how-h" data-reveal style="--d:80ms">Find it. Make it clear.<br><em>Prove</em> it. Lead it.</h2>
 
       <div class="beats">
@@ -823,10 +829,11 @@
 
   <!-- ============ 5. ABOUT / ORIGIN ============ -->
   <section class="band" aria-labelledby="about-h">
-    <div class="wrap about-grid">
+    <div class="wrap">
+      <span class="eyebrow" data-reveal>Origin</span>
+      <h2 class="display" id="about-h" data-reveal style="--d:70ms;margin-bottom:.6em">Who is using it,<br>and <em>why?</em></h2>
+      <div class="about-grid">
       <div class="origin">
-        <span class="eyebrow" data-reveal><span class="ch">IV</span><span class="rule"></span>Origin</span>
-        <h2 class="display" id="about-h" data-reveal style="--d:70ms;margin-bottom:.6em">Who is using it,<br>and <em>why?</em></h2>
         <p data-reveal style="--d:120ms">I came to design from engineering. Early on I watched someone struggle with a tool I had built and was proud of, and it landed hard: what was effortless for me, the maker, was a wall for them, the user.</p>
         <p data-reveal style="--d:180ms">That flipped my question from what the technology can do to <span class="pop">who is using it, and why.</span> Twenty-five years later the job is the same: find the real problem, not the symptom, and fix it. I lead as a player-coach, and the systems I am proudest of kept growing after I stepped back.</p>
       </div>
@@ -853,13 +860,14 @@
           <div class="c-sub">Human-computer interaction community</div>
         </div>
       </div>
+      </div>
     </div>
   </section>
 
   <!-- ============ 6. WRITING ============ -->
   <section class="band cream" aria-labelledby="writing-h">
     <div class="wrap">
-      <span class="eyebrow" data-reveal><span class="ch">V</span><span class="rule"></span>Writing</span>
+      <span class="eyebrow" data-reveal>Writing</span>
       <h2 class="display" id="writing-h" data-reveal style="--d:80ms">Thinking, in <em>public.</em></h2>
 
       <div class="writing-list">
@@ -891,7 +899,7 @@
   <section class="band ink contact" aria-labelledby="contact-h">
     <div class="glow-c" aria-hidden="true"></div>
     <div class="wrap inner">
-      <span class="eyebrow" data-reveal style="justify-content:center;display:flex"><span class="ch">VI</span><span class="rule"></span>Contact</span>
+      <span class="eyebrow" data-reveal style="justify-content:center;display:flex">Contact</span>
       <h2 id="contact-h" data-reveal style="--d:70ms">What's the<br><em>real problem?</em></h2>
       <p class="avail" data-reveal style="--d:140ms">Open to Principal, Staff, and Director roles in enterprise and AI-UX, plus advisory work.</p>
 
