@@ -1,0 +1,889 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Vishal Mehta</title>
+<meta name="description" content="Vishal Mehta · Staff and Principal design leader for enterprise and AI. Clarity: finding the real problem under the noise." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,300;1,9..144,400&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --ink:#0d0b0a;          /* near-black warm ground */
+    --ink-2:#171310;
+    --ink-3:#1f1815;
+    --bone:#efe4d1;         /* bone type (raised for contrast) */
+    --bone-soft:#c6b795;    /* secondary type (raised) */
+    --bone-dim:#9b8c6f;     /* tertiary / labels */
+    --bronze:#d38b52;       /* single warm tone */
+    --oxblood:#6c2d27;
+    --oxblood-lit:#8a3a30;
+    --seam:#eab97e;         /* seam light */
+    --hair:rgba(233,221,202,.14);
+    --hair-soft:rgba(233,221,202,.08);
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  html,body{min-height:100%}
+
+  body{
+    background:var(--ink);
+    color:var(--bone);
+    font-family:"Fraunces",Georgia,serif;
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+    overflow-x:hidden;
+  }
+  a{color:inherit}
+  img{max-width:100%;display:block}
+
+  /* ---- global generative grain (fixed over the whole record) ---- */
+  #grain{
+    position:fixed; inset:0;
+    z-index:60;
+    width:100%; height:100%;
+    opacity:.05;
+    mix-blend-mode:overlay;
+    pointer-events:none;
+  }
+
+  /* skip link */
+  .skip{
+    position:absolute; left:-999px; top:0; z-index:100;
+    background:var(--ink-3); color:var(--bone);
+    padding:.7rem 1rem; border:1px solid var(--hair);
+  }
+  .skip:focus{left:1rem; top:1rem}
+
+  /* =========================================================
+     HERO STAGE  (the label / A-side opener)
+     ========================================================= */
+  .stage{
+    position:relative;
+    width:100%;
+    height:100svh;
+    min-height:640px;
+    isolation:isolate;
+    overflow:hidden;
+  }
+  .stage::before{
+    content:"";
+    position:absolute; inset:0; z-index:0;
+    background:
+      radial-gradient(120% 90% at 50% 46%, var(--ink-2) 0%, var(--ink) 62%),
+      radial-gradient(60% 50% at 50% 46%, rgba(108,45,39,.22), rgba(108,45,39,0) 70%);
+  }
+
+  .disc{
+    position:absolute;
+    top:46%; left:50%;
+    width:min(58vw,58svh);
+    aspect-ratio:1;
+    transform:translate(-50%,-50%);
+    border-radius:50%;
+    z-index:1;
+    background:
+      radial-gradient(58% 58% at 40% 34%, rgba(231,176,115,.95), rgba(193,124,70,.9) 30%, var(--oxblood) 66%, #2c110f 100%);
+    box-shadow:
+      0 0 6svh rgba(193,124,70,.28),
+      0 0 22svh rgba(108,45,39,.30),
+      inset -2svh -2svh 8svh rgba(0,0,0,.55);
+    animation:breathe 12s ease-in-out infinite;
+    will-change:transform,filter;
+  }
+  .disc::after{
+    content:"";
+    position:absolute; inset:0;
+    border-radius:50%;
+    background:radial-gradient(64% 64% at 66% 70%, rgba(0,0,0,0) 40%, rgba(6,4,4,.86) 74%);
+    mix-blend-mode:multiply;
+  }
+  @keyframes breathe{
+    0%,100%{transform:translate(-50%,-50%) scale(1);   filter:saturate(1)}
+    50%    {transform:translate(-50%,-50%) scale(1.035);filter:saturate(1.08)}
+  }
+
+  .seam{
+    position:absolute;
+    left:50%; top:0; bottom:0;
+    width:1.4px;
+    transform:translateX(-50%);
+    z-index:2;
+    background:linear-gradient(to bottom,
+      rgba(231,176,115,0) 0%,
+      rgba(231,176,115,.28) 22%,
+      rgba(231,176,115,.9) 50%,
+      rgba(231,176,115,.28) 78%,
+      rgba(231,176,115,0) 100%);
+    box-shadow:0 0 12px rgba(231,176,115,.5);
+  }
+  .seam::before{
+    content:"";
+    position:absolute;
+    left:50%; transform:translateX(-50%);
+    width:5px; height:16svh;
+    border-radius:50%;
+    background:radial-gradient(50% 50% at 50% 50%, rgba(255,232,198,.95), rgba(231,176,115,0) 70%);
+    animation:travel 14s ease-in-out infinite;
+    will-change:top;
+  }
+  @keyframes travel{
+    0%   {top:-16svh}
+    50%  {top:100%}
+    100% {top:-16svh}
+  }
+
+  .type{position:absolute; inset:0; z-index:4; pointer-events:none}
+
+  .mark{
+    position:absolute;
+    top:clamp(1.6rem,4vh,2.6rem);
+    left:clamp(1.6rem,4vw,3rem);
+    font-size:clamp(.72rem,1vw,.88rem);
+    letter-spacing:.46em;
+    text-transform:uppercase;
+    font-weight:400;
+    color:var(--bone-soft);
+  }
+  .side-tag{
+    position:absolute;
+    top:clamp(1.6rem,4vh,2.6rem);
+    right:clamp(1.6rem,4vw,3rem);
+    font-size:clamp(.66rem,.9vw,.8rem);
+    letter-spacing:.4em;
+    text-transform:uppercase;
+    color:var(--bone-dim);
+  }
+
+  .phrase{
+    position:absolute;
+    font-weight:300;
+    line-height:.94;
+    font-size:clamp(2.5rem,8.6vw,7.4rem);
+    letter-spacing:-.015em;
+    color:var(--bone);
+  }
+  .phrase em{font-style:italic; font-weight:400; color:var(--seam)}
+
+  .p1{ top:19%; right:calc(50% + clamp(1rem,3vw,3.5rem)); text-align:right }
+  .p2{
+    bottom:20%;
+    left:calc(50% + clamp(1rem,3vw,3.5rem));
+    text-align:left;
+    font-size:clamp(2.1rem,6.6vw,5.6rem);
+    color:var(--bone-soft);
+  }
+  .p2 .stop{color:var(--seam)}
+
+  .whisper{
+    position:absolute;
+    bottom:clamp(1.5rem,4vh,2.4rem);
+    left:clamp(1.6rem,4vw,3rem);
+    right:clamp(1.6rem,4vw,3rem);
+    display:flex; align-items:baseline; justify-content:space-between;
+    gap:2rem;
+    font-size:clamp(.82rem,1.05vw,.98rem);
+    letter-spacing:.01em;
+    color:var(--bone-soft);
+  }
+  .whisper .role{max-width:34ch; line-height:1.5}
+  .whisper .year{letter-spacing:.22em; text-transform:uppercase; font-size:.86em; white-space:nowrap}
+
+  /* scroll cue */
+  .cue{
+    position:absolute;
+    left:50%; bottom:clamp(1.2rem,3.2vh,2rem);
+    transform:translateX(-50%);
+    z-index:5;
+    display:flex; flex-direction:column; align-items:center; gap:.5rem;
+    color:var(--bone-dim);
+    font-size:.62rem; letter-spacing:.4em; text-transform:uppercase;
+  }
+  .cue .line{width:1px; height:3.4rem; background:linear-gradient(var(--seam),rgba(234,185,126,0));
+    animation:cuepulse 3.2s ease-in-out infinite; transform-origin:top}
+  @keyframes cuepulse{0%,100%{opacity:.35;transform:scaleY(.7)}50%{opacity:1;transform:scaleY(1)}}
+
+  /* hero entrances */
+  .rise{
+    clip-path:inset(-30% 0 108% 0);
+    opacity:0; transform:translateY(.2em);
+    animation:rise 1.6s cubic-bezier(.16,.84,.24,1) forwards;
+  }
+  @keyframes rise{ to{clip-path:inset(-30% 0 -30% 0);opacity:1;transform:none} }
+  .fade{opacity:0;animation:fade 2.2s ease forwards}
+  @keyframes fade{ to{opacity:1} }
+  .d1{animation-delay:.5s}.d2{animation-delay:.95s}.d3{animation-delay:.2s}.d4{animation-delay:1.7s}
+
+  .disc{opacity:0;animation:breathe 12s ease-in-out infinite, wake 2.6s ease forwards}
+  @keyframes wake{ to{opacity:1} }
+  .seam{opacity:0;animation:seamwake 2.4s ease .4s forwards}
+  @keyframes seamwake{ to{opacity:1} }
+
+  /* =========================================================
+     SHARED PANEL SYSTEM  (each section = a track)
+     ========================================================= */
+  .panel{
+    position:relative;
+    padding:clamp(5rem,13vh,9rem) clamp(1.6rem,6vw,4rem);
+    overflow:hidden;
+    border-top:1px solid var(--hair-soft);
+  }
+  .panel::before{ /* atmospheric ground per panel */
+    content:"";
+    position:absolute; inset:0; z-index:0;
+    pointer-events:none;
+  }
+  .wrap{position:relative; z-index:2; max-width:1160px; margin:0 auto}
+
+  /* track separator: a groove of light, like the seam between record tracks */
+  .groove{
+    position:relative; z-index:2;
+    width:1.4px; height:clamp(3rem,7vh,5rem);
+    margin:0 auto clamp(2.4rem,6vh,4rem);
+    background:linear-gradient(rgba(234,185,126,0),rgba(234,185,126,.75),rgba(234,185,126,0));
+  }
+
+  .track{
+    display:flex; align-items:center; gap:1rem;
+    font-size:clamp(.66rem,.86vw,.78rem);
+    letter-spacing:.42em; text-transform:uppercase;
+    color:var(--bone-dim);
+    margin-bottom:clamp(1.4rem,3.4vh,2.2rem);
+  }
+  .track .no{color:var(--bronze); font-style:italic; letter-spacing:.1em}
+  .track .rule{flex:1; height:1px; background:var(--hair)}
+
+  .h-lead{
+    font-weight:300;
+    line-height:1.02;
+    letter-spacing:-.012em;
+    font-size:clamp(2.1rem,5.4vw,4.2rem);
+    color:var(--bone);
+    max-width:18ch;
+  }
+  .h-lead em{font-style:italic; color:var(--seam); font-weight:400}
+
+  .body{
+    font-size:clamp(1.04rem,1.35vw,1.28rem);
+    line-height:1.66;
+    color:var(--bone-soft);
+    max-width:60ch;
+  }
+  .body strong{color:var(--bone); font-weight:400}
+
+  /* ---- panel grounds ---- */
+  #clarity::before{
+    background:
+      radial-gradient(80% 70% at 78% 30%, rgba(108,45,39,.30), rgba(108,45,39,0) 60%),
+      radial-gradient(90% 90% at 20% 90%, rgba(31,24,21,.9), rgba(13,11,10,0) 70%),
+      var(--ink);
+  }
+  #work::before{
+    background:
+      radial-gradient(70% 60% at 15% 8%, rgba(108,45,39,.22), rgba(108,45,39,0) 60%),
+      var(--ink-2);
+  }
+  #how::before{
+    background:
+      radial-gradient(90% 70% at 85% 100%, rgba(108,45,39,.24), rgba(108,45,39,0) 60%),
+      var(--ink);
+  }
+  #about::before{
+    background:
+      radial-gradient(120% 100% at 50% 0%, rgba(31,24,21,.95), rgba(13,11,10,0) 60%),
+      radial-gradient(60% 60% at 12% 50%, rgba(108,45,39,.22), rgba(108,45,39,0) 65%),
+      var(--ink-2);
+  }
+  #writing::before{ background:var(--ink) }
+  #contact::before{
+    background:
+      radial-gradient(80% 90% at 50% 120%, rgba(138,58,48,.42), rgba(108,45,39,0) 60%),
+      radial-gradient(60% 60% at 50% -10%, rgba(31,24,21,.9), rgba(13,11,10,0) 60%),
+      var(--ink);
+  }
+
+  /* =========================================================
+     CLARITY
+     ========================================================= */
+  .clarity-grid{
+    display:grid;
+    grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);
+    gap:clamp(2rem,6vw,5rem);
+    align-items:start;
+  }
+  .clarity-grid .body{margin-top:.4rem}
+  .clarity-aside{
+    font-style:italic;
+    font-size:clamp(1.5rem,2.6vw,2.2rem);
+    line-height:1.35;
+    color:var(--bone);
+    max-width:16ch;
+  }
+  .clarity-aside .quiet{color:var(--bone-dim); font-style:normal; font-size:.62em; letter-spacing:.02em}
+
+  /* =========================================================
+     SELECTED WORK
+     ========================================================= */
+  .work-head{
+    display:flex; justify-content:space-between; align-items:flex-end;
+    gap:2rem; flex-wrap:wrap;
+    margin-bottom:clamp(2.4rem,6vh,3.6rem);
+  }
+  .work-head .body{max-width:42ch; margin:0}
+  .cards{
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:clamp(1.2rem,2.4vw,1.9rem);
+  }
+  .card{
+    position:relative;
+    display:flex; flex-direction:column;
+    text-decoration:none;
+    background:linear-gradient(160deg, rgba(31,24,21,.82), rgba(13,11,10,.72));
+    border:1px solid var(--hair);
+    overflow:hidden;
+    transition:border-color .5s ease, transform .5s ease;
+    min-height:100%;
+  }
+  .card:hover,.card:focus-visible{ border-color:rgba(234,185,126,.5); transform:translateY(-4px) }
+  .card:focus-visible{outline:2px solid var(--seam); outline-offset:3px}
+
+  .card-visual{
+    position:relative;
+    aspect-ratio:16/10;
+    overflow:hidden;
+    background:#241a16;
+  }
+  .card-visual img{
+    width:100%; height:100%; object-fit:cover;
+    filter:saturate(.55) contrast(1.02) brightness(.82);
+    transition:transform .8s cubic-bezier(.16,.84,.24,1), filter .8s ease;
+  }
+  .card:hover .card-visual img{transform:scale(1.05); filter:saturate(.7) contrast(1.03) brightness(.9)}
+  .card-visual::after{ /* oxblood/bronze duotone unifier */
+    content:""; position:absolute; inset:0;
+    background:
+      linear-gradient(180deg, rgba(13,11,10,0) 40%, rgba(13,11,10,.85) 100%),
+      radial-gradient(90% 80% at 20% 20%, rgba(211,139,82,.28), rgba(211,139,82,0) 60%),
+      linear-gradient(140deg, rgba(108,45,39,.34), rgba(13,11,10,.1));
+    mix-blend-mode:multiply;
+    pointer-events:none;
+  }
+  /* typographic visual for Terran (no shareable screenshot) */
+  .card-visual.terran{
+    display:flex; align-items:center; justify-content:center;
+    background:
+      radial-gradient(70% 90% at 30% 20%, rgba(211,139,82,.28), rgba(211,139,82,0) 60%),
+      radial-gradient(80% 80% at 80% 90%, rgba(108,45,39,.5), rgba(108,45,39,0) 60%),
+      #17110e;
+  }
+  .card-visual.terran::after{background:none}
+  .terran-mark{
+    text-align:center; color:var(--bone);
+    font-style:italic; font-weight:300;
+    font-size:clamp(1.9rem,3.4vw,2.7rem);
+    line-height:1;
+  }
+  .terran-mark span{
+    display:block; font-style:normal; margin-top:.9rem;
+    font-size:.32em; letter-spacing:.4em; text-transform:uppercase; color:var(--bone-dim)
+  }
+  .terran-orbit{
+    position:absolute; inset:0;
+    border-radius:50%;
+    width:56%; aspect-ratio:1; left:50%; top:50%; transform:translate(-50%,-50%);
+    border:1px solid rgba(234,185,126,.16);
+  }
+
+  .card-body{ padding:clamp(1.3rem,2.4vw,1.8rem); display:flex; flex-direction:column; gap:.7rem; flex:1 }
+  .eyebrow{
+    font-size:.72rem; letter-spacing:.34em; text-transform:uppercase;
+    color:var(--bronze);
+  }
+  .card-title{
+    font-weight:400; font-size:clamp(1.3rem,2vw,1.72rem);
+    line-height:1.12; letter-spacing:-.01em; color:var(--bone);
+  }
+  .card-title em{font-style:italic; color:var(--seam)}
+  .card-sub{ font-size:.98rem; line-height:1.56; color:var(--bone-soft) }
+  .metric{
+    margin-top:auto; padding-top:1rem;
+    border-top:1px solid var(--hair);
+    display:flex; align-items:baseline; gap:.6rem; flex-wrap:wrap;
+  }
+  .metric .figure{
+    font-style:italic; font-size:clamp(1.25rem,1.8vw,1.55rem);
+    color:var(--seam); line-height:1;
+  }
+  .metric .label{ font-size:.7rem; letter-spacing:.24em; text-transform:uppercase; color:var(--bone-dim) }
+
+  /* =========================================================
+     HOW I WORK
+     ========================================================= */
+  .beats{
+    display:grid;
+    grid-template-columns:repeat(4,minmax(0,1fr));
+    gap:clamp(1.4rem,3vw,2.6rem);
+    margin-top:clamp(2rem,5vh,3.2rem);
+  }
+  .beat{ position:relative; padding-top:1.6rem; border-top:1px solid var(--hair) }
+  .beat .num{
+    font-style:italic; color:var(--bronze);
+    font-size:1rem; letter-spacing:.1em; margin-bottom:.9rem;
+  }
+  .beat h3{
+    font-weight:400; font-size:clamp(1.25rem,1.7vw,1.5rem);
+    line-height:1.1; color:var(--bone); margin-bottom:.7rem;
+  }
+  .beat p{ font-size:.96rem; line-height:1.6; color:var(--bone-soft) }
+  .how-note{
+    margin-top:clamp(2.4rem,5vh,3.4rem);
+    font-style:italic; color:var(--bone-dim);
+    font-size:clamp(.95rem,1.2vw,1.06rem);
+    max-width:52ch;
+  }
+
+  /* =========================================================
+     ABOUT / ORIGIN
+     ========================================================= */
+  .about-grid{
+    display:grid;
+    grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);
+    gap:clamp(2rem,6vw,5rem);
+    align-items:start;
+  }
+  .origin{
+    font-weight:300;
+    font-size:clamp(1.25rem,2vw,1.7rem);
+    line-height:1.5;
+    color:var(--bone);
+  }
+  .origin em{font-style:italic; color:var(--seam)}
+  .creds{ border-left:1px solid var(--hair); padding-left:clamp(1.4rem,2.4vw,2rem) }
+  .creds .track{margin-bottom:1.6rem}
+  .creds ul{list-style:none}
+  .creds li{
+    padding:.95rem 0; border-bottom:1px solid var(--hair-soft);
+    font-size:1.02rem; line-height:1.4; color:var(--bone-soft);
+  }
+  .creds li:first-child{padding-top:0}
+  .creds li strong{color:var(--bone); font-weight:400}
+  .creds li em{font-style:italic; color:var(--bronze)}
+
+  /* =========================================================
+     WRITING
+     ========================================================= */
+  .writing-list{ margin-top:clamp(1.6rem,4vh,2.6rem) }
+  .wl-item{
+    display:grid;
+    grid-template-columns:minmax(0,1fr) auto;
+    gap:1.4rem 2rem; align-items:baseline;
+    padding:clamp(1.3rem,3vh,1.9rem) 0;
+    border-top:1px solid var(--hair);
+    text-decoration:none;
+    transition:padding-left .5s ease;
+  }
+  .wl-item:last-child{border-bottom:1px solid var(--hair)}
+  .wl-item:hover,.wl-item:focus-visible{padding-left:clamp(.4rem,1.4vw,1rem)}
+  .wl-item:focus-visible{outline:2px solid var(--seam); outline-offset:4px}
+  .wl-main{display:flex; flex-direction:column; gap:.5rem}
+  .wl-title{
+    font-weight:400; font-size:clamp(1.2rem,1.8vw,1.55rem);
+    line-height:1.16; color:var(--bone); letter-spacing:-.005em;
+    transition:color .4s ease;
+  }
+  .wl-item:hover .wl-title,.wl-item:focus-visible .wl-title{color:var(--seam)}
+  .wl-meta{ font-size:.82rem; letter-spacing:.16em; text-transform:uppercase; color:var(--bone-dim) }
+  .wl-venue{
+    white-space:nowrap; text-align:right;
+    font-style:italic; color:var(--bronze);
+    font-size:clamp(.95rem,1.3vw,1.12rem);
+  }
+  .wl-venue .arrow{font-style:normal; color:var(--bone-dim); margin-left:.6rem}
+
+  /* =========================================================
+     CONTACT / CLOSE
+     ========================================================= */
+  .close{ text-align:center }
+  .close .h-lead{ max-width:none; margin:0 auto; text-align:center }
+  .close-sub{
+    margin:clamp(1.6rem,4vh,2.4rem) auto 0;
+    max-width:52ch;
+    font-size:clamp(1.05rem,1.4vw,1.28rem);
+    line-height:1.6; color:var(--bone-soft);
+  }
+  .contacts{
+    margin-top:clamp(2.2rem,5vh,3.4rem);
+    display:flex; justify-content:center; flex-wrap:wrap;
+    gap:clamp(1rem,3vw,2.4rem);
+    font-size:clamp(1rem,1.3vw,1.15rem);
+  }
+  .contacts a{
+    text-decoration:none; color:var(--bone);
+    padding-bottom:.35rem; border-bottom:1px solid var(--hair);
+    transition:color .4s ease, border-color .4s ease;
+  }
+  .contacts a:hover,.contacts a:focus-visible{color:var(--seam); border-color:var(--seam)}
+  .close-disc{
+    position:absolute; z-index:0;
+    left:50%; bottom:-42%; transform:translateX(-50%);
+    width:min(70vw,620px); aspect-ratio:1; border-radius:50%;
+    background:radial-gradient(50% 50% at 50% 40%, rgba(231,176,115,.5), rgba(193,124,70,.5) 30%, var(--oxblood) 62%, #2c110f 100%);
+    filter:blur(2px);
+    opacity:.55;
+    pointer-events:none;
+  }
+
+  footer{
+    position:relative; z-index:2;
+    padding:2.4rem clamp(1.6rem,6vw,4rem);
+    border-top:1px solid var(--hair);
+    display:flex; justify-content:space-between; align-items:baseline;
+    gap:1.4rem; flex-wrap:wrap;
+    font-size:.76rem; letter-spacing:.24em; text-transform:uppercase;
+    color:var(--bone-dim);
+    background:var(--ink);
+  }
+
+  /* =========================================================
+     SCROLL REVEAL
+     ========================================================= */
+  .reveal{ opacity:0; transform:translateY(24px); transition:opacity 1.1s ease, transform 1.1s cubic-bezier(.16,.84,.24,1) }
+  .reveal.in{ opacity:1; transform:none }
+  .reveal.s2{transition-delay:.12s}
+  .reveal.s3{transition-delay:.24s}
+  .reveal.s4{transition-delay:.36s}
+
+  /* =========================================================
+     RESPONSIVE
+     ========================================================= */
+  @media (max-width:900px){
+    .cards{grid-template-columns:1fr}
+    .beats{grid-template-columns:repeat(2,1fr) ; row-gap:2rem}
+    .clarity-grid,.about-grid{grid-template-columns:1fr; gap:2.4rem}
+    .creds{border-left:none; border-top:1px solid var(--hair); padding-left:0; padding-top:2rem}
+  }
+  @media (max-width:720px){
+    .disc{top:44%; width:min(78vw,52svh)}
+    .phrase{font-size:clamp(2.4rem,13vw,4.2rem)}
+    .p1{top:12%; right:auto; left:clamp(1.6rem,6vw,3rem); text-align:left}
+    .p2{bottom:26%; left:clamp(1.6rem,6vw,3rem); font-size:clamp(2rem,10vw,3.4rem)}
+    .whisper{flex-direction:column; align-items:flex-start; gap:.6rem}
+    .cue{display:none}
+    .beats{grid-template-columns:1fr}
+    .wl-item{grid-template-columns:1fr; gap:.7rem}
+    .wl-venue{text-align:left}
+    .side-tag{display:none}
+  }
+
+  @media (prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto}
+    .disc,.seam,.seam::before,.rise,.fade,.cue .line,.card-visual img{animation:none;transition:none}
+    .disc,.seam{opacity:1}
+    .rise{clip-path:none;opacity:1;transform:none}
+    .fade{opacity:1}
+    .seam::before{top:42%}
+    .reveal{opacity:1;transform:none;transition:none}
+    .card:hover,.card:focus-visible{transform:none}
+  }
+</style>
+</head>
+<body>
+  <a class="skip" href="#clarity">Skip to content</a>
+
+  <!-- =================== HERO =================== -->
+  <main class="stage">
+    <div class="disc" aria-hidden="true"></div>
+    <div class="seam" aria-hidden="true"></div>
+
+    <div class="type">
+      <div class="mark fade d3">Vishal Mehta</div>
+      <div class="side-tag fade d3" aria-hidden="true">Side A · Portfolio MMXXVI</div>
+
+      <h1 class="phrase p1"><span class="rise d1">I <em>design</em> it.</span></h1>
+      <p class="phrase p2"><span class="rise d2">Then I <em>ship</em> it<span class="stop">.</span></span></p>
+
+      <div class="whisper fade d4">
+        <span class="role">Staff and Principal design leader for enterprise and AI. I find the real problem under the noise, and make complex, high-stakes systems clear.</span>
+        <span class="year">Portfolio 2026</span>
+      </div>
+    </div>
+
+    <div class="cue fade d4" aria-hidden="true">
+      <span>Play</span>
+      <span class="line"></span>
+    </div>
+  </main>
+
+  <!-- =================== CLARITY =================== -->
+  <section class="panel" id="clarity">
+    <div class="groove reveal" aria-hidden="true"></div>
+    <div class="wrap">
+      <div class="track reveal"><span class="no">A2</span><span>The Spine</span><span class="rule"></span><span>Clarity</span></div>
+      <div class="clarity-grid">
+        <div>
+          <h2 class="h-lead reveal">The real problem is <em>never</em> the one they name.</h2>
+          <p class="clarity-aside reveal s2" style="margin-top:2rem">
+            &ldquo;We need a dashboard.&rdquo;<br>&ldquo;Add AI to it.&rdquo;
+            <span class="quiet"> · a solution disguised as a problem.</span>
+          </p>
+        </div>
+        <p class="body reveal s2">
+          Stakeholders hand me a solution disguised as a problem. My job is to find the real need, the one they cannot quite name, and make it clear. Whether the surface is a <strong>design system</strong>, an <strong>analytics platform</strong>, or an <strong>AI agent</strong>, the work is the same: find the real problem, not the symptom, and solve it.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- =================== SELECTED WORK =================== -->
+  <section class="panel" id="work">
+    <div class="wrap">
+      <div class="track reveal"><span class="no">A3</span><span>Selected Work</span><span class="rule"></span><span>Four Sides</span></div>
+      <div class="work-head">
+        <h2 class="h-lead reveal">Decisions, not <em>decoration</em>.</h2>
+        <p class="body reveal s2">High-stakes enterprise and AI systems where clarity moved a real number. Every case led by the decision it made easy.</p>
+      </div>
+
+      <div class="cards">
+        <!-- Terran -->
+        <a class="card reveal" href="#" aria-label="Terran, Apple, AI-native observability">
+          <div class="card-visual terran">
+            <span class="terran-orbit" aria-hidden="true"></span>
+            <span class="terran-mark">Terran<span>AI-native observability</span></span>
+          </div>
+          <div class="card-body">
+            <div class="eyebrow">Apple</div>
+            <div class="card-title">The AI does the digging. The human <em>keeps the call.</em></div>
+            <p class="card-sub">When an Apple Pay build breaks, an engineer used to chase one failure across four tools for an hour. I designed Terran to find the root cause and show its reasoning, so they read the answer instead.</p>
+            <div class="metric"><span class="figure">1 hour to 3 minutes</span><span class="label">Time to root cause</span></div>
+          </div>
+        </a>
+
+        <!-- Walmart DV -->
+        <a class="card reveal s2" href="#" aria-label="Walmart Data Ventures, design system">
+          <div class="card-visual">
+            <img src="../dv-thumb.png" alt="Walmart Data Ventures design system cover" loading="lazy" />
+          </div>
+          <div class="card-body">
+            <div class="eyebrow">Walmart Data Ventures</div>
+            <div class="card-title">Six products, six teams, <em>one</em> system.</div>
+            <p class="card-sub">40% design debt across the landscape. I audited it, anchored a new system on Walmart's own design language, and proved it on one beta product before the rest followed.</p>
+            <div class="metric"><span class="figure">6 months, zero debt</span><span class="label">30% faster delivery</span></div>
+          </div>
+        </a>
+
+        <!-- Intuitive -->
+        <a class="card reveal" href="#" aria-label="Intuitive Surgical, Customer Portal">
+          <div class="card-visual">
+            <img src="../cp-hero.png" alt="Intuitive Surgical customer portal treemap" loading="lazy" />
+          </div>
+          <div class="card-body">
+            <div class="eyebrow">Intuitive Surgical</div>
+            <div class="card-title">The reorder signal you read in <em>one glance.</em></div>
+            <p class="card-sub">Surgical teams ordered inventory blind, where availability affects outcomes. I found the decision the data was hiding and made it a treemap read at a glance.</p>
+            <div class="metric"><span class="figure">3-4 levels to 1 step</span><span class="label">Navigation depth</span></div>
+          </div>
+        </a>
+
+        <!-- Apple Intelligence Shipping -->
+        <a class="card reveal s2" href="#" aria-label="Apple, Intelligence Shipping">
+          <div class="card-visual">
+            <img src="../apple-s01.png" alt="Apple intelligence shipping dashboard" loading="lazy" />
+          </div>
+          <div class="card-body">
+            <div class="eyebrow">Apple</div>
+            <div class="card-title">Every AI action named, explainable, <em>reversible.</em></div>
+            <p class="card-sub">Internal logistics ran by hand. The temptation was full automation; I kept managers in control by making the machine legible instead of invisible.</p>
+            <div class="metric"><span class="figure">50% faster</span><span class="label">Humans in control</span></div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- =================== HOW I WORK =================== -->
+  <section class="panel" id="how">
+    <div class="groove reveal" aria-hidden="true"></div>
+    <div class="wrap">
+      <div class="track reveal"><span class="no">B1</span><span>How I Work</span><span class="rule"></span><span>The Method</span></div>
+      <h2 class="h-lead reveal">Same four moves, <em>every</em> time.</h2>
+
+      <div class="beats">
+        <div class="beat reveal">
+          <div class="num">i</div>
+          <h3>Find the real problem</h3>
+          <p>Research. Ask why until it hurts. Watch what people do, not only what they say.</p>
+        </div>
+        <div class="beat reveal s2">
+          <div class="num">ii</div>
+          <h3>Make it clear</h3>
+          <p>Systems thinking. Reduce cognitive load. Design the order the eye travels: status first, detail last.</p>
+        </div>
+        <div class="beat reveal s3">
+          <div class="num">iii</div>
+          <h3>Prove it</h3>
+          <p>Prototype. Test with real users. Tie the result to a business number that matters.</p>
+        </div>
+        <div class="beat reveal s4">
+          <div class="num">iv</div>
+          <h3>Lead it</h3>
+          <p>Player-coach. Scale judgment, not just output. The best mentoring makes you unnecessary.</p>
+        </div>
+      </div>
+
+      <p class="how-note reveal">And I build in code, so what ships is what I designed, not a diluted copy of it.</p>
+    </div>
+  </section>
+
+  <!-- =================== ABOUT / ORIGIN =================== -->
+  <section class="panel" id="about">
+    <div class="wrap">
+      <div class="track reveal"><span class="no">B2</span><span>Origin</span><span class="rule"></span><span>Twenty-five years</span></div>
+      <div class="about-grid">
+        <p class="origin reveal">
+          I came to design from engineering. Early on I watched someone struggle with a tool I had built and was proud of, and it landed hard: what was effortless for me, the maker, was a wall for them, the user. That flipped my question from what the technology can do to <em>who is using it, and why.</em> Twenty-five years later the job is the same: find the real problem, not the symptom, and fix it. I lead as a player-coach, and the systems I am proudest of kept growing after I stepped back.
+        </p>
+        <div class="creds reveal s2">
+          <div class="track"><span class="no">//</span><span>Credentials</span></div>
+          <ul>
+            <li><strong>EB1A</strong> <em>Extraordinary Ability</em></li>
+            <li><strong>IEEE</strong> Senior Member</li>
+            <li>Author, <strong>Design AI Alchemy</strong></li>
+            <li>Speaker, <strong>World Usability Congress 2025</strong></li>
+            <li><strong>ACM SIGCHI</strong></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =================== WRITING =================== -->
+  <section class="panel" id="writing">
+    <div class="groove reveal" aria-hidden="true"></div>
+    <div class="wrap">
+      <div class="track reveal"><span class="no">B3</span><span>Writing</span><span class="rule"></span><span>Liner Notes</span></div>
+      <h2 class="h-lead reveal">On clarity, AI, and <em>trust</em>.</h2>
+
+      <div class="writing-list">
+        <a class="wl-item reveal" href="https://cookbook.idyeah.studio" target="_blank" rel="noopener noreferrer">
+          <div class="wl-main">
+            <span class="wl-title">Design AI Alchemy: 75 Prompts for UX Designers</span>
+            <span class="wl-meta">Author · 2025</span>
+          </div>
+          <span class="wl-venue">Book<span class="arrow">&nearr;</span></span>
+        </a>
+        <a class="wl-item reveal" href="https://ieeexplore.ieee.org/abstract/document/10939687" target="_blank" rel="noopener noreferrer">
+          <div class="wl-main">
+            <span class="wl-title">Real-Time Interaction in AR/VR: A Deep Learning Approach to HCI</span>
+            <span class="wl-meta">IEEE · Feb 2025</span>
+          </div>
+          <span class="wl-venue">IEEE<span class="arrow">&nearr;</span></span>
+        </a>
+        <a class="wl-item reveal" href="https://www.uxmatters.com/mt/archives/2025/02/smarter-faster-human-the-future-of-design-systems-with-ai.php" target="_blank" rel="noopener noreferrer">
+          <div class="wl-main">
+            <span class="wl-title">Smarter, Faster, Human: The Future of Design Systems with AI</span>
+            <span class="wl-meta">UXmatters · Feb 2025</span>
+          </div>
+          <span class="wl-venue">UXmatters<span class="arrow">&nearr;</span></span>
+        </a>
+        <a class="wl-item reveal" href="https://medium.com/design-bootcamp/designing-for-trust-in-the-age-of-ai-agents-3cce73c7d8ef?sk=7fbb12f9ab2ca0c91ef530505afae2da" target="_blank" rel="noopener noreferrer">
+          <div class="wl-main">
+            <span class="wl-title">Designing for Trust in the Age of AI Agents</span>
+            <span class="wl-meta">Bootcamp · Sep 2025</span>
+          </div>
+          <span class="wl-venue">Bootcamp<span class="arrow">&nearr;</span></span>
+        </a>
+        <a class="wl-item reveal" href="https://medium.com/design-bootcamp/your-dashboard-is-lying-to-you-25a837e836db?sk=a7c2fb7f7008bc279019d1d4023e700f" target="_blank" rel="noopener noreferrer">
+          <div class="wl-main">
+            <span class="wl-title">Your Dashboard Is Lying to You</span>
+            <span class="wl-meta">Bootcamp · Mar 2026</span>
+          </div>
+          <span class="wl-venue">Bootcamp<span class="arrow">&nearr;</span></span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- =================== CONTACT / CLOSE =================== -->
+  <section class="panel" id="contact">
+    <div class="close-disc" aria-hidden="true"></div>
+    <div class="wrap close">
+      <div class="track reveal" style="justify-content:center"><span class="no">B4</span><span>Contact</span></div>
+      <h2 class="h-lead reveal">What's the <em>real</em> problem?</h2>
+      <p class="close-sub reveal s2">Open to Principal, Staff, and Director roles in enterprise and AI-UX, plus advisory work. If something feels harder than it should be, that is usually where I start.</p>
+      <div class="contacts reveal s3">
+        <a href="mailto:knock@vishalme.com">knock@vishalme.com</a>
+        <a href="https://linkedin.com/in/vishalme" target="_blank" rel="noopener noreferrer">linkedin.com/in/vishalme</a>
+        <a href="https://medium.com/@vishalme" target="_blank" rel="noopener noreferrer">medium.com/@vishalme</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <span>Vishal Mehta</span>
+    <span>Clarity under the noise</span>
+    <span>Side B · MMXXVI</span>
+  </footer>
+
+  <canvas id="grain" aria-hidden="true"></canvas>
+
+  <script>
+  (function(){
+    var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    /* ---------- generative grain over the whole record ---------- */
+    var canvas=document.getElementById('grain');
+    var ctx=canvas.getContext('2d');
+    var TILE=140, buf=document.createElement('canvas');
+    buf.width=TILE; buf.height=TILE;
+    var bctx=buf.getContext('2d');
+
+    function paint(){
+      var img=bctx.createImageData(TILE,TILE);
+      var d=img.data;
+      for(var i=0;i<d.length;i+=4){
+        var v=(Math.random()*255)|0;
+        d[i]=v; d[i+1]=v*0.86|0; d[i+2]=v*0.7|0; d[i+3]=255; // warm grain
+      }
+      bctx.putImageData(img,0,0);
+      ctx.clearRect(0,0,canvas.width,canvas.height);
+      var p=ctx.createPattern(buf,'repeat');
+      ctx.fillStyle=p;
+      ctx.fillRect(0,0,canvas.width,canvas.height);
+    }
+    function resize(){
+      canvas.width=Math.floor(window.innerWidth*0.5);
+      canvas.height=Math.floor(window.innerHeight*0.5);
+      canvas.style.width=window.innerWidth+'px';
+      canvas.style.height=window.innerHeight+'px';
+      paint();
+    }
+    window.addEventListener('resize',resize);
+    resize();
+
+    if(!reduce){
+      var last=0;
+      (function loop(t){
+        if(t-last>90){ paint(); last=t; }
+        requestAnimationFrame(loop);
+      })(0);
+    }
+
+    /* ---------- scroll reveal ---------- */
+    var items=[].slice.call(document.querySelectorAll('.reveal'));
+    if(reduce || !('IntersectionObserver' in window)){
+      items.forEach(function(el){el.classList.add('in')});
+    }else{
+      var io=new IntersectionObserver(function(entries){
+        entries.forEach(function(e){
+          if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+        });
+      },{rootMargin:'0px 0px -12% 0px', threshold:.15});
+      items.forEach(function(el){io.observe(el)});
+    }
+  })();
+  </script>
+</body>
+</html>

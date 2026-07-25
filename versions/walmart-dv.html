@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Apple Intelligence Shipping · Vishal Mehta</title>
-<meta name="description" content="Apple wanted to automate its shipping operations away. I designed the AI to do the work and show its reasoning, so the manager stays the one who decides." />
+<title>Walmart Data Ventures · Vishal Mehta</title>
+<meta name="description" content="The DV design system: how I turned six products and forty percent design debt into one foundation the whole suite runs on." />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,900;1,9..144,400;1,9..144,600;1,9..144,900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
@@ -76,30 +76,33 @@
   .tier .d{font-family:'Fraunces',serif;font-size:20px;color:var(--ink);line-height:1.25;}
   .tier .s{margin-top:8px;font-size:13px;color:var(--ink-faint);}
 
-  /* decisions / calls */
+  /* decisions */
   .calls{margin-top:clamp(30px,4vw,52px);display:flex;flex-direction:column;gap:clamp(22px,3vw,34px);max-width:760px;}
   .call{padding-left:24px;border-left:2px solid var(--line);}
   .call .ct{font-family:'Fraunces',serif;font-size:clamp(20px,2.4vw,26px);color:var(--ink);letter-spacing:-0.01em;line-height:1.2;}
   .call .cd{margin-top:12px;font-size:clamp(15px,1.35vw,17px);line-height:1.68;color:var(--ink-soft);}
   .call .cd b{color:var(--ink);font-weight:600;}
+  .call.miss{border-left-color:var(--accent);}
 
   /* figures */
   .proof-intro{max-width:62ch;}
   .figrow{margin-top:clamp(34px,4.6vw,66px);max-width:1080px;}
-  .figrow.narrow{max-width:640px;}
+  .figrow.narrow{max-width:600px;}
   .figment{border-radius:16px;overflow:hidden;border:1px solid var(--line);background:#fff;
     box-shadow:0 46px 92px -60px rgba(40,34,24,0.5),0 12px 30px -22px rgba(40,34,24,0.16);}
-  .figment img{display:block;width:100%;height:auto;}
+  .figment img,.figment video{display:block;width:100%;height:auto;}
   .figcap{margin-top:15px;font-size:13.5px;color:var(--ink-faint);line-height:1.55;max-width:64ch;}
   .figcap b{color:var(--ink-soft);font-weight:600;}
   .fig2{display:grid;grid-template-columns:1fr 1fr;gap:clamp(16px,2vw,22px);align-items:start;}
   .fig2 .figcap{margin-top:13px;}
+  .vid-tag{display:inline-flex;align-items:center;gap:7px;font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:13px;}
+  .vid-tag::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--accent);}
 
-  /* scoreboard */
-  .score{margin-top:clamp(30px,4vw,52px);display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(18px,2.6vw,34px);max-width:920px;}
-  .score .m .big{font-family:'Fraunces',serif;font-weight:300;font-size:clamp(38px,4.6vw,60px);line-height:1;letter-spacing:-0.02em;color:var(--ink);}
-  .score .m .big em{font-style:italic;font-weight:900;color:var(--accent);}
-  .score .m .lbl{margin-top:15px;font-size:14.5px;line-height:1.5;color:var(--ink-soft);max-width:30ch;}
+  /* testimonials */
+  .quotes{margin-top:clamp(30px,4vw,50px);display:grid;grid-template-columns:1fr 1fr;gap:clamp(18px,2.4vw,30px);max-width:900px;}
+  .quote{padding-left:24px;border-left:2px solid var(--accent);}
+  .quote p{font-family:'Fraunces',serif;font-style:italic;font-weight:400;font-size:clamp(17px,1.7vw,21px);line-height:1.5;color:var(--ink);}
+  .quote .who{margin-top:14px;font-size:12.5px;letter-spacing:.03em;color:var(--ink-faint);font-weight:500;}
 
   /* note */
   .nda{margin-top:clamp(28px,3.4vw,40px);font-size:13.5px;line-height:1.55;color:var(--ink-faint);max-width:none;padding:16px 20px;border:1px solid var(--line);border-radius:10px;background:rgba(190,74,43,0.05);}
@@ -109,7 +112,7 @@
   .close{background:radial-gradient(60% 70% at 50% 42%, rgba(190,74,43,0.18), transparent 72%), var(--ink);color:var(--cream);text-align:center;padding-block:clamp(90px,15vh,180px);}
   .close h2{margin-top:clamp(24px,3.4vw,44px);font-family:'Fraunces',serif;font-weight:300;font-size:clamp(40px,8vw,116px);line-height:.96;letter-spacing:-0.03em;}
   .close h2 em{font-style:italic;font-weight:900;color:var(--glow);}
-  .close .cbody{margin:clamp(24px,3.4vw,38px) auto 0;max-width:56ch;font-size:clamp(16px,1.6vw,19px);line-height:1.6;color:rgba(247,241,230,0.78);}
+  .close .cbody{margin:clamp(24px,3.4vw,38px) auto 0;max-width:54ch;font-size:clamp(16px,1.6vw,19px);line-height:1.6;color:rgba(247,241,230,0.78);}
   .close-actions{margin-top:clamp(34px,4vw,50px);display:flex;justify-content:center;gap:14px;flex-wrap:wrap;}
   .btn{display:inline-flex;align-items:center;gap:.6ch;padding:14px 26px;border-radius:100px;font-size:14.5px;font-weight:600;transition:.2s;}
   .btn.primary{background:var(--accent);color:#fff;} .btn.primary:hover{background:var(--accent-deep);}
@@ -141,7 +144,7 @@
     .meta{grid-template-columns:1fr;gap:20px;}
     .tiers{grid-template-columns:1fr;}
     .fig2{grid-template-columns:1fr;gap:26px;}
-    .score{grid-template-columns:1fr;gap:26px;}
+    .quotes{grid-template-columns:1fr;}
   }
 
   /* lightbox */
@@ -170,22 +173,22 @@
   <div class="grain"></div>
 
   <nav>
-    <a class="nav-back" href="index.html"><span class="dot"></span>Vishal Mehta</a>
+    <a class="nav-back" href="v1a.html"><span class="dot"></span>Vishal Mehta</a>
     <span class="nav-right">Case study</span>
   </nav>
 
   <!-- CASE HERO -->
   <header class="band chero">
     <div class="wrap">
-      <span class="eyebrow" data-reveal>Apple &middot; Intelligence Shipping</span>
-      <h1 class="display" data-reveal style="--d:80ms">The AI suggests.<br>The human <em>decides.</em></h1>
-      <p class="dek" data-reveal style="--d:140ms">Apple's logistics managers ran shipping by hand, and the plan was to automate it away. <b>I designed the AI to do the work and show its reasoning, so the manager stays the one who decides.</b></p>
+      <span class="eyebrow" data-reveal>Walmart Data Ventures &middot; Design System</span>
+      <h1 class="display" data-reveal style="--d:80ms">Six products.<br>One <em>language.</em></h1>
+      <p class="dek" data-reveal style="--d:140ms">Data Ventures builds the analytics platforms Walmart's merchants run on. I designed the system underneath them, so <b>six teams stopped reinventing the same patterns</b> and started shipping as one.</p>
       <div class="meta" data-reveal style="--d:200ms">
-        <div><div class="k">Role</div><div class="v">UX design lead. Research, interaction, AI-UX, data visualization, and the design-to-code build.</div></div>
-        <div><div class="k">Built</div><div class="v">The AI action surface and the shipping dashboard: named, explainable, reversible.</div></div>
-        <div><div class="k">Context</div><div class="v">Apple internal logistics. Shipping operations.</div></div>
+        <div><div class="k">Role</div><div class="v">Design lead and system architect. Audit, architecture, components, governance, rollout.</div></div>
+        <div><div class="k">Built</div><div class="v">The DV design system: a data-specialized extension of Walmart Living Design.</div></div>
+        <div><div class="k">Context</div><div class="v">Walmart Data Ventures, the Luminate suite. Six products, six teams.</div></div>
       </div>
-      <p class="nda" data-reveal style="--d:260ms"><b>A note.</b> Apple's internal tool and its data stay private. The screens here are approved, representative views of my redesign with mock data, and I am glad to walk through more in depth privately.</p>
+      <p class="nda" data-reveal style="--d:260ms"><b>A note.</b> The screens here are approved, public materials from the DV system. The deeper token architecture, governance model, and adoption playbook I am glad to walk through privately.</p>
     </div>
   </header>
 
@@ -193,25 +196,25 @@
   <section class="band cream">
     <div class="wrap col">
       <span class="eyebrow" data-reveal>The problem</span>
-      <h2 class="display sechead" data-reveal style="--d:80ms">Shipping, run by <em>hand.</em></h2>
+      <h2 class="display sechead" data-reveal style="--d:80ms">Six teams, six versions of the same <em>table.</em></h2>
       <div class="secbody">
-        <p class="body" data-reveal style="--d:120ms">Apple's logistics managers created and tracked every shipment through a fragmented, manual workflow. No proactive alerts, no consolidation, no assistance. Just volume and complexity, held together by people cross-referencing one tab against another.</p>
-        <p class="body" data-reveal style="--d:160ms">The obvious fix was speed. But the question underneath was harder, and it was the one everyone was about to skip past.</p>
+        <p class="body" data-reveal style="--d:120ms">Six products, and every team had built its own way. Roughly forty percent of the design was debt: patterns rebuilt from scratch, components that looked alike but behaved differently, a patchwork of outside UI kits that never quite fit a data-heavy product. Nobody had called it a problem yet.</p>
+        <p class="body" data-reveal style="--d:160ms">So I did. Before I drew a single screen, I audited every design system already in play across Walmart. The pattern was hard to miss: teams kept standing up their own isolated, heavily customized systems that looked sharp in month one and buckled by month six.</p>
       </div>
-      <div class="pq" data-reveal style="--d:200ms"><p>The problem was not speed. It was <em>trust.</em></p></div>
+      <div class="pq" data-reveal style="--d:200ms"><p>A system that never scales is just debt with a <em>coat of paint.</em></p></div>
     </div>
   </section>
 
-  <!-- THE REAL PROBLEM (the room) -->
+  <!-- THE REAL PROBLEM -->
   <section class="band">
     <div class="wrap col">
       <span class="eyebrow" data-reveal>The real problem</span>
-      <h2 class="display sechead" data-reveal style="--d:80ms">The room wanted to automate it <em>away.</em></h2>
+      <h2 class="display sechead" data-reveal style="--d:80ms">The tempting fix was a brand-new <em>system.</em></h2>
       <div class="secbody">
-        <p class="body" data-reveal style="--d:120ms">On a leadership call, the team pitched an AI agent that would run the whole workflow: reroute delayed shipments, auto-generate the missing forms, consolidate on its own. Everyone was thrilled. I was the only designer in the room, and I asked one question. Would a manager sign an auto-generated form without reading every line? Would they hand over a decision they could not undo?</p>
-        <p class="body" data-reveal style="--d:160ms">That reframed the whole project. This was not an efficiency problem; it was a trust problem. <b>An AI that acts silently in a high-stakes operation does not save time. It spends trust, and the first surprise action costs more than every second it ever saved.</b> So we changed the goal. The AI does the work and shows its reasoning, and the manager keeps the call.</p>
+        <p class="body" data-reveal style="--d:120ms">The obvious move was to build a fresh DV system from scratch, owned outright and fast to show. But that is exactly the island I had just watched other teams strand themselves on. And six teams already mid-flight would route around anything that felt like a tax.</p>
+        <p class="body" data-reveal style="--d:160ms">The real problem was never missing components. It was adoption and endurance. <b>A system nobody adopts, or one that cannot outlive its first release, is just more debt.</b> So I anchored DV on Living Design, Walmart's proven corporate language, and specialized its atoms for data. Grounded in what already worked, built to go the distance.</p>
       </div>
-      <div class="pq" data-reveal style="--d:200ms"><p>A silent action does not save time. It spends <em>trust.</em></p></div>
+      <div class="pq" data-reveal style="--d:200ms"><p>A system nobody adopts is just <em>more debt.</em></p></div>
     </div>
   </section>
 
@@ -220,95 +223,113 @@
     <div class="wrap">
       <div class="col">
         <span class="eyebrow" data-reveal>The principle</span>
-        <h2 class="display sechead" data-reveal style="--d:80ms">Suggest, don't <em>act.</em></h2>
+        <h2 class="display sechead" data-reveal style="--d:80ms">Model rooms, not <em>parts.</em></h2>
         <div class="secbody">
-          <p class="body" data-reveal style="--d:120ms">Every AI move surfaces as a named action, not a silent automation. The manager sees what the system caught, why it matters, and stays one tap from accept, change, or dismiss. Nothing happens to a shipment without a person saying yes.</p>
+          <p class="body" data-reveal style="--d:120ms">A design system is not a box of buttons teams reassemble from scratch. I built DV as a library of experiences. Think model rooms: a step wizard, an actionable data table, a dashboard with variants. A team walks into the room and furnishes it with their own content, and the experience stays familiar. Consistency here is not sameness. A kitchen and a bedroom should not look alike; each should be instantly familiar for what you came to do.</p>
         </div>
       </div>
       <div class="tiers">
-        <div class="tier" data-reveal style="--d:120ms"><div class="t">Named, not silent</div><div class="d">Every action says what it is and why it fired.</div><div class="s">You see what it caught.</div></div>
-        <div class="tier" data-reveal style="--d:180ms"><div class="t">Reversible by default</div><div class="d">Nothing is a one-way door; undo is always in reach.</div><div class="s">Saying yes feels safe.</div></div>
-        <div class="tier" data-reveal style="--d:240ms"><div class="t">The human holds the call</div><div class="d">The AI proposes; the manager decides, because they carry the outcome.</div><div class="s">Suggest, never act.</div></div>
+        <div class="tier" data-reveal style="--d:120ms"><div class="t">Extend the foundation</div><div class="d">DV builds on Living Design, so every core improvement lands for free.</div><div class="s">Never an island.</div></div>
+        <div class="tier" data-reveal style="--d:180ms"><div class="t">Furnish, don't rebuild</div><div class="d">Teams change the steps, content, and actions; the room stays intact.</div><div class="s">Fast, and still coherent.</div></div>
+        <div class="tier" data-reveal style="--d:240ms"><div class="t">Gate what's new</div><div class="d">A genuinely new component earns its place: prove reuse, prove scale.</div><div class="s">It grows on purpose.</div></div>
       </div>
     </div>
   </section>
 
-  <!-- THE ACTION SURFACE -->
+  <!-- THE SYSTEM / PROOF -->
   <section class="band">
     <div class="wrap">
-      <span class="eyebrow" data-reveal>The action surface</span>
-      <h2 class="display sechead" data-reveal style="--d:80ms">Four suggestions. Four <em>decisions.</em></h2>
-      <p class="body proof-intro" data-reveal style="--d:120ms">The heart of the redesign is the AI action surface. The system watches for delay risk, missing documents, SLA breaches, and repeat destinations, and surfaces each as a proposal the manager can accept, modify, or dismiss in one tap. Reroute. Prepare docs. Notify ops. Consolidate. The work is done for them; the judgment stays with them.</p>
+      <span class="eyebrow" data-reveal>The system</span>
+      <h2 class="display sechead" data-reveal style="--d:80ms">Built once. Shipped <em>everywhere.</em></h2>
+      <p class="body proof-intro" data-reveal style="--d:120ms">The audit made the case. Living Design gave it roots. Then it became real: an ecosystem of configurable components, a token architecture, a chart suite, and the flagship data table, adopted as the standard across every product in the suite.</p>
 
       <div class="figrow" data-reveal style="--d:120ms">
-        <figure class="figment"><img src="apple-s02w.png" alt="The AI Actions panel expanded beside the dashboard, showing four proactive suggestions each with a one-tap resolution" loading="lazy" /></figure>
-        <p class="figcap"><b>The AI action surface.</b> Each proposal names what it caught, why it matters, and the single action that resolves it. Reroute a delay, prepare missing docs, notify ops on an SLA breach, consolidate repeat destinations.</p>
+        <figure class="figment"><img src="../dv-s04.png" alt="Audit mapping consistency gaps and duplicated patterns across the six Luminate products" loading="lazy" /></figure>
+        <p class="figcap"><b>The audit that made the case.</b> Consistency gaps and duplicated patterns, mapped across the suite. This is what turned a shared system from a nice idea into a funded one.</p>
+      </div>
+
+      <div class="figrow narrow" data-reveal style="--d:120ms">
+        <figure class="figment"><img src="../dv-s01.png" alt="Ecosystem diagram: DV as a specialized extension of Walmart Living Design core components" loading="lazy" /></figure>
+        <p class="figcap"><b>The architecture.</b> DV is not a standalone system. It extends Walmart's Living Design foundation and specializes it for data, so every improvement upstream flows down for free.</p>
+      </div>
+
+      <div class="figrow" data-reveal style="--d:120ms">
+        <span class="vid-tag">Live component &middot; Figma</span>
+        <figure class="figment">
+          <video data-autoplay muted loop playsinline preload="metadata" poster="../dv-linechart-poster.jpg">
+            <source src="../dv-linechart.mp4" type="video/mp4" />
+          </video>
+        </figure>
+        <p class="figcap"><b>One component, every product's data.</b> The DV Line Chart and its variants: theme, line count, footer, axis, header, all configured through a clean props layer. Teams furnish it; they never fork it.</p>
       </div>
 
       <div class="figrow" data-reveal style="--d:120ms">
         <div class="fig2">
           <div>
-            <figure class="figment"><img src="apple-s01w.png" alt="My Shipments dashboard: totals, carrier performance, volume trends, and SLA risk" loading="lazy" /></figure>
-            <p class="figcap"><b>The dashboard.</b> Carrier performance, volume, and SLA risk, ambient instead of cross-referenced by hand.</p>
+            <figure class="figment"><img src="../dv-s02.png" alt="Chart suite: area, bar, donut, and multi-line components in product context" loading="lazy" /></figure>
+            <p class="figcap"><b>The chart suite.</b> Area, bar, donut, and multi-line, one visual language for data across the suite.</p>
           </div>
           <div>
-            <figure class="figment"><img src="apple-s03w.png" alt="Shipments inbox: a dense, filterable table with VIP flags, status badges, and carrier icons" loading="lazy" /></figure>
-            <p class="figcap"><b>The inbox.</b> A dense, filterable view with VIP flags and status you read at a glance.</p>
+            <figure class="figment"><img src="../dv-s03.png" alt="Token architecture: color scale, component variants, and usage guidelines" loading="lazy" /></figure>
+            <p class="figcap"><b>The token layer.</b> An accessible color scale and component variants, with the palettes generated by AI and reviewed by hand.</p>
           </div>
+        </div>
+      </div>
+
+      <div class="figrow" data-reveal style="--d:120ms">
+        <figure class="figment"><img src="../dv-s05.png" alt="The flagship DV Data Table component: schema-agnostic, configurable, with filters, search, and column variants" loading="lazy" /></figure>
+        <p class="figcap"><b>The flagship.</b> A schema-agnostic Data Table that accepts any data shape without a rewrite. It became the standard the whole suite adopted.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ADOPTION / PROOF -->
+  <section class="band cream">
+    <div class="wrap col">
+      <span class="eyebrow" data-reveal>Adoption</span>
+      <h2 class="display sechead" data-reveal style="--d:80ms">You don't sell a system. You <em>prove it.</em></h2>
+      <div class="secbody">
+        <p class="body" data-reveal style="--d:120ms">A system teams feel is imposed gets worked around. So I did not pitch it in a deck. I picked the one product still in beta, Insights Activation, where the stakes were low and the room to show was high.</p>
+        <p class="body" data-reveal style="--d:160ms">I sat with their lead designer and PM, and together we rebuilt their most complex screen, a dense data table, with the new component, side by side as partners. <b>That product shipped in under six months with zero design debt, and it became the model the other five teams followed.</b></p>
+      </div>
+      <div class="pq" data-reveal style="--d:200ms"><p>The proof did the <em>convincing.</em></p></div>
+    </div>
+  </section>
+
+  <!-- DECISIONS -->
+  <section class="band">
+    <div class="wrap col">
+      <span class="eyebrow" data-reveal>The decisions</span>
+      <h2 class="display sechead" data-reveal style="--d:80ms">Three calls that made it <em>hold.</em></h2>
+      <div class="calls">
+        <div class="call" data-reveal style="--d:120ms">
+          <div class="ct">Extension over standalone.</div>
+          <div class="cd">Building on Living Design meant a more complex architecture and a dependency on another team's roadmap. The return: <b>every improvement to the foundation lands in DV for free,</b> and DV never became the island the other systems were.</div>
+        </div>
+        <div class="call" data-reveal style="--d:160ms">
+          <div class="ct">Configure over fork.</div>
+          <div class="cd">Teams had already started their own tables and filters. Blessing those forks would have been the easy system. Instead we consolidated them into configurable components. The cost was saying no. The return was <b>zero design debt for every product that launched after.</b></div>
+        </div>
+        <div class="call miss" data-reveal style="--d:200ms">
+          <div class="ct">And one I got wrong first.</div>
+          <div class="cd">Early on I said yes to every custom-component request in office hours, and the library started turning into a junk drawer of one-offs. So I put a gate on it: prove reuse, prove scale. The surprise was that in those reviews, teams kept finding someone had already built what they needed. <b>A system is only as strong as what it keeps out.</b></div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- THE DECISIONS -->
+  <!-- WHAT PEOPLE SAID -->
   <section class="band cream">
     <div class="wrap">
-      <div class="col">
-        <span class="eyebrow" data-reveal>The decisions</span>
-        <h2 class="display sechead" data-reveal style="--d:80ms">Two calls that kept it <em>trustworthy.</em></h2>
-        <div class="calls">
-          <div class="call" data-reveal style="--d:120ms">
-            <div class="ct">Confirmation over silent automation.</div>
-            <div class="cd">The engine could have rerouted, consolidated, and generated documents on its own. Fewer clicks, faster. We chose an explicit suggestion with a one-tap confirm instead. The cost is a slightly longer interaction. The return is <b>a manager who is never surprised, and trust that does not erode.</b></div>
-          </div>
-          <div class="call" data-reveal style="--d:160ms">
-            <div class="ct">A separate AI path, not an AI-stuffed form.</div>
-            <div class="cd">The obvious integration was to bolt AI onto the existing create-shipment form with inline autofill and predictive fields. It tangled two mental models in one surface. So I split them: a three-path entry, upload a file, start from scratch, or use Apple Intelligence, chosen before the form. <b>People who do not want AI are never interrupted by it; people who do get a clean conversational path.</b></div>
-          </div>
+      <span class="eyebrow" data-reveal>Heard across the org</span>
+      <div class="quotes">
+        <div class="quote" data-reveal style="--d:120ms">
+          <p>It unified our product interfaces and gave us a cohesive experience across every application. It has been a game changer.</p>
+          <div class="who">Design Director, Data Ventures</div>
         </div>
-      </div>
-
-      <div class="figrow" data-reveal style="--d:120ms">
-        <div class="fig2">
-          <div>
-            <figure class="figment"><img src="apple-s01bw.png" alt="The create-shipment entry modal with three paths: Upload File, From Scratch, Use Apple Intelligence" loading="lazy" /></figure>
-            <p class="figcap"><b>The choice, up front.</b> Pick a mode before the form, so each path stays clean.</p>
-          </div>
-          <div>
-            <figure class="figment"><img src="apple-s04w.png" alt="Create Shipment form with the Apple Intelligence Assist panel guiding conversational data entry" loading="lazy" /></figure>
-            <p class="figcap"><b>The conversational path.</b> Apple Intelligence Assist fills the form by asking, then hands the result back for review.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- SCOREBOARD -->
-  <section class="band">
-    <div class="wrap">
-      <span class="eyebrow" data-reveal>The scoreboard</span>
-      <div class="score">
-        <div class="m" data-reveal style="--d:120ms">
-          <div class="big">50<em>%</em></div>
-          <div class="lbl">faster to create a shipment, without automating the manager out of the decision.</div>
-        </div>
-        <div class="m" data-reveal style="--d:180ms">
-          <div class="big">Four</div>
-          <div class="lbl">kinds of proactive help surfaced in real time, each one a suggestion, not an action.</div>
-        </div>
-        <div class="m" data-reveal style="--d:240ms">
-          <div class="big"><em>2 weeks</em></div>
-          <div class="lbl">from brief to Apple-standard React, because I designed it in code.</div>
+        <div class="quote" data-reveal style="--d:180ms">
+          <p>The reusable components sped up our builds and raised the quality and reliability of everything we shipped.</p>
+          <div class="who">Engineering Lead, Core Services</div>
         </div>
       </div>
     </div>
@@ -318,11 +339,11 @@
   <section class="close">
     <div class="wrap">
       <span class="eyebrow" data-reveal style="justify-content:center;display:inline-flex">Outcome</span>
-      <h2 data-reveal style="--d:70ms">Half the time. All the <em>control.</em></h2>
-      <p class="cbody" data-reveal style="--d:140ms">Shipment creation dropped by half, with four kinds of proactive help surfaced in real time, and I took it from brief to Apple-standard React in under two weeks. Not by automating the manager out of the decision, but by doing the work in front of them and leaving the call where it belongs.</p>
+      <h2 data-reveal style="--d:70ms">One foundation. Zero <em>debt.</em></h2>
+      <p class="cbody" data-reveal style="--d:140ms">The system shipped its flagship in under six months with zero design debt, made teams about thirty percent faster, and became the only suite in the org running on one foundation. I built it to keep growing without me, through office hours and component authoring. It still is.</p>
       <div class="close-actions" data-reveal style="--d:200ms">
-        <a class="btn ghost" href="index.html#work">See the other work</a>
-        <a class="btn primary" href="index.html#contact">What's the real problem?</a>
+        <a class="btn ghost" href="v1a.html#work">See the other work</a>
+        <a class="btn primary" href="v1a.html#contact">What's the real problem?</a>
       </div>
 
       <a class="nextcase" data-reveal style="--d:260ms" href="terran.html">
@@ -339,9 +360,18 @@
   </div>
 
   <script>
+    // reveal
     (function(){
       const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{rootMargin:'0px 0px -12% 0px',threshold:0.1});
       document.querySelectorAll('[data-reveal]').forEach(el=>io.observe(el));
+    })();
+    // video: play while in view, pause out, honor reduced motion
+    (function(){
+      const reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
+      const vids=document.querySelectorAll('video[data-autoplay]');
+      if(reduce){vids.forEach(v=>{v.removeAttribute('autoplay');v.setAttribute('controls','');});return;}
+      const io=new IntersectionObserver((es)=>{es.forEach(e=>{const v=e.target;if(e.isIntersecting){v.play().catch(()=>{});}else{v.pause();}});},{threshold:0.25});
+      vids.forEach(v=>io.observe(v));
     })();
     // lightbox: click any figure screenshot to view full size
     (function(){

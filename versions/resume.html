@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Vishal Mehta · Resume</title>
+<meta name="description" content="Twenty-five years, in one scroll. The career arc of Vishal Mehta, from engineer to Staff and Principal AI-UX design leader, told as a story beside a living timeline." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,900;1,9..144,400;1,9..144,600;1,9..144,900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --bone:#F2EBDD; --cream:#F7F1E6; --ink:#17130F; --ink-soft:#4A423A; --ink-faint:#6E655A;
+    --sand:#E4D8C4; --line:rgba(23,19,15,0.14); --accent:#BE4A2B; --accent-deep:#93341C;
+    --glow:#E8996F; --ok:#8FB865;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;}
+  body{background:var(--bone);color:var(--ink);font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden;}
+  a{color:inherit;text-decoration:none;}
+  .grain{position:fixed;inset:-50%;z-index:1;opacity:0.045;pointer-events:none;mix-blend-mode:multiply;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");}
+
+  .wrap{position:relative;z-index:2;padding-inline:clamp(24px,5vw,72px);max-width:1360px;margin:0 auto;}
+  .col{max-width:820px;}
+
+  /* nav */
+  nav{position:sticky;top:0;z-index:30;padding:20px clamp(24px,5vw,72px);display:flex;justify-content:space-between;align-items:center;
+    background:rgba(242,235,221,0.72);backdrop-filter:saturate(160%) blur(14px);-webkit-backdrop-filter:saturate(160%) blur(14px);}
+  .nav-back{display:inline-flex;align-items:baseline;gap:.6ch;font-family:'Fraunces',serif;font-weight:600;font-size:clamp(15px,1.5vw,18px);letter-spacing:.01em;}
+  .nav-back .dot{width:7px;height:7px;border-radius:50%;background:var(--accent);transform:translateY(-1px);flex:0 0 auto;}
+  .nav-right{font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-faint);font-weight:600;transition:color .2s;}
+  .nav-right:hover{color:var(--accent);}
+
+  .eyebrow{display:inline-flex;align-items:center;gap:.7ch;font-weight:600;font-size:clamp(11px,1.1vw,12.5px);letter-spacing:.22em;text-transform:uppercase;color:var(--accent);}
+  .eyebrow::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--accent);}
+
+  h1.display{font-family:'Fraunces',serif;font-weight:300;font-size:clamp(46px,8vw,124px);line-height:.96;letter-spacing:-0.03em;}
+  h1.display em{font-style:italic;font-weight:900;color:var(--accent);}
+  .body{font-size:clamp(16px,1.4vw,18.5px);line-height:1.72;color:var(--ink-soft);}
+  .body b{color:var(--ink);font-weight:600;}
+
+  /* hero */
+  .rhero{min-height:82vh;display:flex;flex-direction:column;justify-content:center;padding-block:clamp(60px,10vh,120px);}
+  .rhero h1{margin-top:.28em;max-width:14ch;}
+  .rhero .dek{margin-top:clamp(24px,3vw,38px);font-family:'Fraunces',serif;font-weight:400;font-size:clamp(19px,2.3vw,28px);line-height:1.44;color:var(--ink-soft);max-width:44ch;}
+  .rhero .dek b{color:var(--ink);font-weight:600;}
+  .scrollcue{margin-top:clamp(40px,6vh,72px);display:inline-flex;align-items:center;gap:12px;font-size:12px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-faint);}
+  .scrollcue .track{position:relative;width:26px;height:44px;border:1.5px solid var(--line);border-radius:980px;flex:none;}
+  .scrollcue .track::after{content:"";position:absolute;left:50%;top:8px;width:4px;height:8px;border-radius:4px;background:var(--accent);transform:translateX(-50%);animation:cue 1.8s ease-in-out infinite;}
+  @keyframes cue{0%{opacity:0;transform:translate(-50%,0);}40%{opacity:1;}80%{opacity:0;transform:translate(-50%,14px);}100%{opacity:0;}}
+
+  /* ===== the arc: split screen ===== */
+  .arc{position:relative;display:grid;grid-template-columns:1fr clamp(240px,32%,400px);gap:clamp(24px,5vw,80px);align-items:start;
+    padding-bottom:clamp(40px,8vh,110px);}
+  .narr{min-width:0;}
+  .chapter{min-height:82vh;display:flex;flex-direction:column;justify-content:center;padding:clamp(18px,4vh,54px) 0;}
+  .chapter .ce{font-weight:600;font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin-bottom:18px;display:inline-flex;align-items:center;gap:.7ch;}
+  .chapter .ce::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--accent);}
+  .chapter h3{font-family:'Fraunces',serif;font-weight:300;font-size:clamp(30px,4.4vw,58px);line-height:1.03;letter-spacing:-0.02em;color:var(--ink);max-width:15ch;}
+  .chapter h3 em{font-style:italic;font-weight:900;color:var(--accent);}
+  .chapter .cb{margin-top:clamp(20px,2.6vw,32px);font-size:clamp(16px,1.4vw,18.5px);line-height:1.72;color:var(--ink-soft);max-width:52ch;}
+  .chapter .cb + .cb{margin-top:1em;}
+  .chapter .cb b{color:var(--ink);font-weight:600;}
+  .chapter .clinks{margin-top:24px;display:flex;flex-wrap:wrap;gap:10px;}
+  .cslink{font-size:12.5px;font-weight:600;color:var(--accent);border:1px solid var(--line);border-radius:980px;padding:8px 15px;transition:.2s;display:inline-flex;align-items:center;gap:7px;}
+  .cslink .a{transition:transform .2s;} .cslink:hover{border-color:var(--accent);background:rgba(190,74,43,0.06);} .cslink:hover .a{transform:translateX(3px);}
+
+  /* timeline rail (sticky) */
+  .rail{position:sticky;top:0;height:100vh;display:flex;flex-direction:column;justify-content:center;gap:clamp(22px,3vh,40px);}
+  .rail-head .rk{font-size:11px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-faint);}
+  .rail-head .ry{margin-top:8px;font-family:'Fraunces',serif;font-weight:300;font-size:clamp(30px,3.4vw,50px);line-height:1.02;letter-spacing:-0.02em;color:var(--ink);min-height:1.1em;}
+  .rail-head .ry em{font-style:italic;font-weight:900;color:var(--accent);}
+  .spine{position:relative;padding-left:26px;}
+  .spine::before{content:"";position:absolute;left:5px;top:6px;bottom:6px;width:2px;background:var(--line);border-radius:2px;}
+  .spine-fill{position:absolute;left:5px;top:6px;width:2px;background:var(--accent);border-radius:2px;height:0;transition:height .5s cubic-bezier(.16,1,.3,1);}
+  .node{position:relative;display:flex;align-items:center;gap:13px;background:none;border:none;cursor:pointer;padding:9px 0;text-align:left;width:100%;}
+  .node .nd{position:absolute;left:-26px;width:12px;height:12px;border-radius:50%;background:var(--bone);border:2px solid var(--line);transition:.3s;transform:translateX(0);}
+  .node .nl{font-size:13.5px;color:var(--ink-faint);font-weight:500;letter-spacing:.01em;transition:.3s;line-height:1.3;}
+  .node.past .nd{border-color:var(--accent);background:var(--accent);}
+  .node.on .nd{border-color:var(--accent);background:var(--accent);box-shadow:0 0 0 5px rgba(190,74,43,0.16);transform:scale(1.12);}
+  .node.on .nl{color:var(--ink);font-weight:600;}
+  .node:hover .nl{color:var(--ink);}
+
+  /* recognition */
+  section.band{position:relative;padding-block:clamp(64px,10vh,120px);}
+  .band.cream{background:var(--cream);}
+  h2.display{font-family:'Fraunces',serif;font-weight:300;font-size:clamp(32px,4.8vw,64px);line-height:1.02;letter-spacing:-0.02em;margin-top:.5em;}
+  h2.display em{font-style:italic;font-weight:900;color:var(--accent);}
+  .sechead{max-width:20ch;}
+  .creds{margin-top:clamp(28px,3.6vw,46px);display:grid;grid-template-columns:1fr 1fr;gap:0 clamp(28px,4vw,60px);max-width:900px;}
+  .cred{display:flex;gap:13px;padding:15px 0;border-top:1px solid var(--line);align-items:baseline;font-size:15.5px;color:var(--ink);line-height:1.4;}
+  .cred::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--accent);flex:0 0 auto;transform:translateY(-1px);}
+  .cred span{color:var(--ink-faint);}
+
+  /* close */
+  .close{background:radial-gradient(60% 70% at 50% 42%, rgba(190,74,43,0.18), transparent 72%), var(--ink);color:var(--cream);text-align:center;padding-block:clamp(84px,14vh,168px);}
+  .close .eyebrow{color:var(--glow);} .close .eyebrow::before{background:var(--glow);}
+  .close h2{font-family:'Fraunces',serif;font-weight:300;font-size:clamp(40px,7.4vw,104px);line-height:.98;letter-spacing:-0.03em;margin-top:clamp(18px,2.4vw,32px);}
+  .close h2 em{font-style:italic;font-weight:900;color:var(--glow);}
+  .close .cbody{margin:clamp(22px,3vw,34px) auto 0;max-width:52ch;font-size:clamp(16px,1.6vw,19px);line-height:1.6;color:rgba(247,241,230,0.78);}
+  .contact{margin-top:clamp(28px,3.4vw,40px);display:flex;justify-content:center;flex-wrap:wrap;gap:10px 26px;font-size:15px;color:rgba(247,241,230,0.82);}
+  .contact a{display:inline-flex;align-items:center;gap:8px;transition:color .2s;} .contact a:hover{color:var(--cream);}
+  .contact a::before{content:"";width:5px;height:5px;border-radius:50%;background:var(--glow);}
+  .close-actions{margin-top:clamp(30px,3.6vw,44px);display:flex;justify-content:center;gap:14px;flex-wrap:wrap;}
+  .btn{display:inline-flex;align-items:center;gap:.6ch;padding:14px 26px;border-radius:100px;font-size:14.5px;font-weight:600;transition:.2s;}
+  .btn.primary{background:var(--accent);color:#fff;} .btn.primary:hover{background:var(--accent-deep);}
+  .btn.ghost{border:1px solid rgba(247,241,230,0.28);color:var(--cream);} .btn.ghost:hover{border-color:var(--cream);}
+
+  /* reveal */
+  [data-reveal]{opacity:0;transform:translateY(22px);transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1);transition-delay:var(--d,0ms);}
+  [data-reveal].in{opacity:1;transform:none;}
+
+  @media (prefers-reduced-motion:reduce){
+    *{animation:none!important;}
+    [data-reveal]{opacity:1;transform:none;transition:none;}
+    .spine-fill{transition:none;}
+  }
+  @media (max-width:900px){
+    .arc{grid-template-columns:1fr;gap:0;}
+    .rail{display:none;}
+    .chapter{min-height:auto;padding:clamp(40px,8vh,80px) 0;border-top:1px solid var(--line);justify-content:flex-start;}
+    .narr .chapter:first-child{border-top:none;}
+    .creds{grid-template-columns:1fr;}
+  }
+</style>
+</head>
+<body>
+  <div class="grain"></div>
+
+  <nav>
+    <a class="nav-back" href="v1a.html"><span class="dot"></span>Vishal Mehta</a>
+    <a class="nav-right" href="v1a.html">Portfolio</a>
+  </nav>
+
+  <!-- HERO -->
+  <header class="wrap rhero">
+    <span class="eyebrow" data-reveal>Resume &middot; Vishal Mehta</span>
+    <h1 class="display" data-reveal style="--d:80ms">Twenty-five years, in one <em>scroll.</em></h1>
+    <p class="dek" data-reveal style="--d:150ms">I did not set out to be a designer. An engineer, one frustrated user, and one hard lesson set the whole arc in motion. <b>Scroll to walk it.</b></p>
+    <span class="scrollcue" data-reveal style="--d:220ms"><span class="track"></span>The story, beside the timeline</span>
+  </header>
+
+  <!-- THE ARC -->
+  <div class="wrap">
+    <div class="arc">
+      <div class="narr">
+
+        <section class="chapter" data-year="2000" data-node="0">
+          <span class="ce">The origin</span>
+          <h3>I built the tool. Someone else had to <em>use it.</em></h3>
+          <p class="cb">I was an engineer, and I had built a tool I was proud of. My employer sent me to a cement plant to train the team on it. The technical folks picked it up in an hour. Then a truck driver snapped: he had spent months learning the old system, and now he had to start over, and he hated it.</p>
+          <p class="cb">I tried to reason with him. He would not hear it. That night it landed. <b>What was effortless for me, the maker, was a wall for him, the user.</b></p>
+        </section>
+
+        <section class="chapter" data-year="2009" data-node="1">
+          <span class="ce">The switch</span>
+          <h3>I stopped asking what the tech could <em>do.</em></h3>
+          <p class="cb">The real question was not what the technology could do. It was who is using it, and why. That flip changed my career. In 2009 I moved from engineering into design, and learned from mentors like Jared Spool and schools like Stanford.</p>
+          <p class="cb">I never dropped the engineering. I kept it, so that one day <b>what I designed and what shipped could be the same thing.</b></p>
+        </section>
+
+        <section class="chapter" data-year="The systems years" data-node="2">
+          <span class="ce">The craft</span>
+          <h3>Enterprise platforms, made <em>clear.</em></h3>
+          <p class="cb">Two decades on high-stakes enterprise platforms and systems, the tools people run real operations on. The instinct never changed: cut past what a stakeholder asks for to the need they cannot name, and build for that.</p>
+          <p class="cb">That is where the point of view formed. Clarity at density. Status first, detail last. Color only where it is a signal. <b>Make a serious, complicated tool feel effortless.</b></p>
+        </section>
+
+        <section class="chapter" data-year="Intuitive Surgical" data-node="3">
+          <span class="ce">Intuitive Surgical</span>
+          <h3>The decision the data was <em>hiding.</em></h3>
+          <p class="cb">Surgical coordinators ordered the instruments a da Vinci robotic program runs on, from a portal that buried the one decision they needed under a spreadsheet. I found it and made the reorder signal a treemap you read in a glance.</p>
+          <p class="cb"><b>Navigation collapsed from three and four levels to a single step.</b></p>
+          <div class="clinks"><a class="cslink" href="customer-portal.html">The reorder signal <span class="a">&rarr;</span></a></div>
+        </section>
+
+        <section class="chapter" data-year="Walmart Data Ventures" data-node="4">
+          <span class="ce">Walmart Data Ventures</span>
+          <h3>Six products. One <em>foundation.</em></h3>
+          <p class="cb">Six products, six teams, and about forty percent design debt. I audited the landscape, anchored a new system on Walmart's own Living Design, and proved it on one beta product before the rest followed.</p>
+          <p class="cb"><b>Zero design debt, teams about thirty percent faster, and the only suite in the org on one foundation.</b></p>
+          <div class="clinks"><a class="cslink" href="walmart-dv.html">The design system <span class="a">&rarr;</span></a></div>
+        </section>
+
+        <section class="chapter" data-year="Apple" data-node="5">
+          <span class="ce">Apple &middot; now</span>
+          <h3>AI that keeps humans in <em>charge.</em></h3>
+          <p class="cb">I lead design for the AI-native platforms behind Apple Pay, and I design directly in code, building a coded design system that extends Apple's own. I built Terran, which turns a two-hour failure hunt into a three-minute read, and the shipping tool where the manager keeps the call on every AI action.</p>
+          <div class="clinks">
+            <a class="cslink" href="terran.html">Terran <span class="a">&rarr;</span></a>
+            <a class="cslink" href="apple-shipping.html">Intelligence Shipping <span class="a">&rarr;</span></a>
+          </div>
+        </section>
+
+        <section class="chapter" data-year="Today" data-node="6">
+          <span class="ce">What's next</span>
+          <h3>The job is still <em>clarity.</em></h3>
+          <p class="cb">Twenty-five years on, the instinct is the one the truck driver taught me: judge the tool through the person using it, never the other way around. Now I do it as a player-coach, and I ship what I design.</p>
+          <p class="cb"><b>Open to Principal, Staff, and Director roles, and advisory work.</b></p>
+        </section>
+
+      </div>
+
+      <!-- sticky timeline -->
+      <aside class="rail" aria-hidden="true">
+        <div class="rail-head">
+          <div class="rk">Where we are</div>
+          <div class="ry" id="railYear">2000</div>
+        </div>
+        <div class="spine">
+          <div class="spine-fill" id="spineFill"></div>
+          <button class="node on" data-i="0"><span class="nd"></span><span class="nl">Engineer, 2000</span></button>
+          <button class="node" data-i="1"><span class="nd"></span><span class="nl">Into design, 2009</span></button>
+          <button class="node" data-i="2"><span class="nd"></span><span class="nl">Enterprise systems</span></button>
+          <button class="node" data-i="3"><span class="nd"></span><span class="nl">Intuitive Surgical</span></button>
+          <button class="node" data-i="4"><span class="nd"></span><span class="nl">Walmart Data Ventures</span></button>
+          <button class="node" data-i="5"><span class="nd"></span><span class="nl">Apple</span></button>
+          <button class="node" data-i="6"><span class="nd"></span><span class="nl">Today</span></button>
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  <!-- RECOGNITION -->
+  <section class="band cream">
+    <div class="wrap">
+      <span class="eyebrow" data-reveal>Recognition</span>
+      <h2 class="display sechead" data-reveal style="--d:80ms">Credentials that <em>held up.</em></h2>
+      <div class="creds">
+        <div class="cred" data-reveal style="--d:100ms">EB1A, permanent residency for&nbsp;<span>extraordinary ability</span></div>
+        <div class="cred" data-reveal style="--d:140ms">IEEE Senior Member</div>
+        <div class="cred" data-reveal style="--d:180ms">Author,&nbsp;<span>Design AI Alchemy (2025)</span></div>
+        <div class="cred" data-reveal style="--d:220ms">Speaker,&nbsp;<span>World Usability Congress 2025</span></div>
+        <div class="cred" data-reveal style="--d:260ms">Member,&nbsp;<span>ACM SIGCHI</span></div>
+        <div class="cred" data-reveal style="--d:300ms">Essays in&nbsp;<span>IEEE, UXmatters, and Bootcamp</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CLOSE -->
+  <section class="close">
+    <div class="wrap">
+      <span class="eyebrow" data-reveal style="justify-content:center;display:inline-flex">Contact</span>
+      <h2 data-reveal style="--d:70ms">What's the real <em>problem?</em></h2>
+      <p class="cbody" data-reveal style="--d:140ms">If you are hiring a design leader who finds the real problem and ships the fix, I would like to hear what yours is.</p>
+      <div class="contact" data-reveal style="--d:180ms">
+        <a href="mailto:knock@vishalme.com">knock@vishalme.com</a>
+        <a href="https://linkedin.com/in/vishalme" target="_blank" rel="noopener">linkedin.com/in/vishalme</a>
+        <a href="https://medium.com/@vishalme" target="_blank" rel="noopener">medium.com/@vishalme</a>
+      </div>
+      <div class="close-actions" data-reveal style="--d:220ms">
+        <a class="btn ghost" href="v1a.html#work">See the work</a>
+        <a class="btn primary" href="mailto:knock@vishalme.com">Get in touch</a>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    (function(){
+      const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{rootMargin:'0px 0px -12% 0px',threshold:0.1});
+      document.querySelectorAll('[data-reveal]').forEach(el=>io.observe(el));
+    })();
+
+    // scrollytelling: sync the sticky timeline to the active chapter
+    (function(){
+      const chapters=[...document.querySelectorAll('.chapter')];
+      const nodes=[...document.querySelectorAll('.node')];
+      const fill=document.getElementById('spineFill');
+      const yearEl=document.getElementById('railYear');
+      const n=chapters.length;
+      let active=-1;
+      function setActive(i){
+        if(i===active) return; active=i;
+        nodes.forEach((nd,j)=>{nd.classList.toggle('on',j===i);nd.classList.toggle('past',j<i);});
+        fill.style.height=(n>1?(i/(n-1))*100:0)+'%';
+        yearEl.textContent=chapters[i].dataset.year;
+      }
+      // the chapter crossing the vertical center of the viewport is "active"
+      const io=new IntersectionObserver((entries)=>{
+        entries.forEach(e=>{ if(e.isIntersecting){ setActive(chapters.indexOf(e.target)); } });
+      },{rootMargin:'-48% 0px -48% 0px',threshold:0});
+      chapters.forEach(c=>io.observe(c));
+      // click a node to jump to its chapter
+      nodes.forEach((nd,i)=>nd.addEventListener('click',()=>chapters[i].scrollIntoView({behavior:'smooth',block:'center'})));
+      setActive(0);
+    })();
+  </script>
+</body>
+</html>

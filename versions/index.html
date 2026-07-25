@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Hero directions · v1–v8</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{background:#141416;color:#e8e8ea;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;padding:28px;}
+  header{max-width:1400px;margin:0 auto 24px;}
+  h1{font-size:20px;font-weight:600;letter-spacing:-0.01em;}
+  p{color:#9a9aa0;font-size:14px;margin-top:6px;}
+  .grid{max-width:1400px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:24px;}
+  .card{background:#1c1c1f;border:1px solid rgba(255,255,255,0.08);border-radius:14px;overflow:hidden;}
+  .bar{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;border-bottom:1px solid rgba(255,255,255,0.08);}
+  .bar .t{font-size:13px;font-weight:600;} .bar .t span{color:#8a8a90;font-weight:400;}
+  .bar a{font-size:12px;color:#c9c9cf;text-decoration:none;border:1px solid rgba(255,255,255,0.14);padding:5px 10px;border-radius:980px;}
+  .bar a:hover{background:#fff;color:#141416;}
+  .frame{position:relative;width:100%;height:56vh;min-height:380px;background:#000;}
+  iframe{position:absolute;inset:0;width:100%;height:100%;border:0;}
+  @media(max-width:820px){.grid{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+  <header>
+    <h1>Hero directions · eight designers, eight disciplines</h1>
+    <p>Each is a live first-section. Motion plays on load. Open any one full-screen to feel it.</p>
+  </header>
+  <div class="grid" id="grid"></div>
+  <script>
+    const items=[
+      ['v1','Advertising','Design That Compiles'],
+      ['v1a','Advertising +','Panel verdict: v1 + chapters, warm glow, real Terran card'],
+      ['v2','Fashion','Maison'],
+      ['v3','Film Title','Final Cut'],
+      ['v4','Swiss','The Grid Is a Moral Position'],
+      ['v5','Technologist','Candidate Roll'],
+      ['v6','Industrial','Scribe Line'],
+      ['v7','Fine-book','First Edition'],
+      ['v8','Album Art','The Seam'],
+    ];
+    document.getElementById('grid').innerHTML=items.map(([id,disc,name])=>
+      `<div class="card"><div class="bar"><div class="t">${id} · ${name} <span>/ ${disc}</span></div><a href="${id}.html" target="_blank">Open full ↗</a></div><div class="frame"><iframe src="${id}.html" title="${id}" loading="lazy"></iframe></div></div>`
+    ).join('');
+  </script>
+</body>
+</html>
