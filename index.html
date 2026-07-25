@@ -19,8 +19,8 @@
       --muted-d:  rgba(242,239,230,0.56);   /* muted on dark */
       --line:     rgba(13,13,15,0.14);
       --line-d:   rgba(242,239,230,0.16);    /* line on dark */
-      --accent:   #1b2bff;                    /* electric · the "shipped / live" signal */
-      --accent-2: #4d5aff;
+      --accent:   #d94f34;                    /* warm coral · the "shipped / live" signal */
+      --accent-2: #ff7d5e;
       --radius:   4px;
       --max:      1200px;
       --gutter:   clamp(20px, 5vw, 88px);
@@ -127,9 +127,9 @@
     }
     .hero-kicker .dot {
       width: 7px; height: 7px; border-radius: 50%; background: var(--accent);
-      box-shadow: 0 0 0 0 rgba(27,43,255,.6); animation: pulse 2.4s infinite;
+      box-shadow: 0 0 0 0 rgba(217,79,52,.6); animation: pulse 2.4s infinite;
     }
-    @keyframes pulse { 0%{box-shadow:0 0 0 0 rgba(27,43,255,.5)} 70%{box-shadow:0 0 0 9px rgba(27,43,255,0)} 100%{box-shadow:0 0 0 0 rgba(27,43,255,0)} }
+    @keyframes pulse { 0%{box-shadow:0 0 0 0 rgba(217,79,52,.5)} 70%{box-shadow:0 0 0 9px rgba(217,79,52,0)} 100%{box-shadow:0 0 0 0 rgba(217,79,52,0)} }
     h1.hero-h1 {
       font-family: var(--ff-disp);
       font-weight: 340;
@@ -221,7 +221,7 @@
       padding: 5px 11px; border-radius: 980px; transition: all .18s var(--ease);
     }
     .chip:hover { border-color: var(--paper); color: var(--paper); }
-    .chip.on { background: rgba(77,90,255,.16); border-color: var(--accent-2); color: var(--paper); }
+    .chip.on { background: rgba(255,125,94,.16); border-color: var(--accent-2); color: var(--paper); }
     .chip.on::before { content: '✓ '; color: var(--accent-2); }
     /* table */
     .lab-table-wrap { overflow-x: auto; flex: 1; }
@@ -241,14 +241,14 @@
     table.lab-table.compact td { padding: 8px 18px; }
     table.lab-table.compact thead th { padding: 9px 18px; }
     table.lab-table tbody tr { transition: background .15s var(--ease); }
-    table.lab-table tbody tr:hover { background: rgba(77,90,255,.08); }
+    table.lab-table tbody tr:hover { background: rgba(255,125,94,.08); }
     .cell-num { font-family: var(--ff-mono); }
     .cell-strong { color: var(--paper); font-weight: 500; }
     .badge { font-family: var(--ff-mono); font-size: 11px; padding: 2px 9px; border-radius: 980px; display: inline-block; }
     .badge.ok { background: rgba(46,160,90,.16); color: #58d08a; }
     .badge.warn { background: rgba(255,180,40,.16); color: #ffcb5c; }
     .badge.hot { background: rgba(255,80,60,.16); color: #ff8a75; }
-    .badge.info { background: rgba(77,90,255,.18); color: var(--accent-2); }
+    .badge.info { background: rgba(255,125,94,.18); color: var(--accent-2); }
     .spark { color: var(--accent-2); font-family: var(--ff-mono); }
     .lab-foot {
       font-family: var(--ff-mono); font-size: 11px; color: var(--muted-d);
