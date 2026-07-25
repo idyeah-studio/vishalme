@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Terran · From noise to signal · Vishal Mehta</title>
+  <meta name="description" content="Terran is an AI-native observability tool I designed and shipped in the codebase for Apple Pay engineering. It turns a wall of failures into one clear answer with a next move. From noise to signal." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,400..700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root{
+      --ink:#0d0d0f; --ink-soft:#17171b; --paper:#f2efe6; --paper-2:#e8e4d8;
+      --muted:#6c6c72; --muted-d:rgba(242,239,230,0.56);
+      --line:rgba(13,13,15,0.14); --line-d:rgba(242,239,230,0.16);
+      --accent:#d94f34; --accent-2:#ff7d5e;
+      --ok:#58d08a; --fail:#ff6b57; --run:#7aa2ff; --warn:#ffcb5c;
+      --max:1200px; --col:720px; --gutter:clamp(20px,5vw,88px);
+      --ff-disp:'Fraunces',Georgia,serif; --ff-sans:'Inter',-apple-system,sans-serif; --ff-mono:'JetBrains Mono',ui-monospace,monospace;
+      --ease:cubic-bezier(.2,.7,.2,1);
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;}
+    body{font-family:var(--ff-sans);background:var(--paper);color:var(--ink);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden;}
+    a{color:inherit;text-decoration:none;} img{display:block;max-width:100%;}
+    ::selection{background:var(--accent);color:#fff;}
+
+    nav{position:fixed;inset:0 0 auto 0;height:62px;z-index:100;display:flex;align-items:center;background:rgba(13,13,15,0.55);backdrop-filter:blur(16px) saturate(140%);-webkit-backdrop-filter:blur(16px) saturate(140%);border-bottom:1px solid var(--line-d);color:var(--paper);transition:background .4s var(--ease),color .4s var(--ease),border-color .4s var(--ease);}
+    nav.light{background:rgba(242,239,230,0.72);border-bottom-color:var(--line);color:var(--ink);}
+    .nav-inner{width:100%;max-width:var(--max);margin:0 auto;padding:0 var(--gutter);display:flex;align-items:center;justify-content:space-between;}
+    .nav-logo{font-family:var(--ff-disp);font-size:19px;font-weight:600;letter-spacing:-.02em;display:inline-flex;align-items:center;gap:10px;}
+    .nav-logo .back{font-family:var(--ff-mono);font-size:12px;text-transform:uppercase;opacity:.6;}
+    .nav-links{display:flex;gap:28px;list-style:none;align-items:center;}
+    .nav-links a{font-family:var(--ff-mono);font-size:12px;letter-spacing:.02em;text-transform:uppercase;opacity:.6;transition:opacity .2s var(--ease);}
+    .nav-links a:hover{opacity:1;}
+    .nav-cta{border:1px solid currentColor;border-radius:980px;padding:7px 16px;opacity:1 !important;}
+    .nav-cta:hover{background:var(--accent);border-color:var(--accent);color:#fff;}
+    .nav-burger{display:none;background:none;border:none;color:inherit;cursor:pointer;font-family:var(--ff-mono);font-size:12px;text-transform:uppercase;}
+
+    .wrap{max-width:var(--max);margin:0 auto;padding-left:var(--gutter);padding-right:var(--gutter);}
+
+    /* CASE HERO */
+    .case-hero{background:var(--ink);color:var(--paper);padding:132px var(--gutter) clamp(60px,9vh,120px);position:relative;overflow:hidden;}
+    .case-hero .spine{position:absolute;top:0;bottom:0;left:50%;width:1px;background:var(--line-d);}
+    .case-hero .spine::before{content:'';position:absolute;top:0;left:-3px;width:7px;height:7px;border-radius:50%;background:var(--accent);}
+    .ch-inner{max-width:var(--max);margin:0 auto;position:relative;z-index:2;}
+    .ch-kicker{font-family:var(--ff-mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent-2);margin-bottom:30px;display:flex;gap:12px;align-items:center;flex-wrap:wrap;}
+    .ch-kicker .spineword{color:var(--muted-d);}
+    .ch-title{font-family:var(--ff-disp);font-weight:340;font-size:clamp(34px,6.4vw,92px);line-height:.98;letter-spacing:-.03em;max-width:16ch;}
+    .ch-title em{font-style:italic;color:var(--accent-2);}
+    .ch-dek{margin-top:32px;max-width:60ch;font-size:clamp(18px,2vw,22px);line-height:1.5;color:var(--muted-d);}
+    .ch-dek b{color:var(--paper);font-weight:500;}
+    .ch-meta{margin-top:40px;padding-top:24px;border-top:1px solid var(--line-d);display:flex;gap:44px;flex-wrap:wrap;}
+    .ch-meta .m-k{font-family:var(--ff-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted-d);margin-bottom:7px;}
+    .ch-meta .m-v{font-size:15px;color:var(--paper);max-width:34ch;}
+
+    /* STORY */
+    .story{padding:clamp(50px,8vh,100px) 0;}
+    .beat{position:relative;}
+    .beat-inner{max-width:var(--max);margin:0 auto;padding:0 var(--gutter);display:grid;grid-template-columns:190px minmax(0,var(--col));gap:clamp(20px,4vw,60px);}
+    .beat + .beat{margin-top:clamp(40px,6vh,84px);}
+    .beat-label{font-family:var(--ff-mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);padding-top:14px;}
+    .beat-h{font-family:var(--ff-disp);font-weight:360;font-size:clamp(26px,3.5vw,44px);line-height:1.08;letter-spacing:-.02em;}
+    .beat-h em{font-style:italic;}
+    .beat-body{margin-top:22px;font-size:19px;line-height:1.72;color:var(--ink-soft);}
+    .beat-body p + p{margin-top:20px;}
+    .beat-body b{font-weight:600;}
+
+    .pq{max-width:var(--max);margin:clamp(44px,7vh,88px) auto;padding:0 var(--gutter);}
+    .pq-inner{max-width:940px;margin:0 auto;padding-left:34px;border-left:2px solid var(--accent);position:relative;}
+    .pq-inner::before{content:'';position:absolute;left:-6px;top:0;width:10px;height:10px;border-radius:50%;background:var(--accent);}
+    .pq blockquote{font-family:var(--ff-disp);font-weight:360;font-style:italic;font-size:clamp(26px,4vw,48px);line-height:1.16;letter-spacing:-.02em;color:var(--ink);}
+    .pq blockquote em{color:var(--accent);font-style:italic;}
+
+    /* full-width dark demo band */
+    .demo{background:var(--ink);color:var(--paper);padding:clamp(48px,7vh,92px) 0;margin:clamp(44px,7vh,88px) 0;}
+    .demo-inner{max-width:var(--max);margin:0 auto;padding:0 var(--gutter);}
+    .demo-eyebrow{font-family:var(--ff-mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent-2);margin-bottom:16px;}
+    .demo-h{font-family:var(--ff-disp);font-weight:340;font-size:clamp(26px,3.4vw,44px);line-height:1.1;letter-spacing:-.02em;max-width:18ch;}
+    .demo-h em{font-style:italic;color:var(--accent-2);}
+    .demo-note{margin-top:18px;max-width:56ch;color:var(--muted-d);font-size:17px;}
+    .demo-note b{color:var(--paper);font-weight:500;}
+
+    /* Terran UI recreations (shared) */
+    .tcard{background:#141418;border:1px solid var(--line-d);border-radius:12px;overflow:hidden;}
+    .mono{font-family:var(--ff-mono);}
+    .pill{font-family:var(--ff-mono);font-size:11px;letter-spacing:.02em;padding:3px 10px;border-radius:980px;display:inline-flex;align-items:center;gap:6px;white-space:nowrap;}
+    .pill .d{width:6px;height:6px;border-radius:50%;}
+    .pill.fail{background:rgba(255,107,87,.14);color:var(--fail);} .pill.fail .d{background:var(--fail);}
+    .pill.ok{background:rgba(88,208,138,.15);color:var(--ok);} .pill.ok .d{background:var(--ok);}
+    .pill.run{background:rgba(122,162,255,.15);color:var(--run);} .pill.run .d{background:var(--run);}
+    .pill.warn{background:rgba(255,203,92,.15);color:var(--warn);} .pill.warn .d{background:var(--warn);}
+    .pill.info{background:rgba(255,125,94,.16);color:var(--accent-2);} .pill.info .d{background:var(--accent-2);}
+
+    /* wall of failures */
+    .wall{max-width:820px;margin-top:28px;}
+    .wall-head{display:flex;justify-content:space-between;align-items:baseline;padding:0 4px 12px;font-family:var(--ff-mono);font-size:12px;color:var(--muted-d);text-transform:uppercase;letter-spacing:.06em;}
+    .wall-rows{border-top:1px solid var(--line-d);}
+    .wall-row{display:flex;align-items:center;gap:14px;padding:11px 4px;border-bottom:1px solid rgba(242,239,230,.06);font-family:var(--ff-mono);font-size:13px;color:var(--muted-d);}
+    .wall-row .rd{width:7px;height:7px;border-radius:50%;background:var(--fail);flex-shrink:0;}
+    .wall-more{padding:14px 4px;font-family:var(--ff-mono);font-size:12px;color:var(--muted-d);}
+
+    /* confidence-before-detail card */
+    .conf{max-width:640px;margin-top:28px;}
+    .conf-tier{padding:18px 20px;border-bottom:1px solid var(--line-d);}
+    .conf-tier:last-child{border-bottom:none;}
+    .conf-k{font-family:var(--ff-mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted-d);margin-bottom:10px;}
+    .conf-status{display:flex;align-items:center;gap:12px;}
+    .conf-status .t{font-family:var(--ff-mono);font-size:14px;color:var(--paper);}
+    .conf-sum{font-size:15px;color:rgba(242,239,230,.82);line-height:1.5;}
+    .conf-ev button{background:none;border:none;color:var(--accent-2);font-family:var(--ff-mono);font-size:12px;cursor:pointer;padding:0;display:inline-flex;align-items:center;gap:8px;}
+    .conf-ev pre{margin-top:12px;font-family:var(--ff-mono);font-size:12px;line-height:1.9;color:var(--muted-d);white-space:pre-wrap;}
+    .conf-ev pre .ip{color:var(--fail);}
+
+    /* PR triage list */
+    .prlist{max-width:720px;margin-top:28px;}
+    .prlist .r{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:14px 18px;border-bottom:1px solid var(--line-d);}
+    .prlist .r:last-child{border-bottom:none;}
+    .prlist .r .nm{font-family:var(--ff-mono);font-size:13.5px;color:var(--paper);}
+
+    /* LIVE TRIAGE WIDGET */
+    .triage{max-width:760px;margin-top:30px;background:#141418;border:1px solid var(--line-d);border-radius:14px;overflow:hidden;box-shadow:0 40px 90px -50px rgba(0,0,0,.7);}
+    .triage-head{display:flex;align-items:center;gap:14px;padding:18px 20px;border-bottom:1px solid var(--line-d);flex-wrap:wrap;}
+    .triage-head .nm{font-family:var(--ff-mono);font-size:14px;color:var(--paper);}
+    .triage-run{margin-left:auto;font-family:var(--ff-mono);font-size:12.5px;text-transform:uppercase;letter-spacing:.03em;background:var(--accent);color:#fff;border:none;border-radius:980px;padding:10px 18px;cursor:pointer;transition:background .2s var(--ease),opacity .2s var(--ease);display:inline-flex;align-items:center;gap:8px;}
+    .triage-run:hover{background:var(--accent-2);}
+    .triage-run[disabled]{opacity:.5;cursor:default;}
+    .triage-body{padding:6px 20px 20px;}
+    .triage-body:empty{display:none;}
+    .tstep{display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid rgba(242,239,230,.06);opacity:0;transform:translateY(6px);transition:opacity .4s var(--ease),transform .4s var(--ease);}
+    .tstep.show{opacity:1;transform:none;}
+    .tstep .ic{width:16px;height:16px;flex-shrink:0;display:inline-flex;align-items:center;justify-content:center;}
+    .tstep .spin{width:12px;height:12px;border:2px solid rgba(122,162,255,.3);border-top-color:var(--run);border-radius:50%;animation:sp .7s linear infinite;}
+    @keyframes sp{to{transform:rotate(360deg);}}
+    .tstep .chk{color:var(--ok);font-size:14px;}
+    .tstep .lbl{font-size:14.5px;color:rgba(242,239,230,.85);}
+    .tstep.active .lbl{color:var(--paper);}
+    .tstep .meta{margin-left:auto;font-family:var(--ff-mono);font-size:12px;color:var(--muted-d);}
+    /* root cause */
+    .rc{margin-top:20px;padding:20px;background:rgba(255,107,87,.06);border:1px solid rgba(255,107,87,.25);border-radius:12px;opacity:0;transform:translateY(10px);transition:opacity .5s var(--ease),transform .5s var(--ease);}
+    .rc.show{opacity:1;transform:none;}
+    .rc-k{font-family:var(--ff-mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted-d);margin-bottom:10px;}
+    .rc-cause{font-family:var(--ff-mono);font-size:clamp(15px,2.2vw,20px);color:var(--fail);word-break:break-word;}
+    .rc-sub{margin-top:12px;font-size:15px;color:rgba(242,239,230,.85);display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
+    .rc-sub b{color:var(--paper);font-weight:600;}
+    .rc-chip{font-family:var(--ff-mono);font-size:11px;color:var(--accent-2);background:rgba(255,125,94,.14);padding:4px 10px;border-radius:980px;}
+    .rc-expand{margin-top:16px;background:none;border:1px solid var(--line-d);color:var(--muted-d);font-family:var(--ff-mono);font-size:12px;padding:8px 14px;border-radius:8px;cursor:pointer;display:inline-flex;align-items:center;gap:8px;transition:color .2s var(--ease),border-color .2s var(--ease);}
+    .rc-expand:hover{color:var(--paper);border-color:var(--paper);}
+    .rc-evidence{margin-top:14px;padding:14px 16px;background:rgba(0,0,0,.3);border-radius:8px;font-family:var(--ff-mono);font-size:12px;line-height:1.9;color:var(--muted-d);}
+    .rc-evidence .ip{color:var(--fail);}
+    .rc-evidence .row{display:flex;gap:18px;}
+    .rc-evidence .ts{color:rgba(242,239,230,.5);}
+    .rc-actions{margin-top:18px;display:flex;flex-wrap:wrap;gap:8px;}
+    .rc-actions button{font-family:var(--ff-mono);font-size:12px;background:rgba(242,239,230,.05);border:1px solid var(--line-d);color:rgba(242,239,230,.85);padding:9px 14px;border-radius:980px;cursor:pointer;transition:all .18s var(--ease);}
+    .rc-actions button:hover{border-color:var(--accent-2);color:var(--paper);}
+    .rc-actions button.primary{background:var(--accent);border-color:var(--accent);color:#fff;}
+    .triage-again{margin-top:18px;background:none;border:none;color:var(--muted-d);font-family:var(--ff-mono);font-size:12px;cursor:pointer;text-decoration:underline;text-underline-offset:3px;}
+    .triage-again:hover{color:var(--paper);}
+    .triage-hint{margin-top:14px;font-family:var(--ff-mono);font-size:12px;color:var(--muted-d);}
+
+    /* team dashboard L1-L4 */
+    .dash{max-width:900px;margin-top:28px;}
+    .dash-l{display:grid;grid-template-columns:34px 1fr;gap:16px;padding:18px 0;border-top:1px solid var(--line-d);}
+    .dash-l .lk{font-family:var(--ff-mono);font-size:12px;color:var(--accent-2);padding-top:2px;}
+    .dash-tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;}
+    .dtile{background:rgba(242,239,230,.04);border:1px solid var(--line-d);border-radius:10px;padding:14px 16px;}
+    .dtile.bad{background:rgba(255,107,87,.07);border-color:rgba(255,107,87,.22);}
+    .dtile .n{font-family:var(--ff-disp);font-size:30px;line-height:1;color:var(--paper);}
+    .dtile .l{margin-top:8px;font-size:12.5px;color:var(--muted-d);}
+    .dash-sum{font-size:15px;color:rgba(242,239,230,.82);line-height:1.5;}
+    .dash-block{display:flex;gap:12px;align-items:baseline;font-size:14px;color:rgba(242,239,230,.82);padding:8px 0;border-bottom:1px solid rgba(242,239,230,.06);}
+    .dash-block .svc{font-family:var(--ff-mono);color:var(--accent-2);min-width:130px;}
+    .spark{display:flex;align-items:flex-end;gap:4px;height:44px;}
+    .spark i{flex:1;background:var(--ok);border-radius:2px;opacity:.8;}
+    .spark i.warn{background:var(--warn);} .spark i.bad{background:var(--fail);}
+    .spark-note{margin-top:10px;font-family:var(--ff-mono);font-size:11.5px;color:var(--warn);}
+
+    /* designed = shipped split */
+    .ds{max-width:var(--max);margin:clamp(40px,6vh,80px) auto 0;padding:0 var(--gutter);}
+    .ds-grid{display:grid;grid-template-columns:1fr 1px 1fr;border:1px solid var(--line-d);border-radius:12px;overflow:hidden;}
+    .ds-cell{padding:clamp(22px,3vw,36px);background:#141418;}
+    .ds-seam{background:var(--line-d);position:relative;}
+    .ds-seam::before{content:'';position:absolute;top:-1px;left:-4px;width:9px;height:9px;border-radius:50%;background:var(--accent);}
+    .ds-tag{font-family:var(--ff-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent-2);margin-bottom:14px;}
+    .ds-mock{border:1px solid var(--line-d);border-radius:8px;padding:14px;background:rgba(0,0,0,.25);}
+    .ds-mock .bar{height:8px;border-radius:4px;background:rgba(242,239,230,.12);margin-bottom:8px;}
+    .ds-mock .bar.a{width:60%;background:var(--accent-2);opacity:.7;} .ds-mock .bar.b{width:85%;} .ds-mock .bar.c{width:45%;}
+    .ds-cap{margin-top:14px;font-size:13.5px;color:var(--muted-d);}
+
+    /* roles list */
+    .roles{max-width:var(--max);margin:clamp(30px,4vh,50px) auto 0;padding:0 var(--gutter);}
+    .roles-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 clamp(30px,5vw,70px);}
+    .role{display:flex;gap:16px;align-items:baseline;padding:15px 0;border-bottom:1px solid var(--line-d);}
+    .role .n{font-family:var(--ff-mono);font-size:11px;color:var(--accent-2);width:26px;flex-shrink:0;}
+    .role .t{font-size:16px;color:var(--paper);} .role .t b{font-weight:600;}
+    .role .t span{color:var(--muted-d);}
+
+    /* principles */
+    .principles{background:var(--ink);color:var(--paper);padding:clamp(64px,10vh,120px) 0;margin-top:clamp(50px,8vh,100px);}
+    .principles-inner{max-width:var(--max);margin:0 auto;padding:0 var(--gutter);}
+    .principles-eyebrow{font-family:var(--ff-mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent-2);margin-bottom:44px;}
+    .principles-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:2px;}
+    .principle{padding:26px 0;border-top:1px solid var(--line-d);padding-right:40px;}
+    .principle .h{font-family:var(--ff-disp);font-size:22px;font-weight:400;margin-bottom:10px;}
+    .principle .d{font-size:15px;color:var(--muted-d);line-height:1.55;}
+
+    /* close */
+    .close{background:var(--ink);color:var(--paper);border-top:1px solid var(--line-d);padding:clamp(64px,10vh,120px) 0 0;}
+    .close-inner{max-width:var(--max);margin:0 auto;padding:0 var(--gutter);}
+    .close-eyebrow{font-family:var(--ff-mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent-2);margin-bottom:22px;}
+    .close-line{font-family:var(--ff-disp);font-weight:340;font-size:clamp(30px,5vw,68px);line-height:1.02;letter-spacing:-.03em;max-width:18ch;}
+    .close-line em{font-style:italic;color:var(--accent-2);}
+    .close-sub{margin-top:24px;max-width:52ch;color:var(--muted-d);font-size:18px;}
+    .close-actions{margin-top:40px;display:flex;flex-wrap:wrap;gap:14px;align-items:center;}
+    .btn{display:inline-flex;align-items:center;gap:10px;font-family:var(--ff-mono);font-size:13px;text-transform:uppercase;letter-spacing:.04em;padding:15px 26px;border-radius:980px;transition:all .2s var(--ease);cursor:pointer;}
+    .btn-primary{background:var(--accent);color:#fff;} .btn-primary:hover{background:var(--accent-2);transform:translateY(-2px);}
+    .btn-ghost{border:1px solid var(--line-d);color:var(--paper);} .btn-ghost:hover{border-color:var(--paper);}
+    .next-cases{margin-top:64px;border-top:1px solid var(--line-d);display:grid;grid-template-columns:1fr 1fr;}
+    .next-case{padding:34px 0;display:flex;flex-direction:column;gap:8px;transition:opacity .2s var(--ease);}
+    .next-case:hover{opacity:.7;}
+    .next-case.r{text-align:right;align-items:flex-end;border-left:1px solid var(--line-d);padding-left:34px;}
+    .next-case.l{padding-right:34px;}
+    .next-k{font-family:var(--ff-mono);font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted-d);}
+    .next-t{font-family:var(--ff-disp);font-size:clamp(20px,2.4vw,28px);font-weight:400;color:var(--paper);}
+    footer{background:var(--ink);color:var(--muted-d);border-top:1px solid var(--line-d);}
+    .foot-inner{max-width:var(--max);margin:0 auto;padding:26px var(--gutter);display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-family:var(--ff-mono);font-size:12px;text-transform:uppercase;letter-spacing:.04em;}
+
+    .reveal{opacity:0;transform:translateY(22px);transition:opacity .9s var(--ease),transform .9s var(--ease);}
+    .reveal.in{opacity:1;transform:none;}
+    @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none !important;transition:none !important;} .reveal{opacity:1;transform:none;} .tstep{opacity:1;transform:none;} .rc{opacity:1;transform:none;}}
+
+    @media (max-width:820px){
+      .beat-inner{grid-template-columns:1fr;gap:12px;} .beat-label{padding-top:0;}
+      .ds-grid{grid-template-columns:1fr;} .ds-seam{display:none;} .ds-cell + .ds-cell{border-top:1px solid var(--line-d);}
+      .roles-grid{grid-template-columns:1fr;}
+      .principles-grid{grid-template-columns:1fr;}
+      .dash-tiles{grid-template-columns:1fr;}
+      .next-cases{grid-template-columns:1fr;} .next-case.r{text-align:left;align-items:flex-start;border-left:none;border-top:1px solid var(--line-d);padding-left:0;} .next-case.l{padding-right:0;}
+    }
+    @media (max-width:640px){
+      .nav-links{display:none;} .nav-burger{display:inline-block;}
+      .nav-links.open{display:flex;position:fixed;top:62px;left:0;right:0;flex-direction:column;gap:0;background:var(--ink);padding:8px 0;border-bottom:1px solid var(--line-d);}
+      .nav-links.open a{padding:14px var(--gutter);opacity:.85;color:var(--paper);}
+      .triage-run{margin-left:0;width:100%;justify-content:center;}
+      .ch-meta{gap:24px;}
+    }
+  </style>
+</head>
+<body>
+
+  <nav id="nav">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo"><span class="back">← Vishal Mehta</span></a>
+      <button class="nav-burger" id="burger" aria-label="Menu">Menu</button>
+      <ul class="nav-links" id="navlinks">
+        <li><a href="index.html#work">Work</a></li>
+        <li><a href="index.html#origin">Origin</a></li>
+        <li><a href="index.html#writing">Writing</a></li>
+        <li><a href="index.html#contact" class="nav-cta">Get in touch</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="case-hero">
+    <div class="spine"></div>
+    <div class="ch-inner">
+      <div class="ch-kicker"><span>Apple // Apple Pay Engineering</span> <span class="spineword">· from noise to signal</span></div>
+      <h1 class="ch-title">96 failures. 4 tools. 2 hours. <em>Zero answers.</em></h1>
+      <p class="ch-dek">Terran is an AI-native observability tool for Apple Pay engineering that does the digging for you, then turns every diagnosis into a next move. <b>I designed it in the codebase and shipped it to production.</b></p>
+      <div class="ch-meta">
+        <div><div class="m-k">Role</div><div class="m-v">Design Lead. Designed and shipped in the codebase.</div></div>
+        <div><div class="m-k">Product</div><div class="m-v">Terran, AI-native observability (internal tool)</div></div>
+        <div><div class="m-k">Context</div><div class="m-v">Apple, Wallet, Payments &amp; Commerce</div></div>
+      </div>
+    </div>
+  </section>
+
+  <article class="story">
+
+    <!-- 01 the scramble -->
+    <section class="beat reveal">
+      <div class="beat-inner">
+        <div class="beat-label">01 // The scramble</div>
+        <div>
+          <h2 class="beat-h">96 failures. 4 tools. 2 hours. <em>Zero answers.</em></h2>
+          <div class="beat-body">
+            <p>It is 2am and the pipeline is red. Not one failure. A wall of them. Ninety-six rows, all shouting, none of them telling you which one actually matters.</p>
+            <p>So the ritual begins. Logs in one tab. Radar in another. Splunk in a third. Dashboards in a fourth. You copy an ID from here, paste it there, scroll, squint, and correlate it all in your head because nothing else will. This is the swivel chair, and every engineer on the team knows it by heart.</p>
+            <p>Two hours later you have twelve tabs, a cold coffee, and no clear answer. The failures are still red. <b>You have confirmed that something is broken, which you already knew at row one.</b></p>
+          </div>
+          <div class="tcard wall">
+            <div class="wall-head"><span>Pipeline · BLOCKED</span><span>96 failing</span></div>
+            <div class="wall-rows">
+              <div class="wall-row"><span class="rd"></span>pr3467_grpc_deadline</div>
+              <div class="wall-row"><span class="rd"></span>pr3468_payment_auth_flow</div>
+              <div class="wall-row"><span class="rd"></span>pr3470_token_refresh</div>
+              <div class="wall-row"><span class="rd"></span>pr3471_settlement_retry</div>
+              <div class="wall-row"><span class="rd"></span>pr3472_ledger_sync</div>
+              <div class="wall-row"><span class="rd"></span>pr3473_ingress_timeout</div>
+              <div class="wall-more">+ 90 more, all red, none ranked</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="pq reveal">
+      <div class="pq-inner"><blockquote>A wall of failures is not information. It is noise <em>wearing the costume of information.</em></blockquote></div>
+    </div>
+
+    <!-- 02 reframe -->
+    <section class="beat reveal">
+      <div class="beat-inner">
+        <div class="beat-label">02 // The reframe</div>
+        <div>
+          <h2 class="beat-h">What if the digging was <em>already done?</em></h2>
+          <div class="beat-body">
+            <p>Here is the question I kept circling. The engineer is not slow. The tools are not broken. The work of triage, gathering logs, correlating signals across services, spotting the pattern, is real work. And we were asking a human to do it by hand, at 2am, ninety-six times.</p>
+            <p>But that work is legible. It has a shape. It is exactly the kind of patient, cross-referencing labor a machine should carry so a human does not have to.</p>
+            <p>So I stopped designing a better place to look things up. <b>I started designing a system that had already looked.</b> The screen should not greet you with a wall and a search box. It should greet you with an answer, and let you audit it.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 03 the principle -->
+    <section class="beat reveal">
+      <div class="beat-inner">
+        <div class="beat-label">03 // The principle</div>
+        <div>
+          <h2 class="beat-h">Confidence before detail.</h2>
+          <div class="beat-body">
+            <p>Every screen in Terran obeys one rule, and it is the spine of the whole product. <b>Status first. Summary second. Evidence last.</b></p>
+            <p>You should know the state of a thing before you spend a single click on it. You should get the one-line summary before the stack trace. And the full evidence chain should be there the instant you want it, and invisible until you do.</p>
+            <p>This is not a layout preference. It is a hierarchy of trust. Most tools bury the answer under the evidence and make you assemble it. Terran leads with the answer and keeps the evidence one tap away. Same information. Opposite posture.</p>
+          </div>
+          <div class="tcard conf">
+            <div class="conf-tier"><div class="conf-k">L1 · Status</div><div class="conf-status"><span class="pill fail"><span class="d"></span>Failed</span><span class="t">pr3467_grpc_deadline</span></div></div>
+            <div class="conf-tier"><div class="conf-k">L2 · Summary</div><div class="conf-sum">A downstream service stopped answering in time. 17 failures trace to the same origin.</div></div>
+            <div class="conf-tier conf-ev"><div class="conf-k">L3 · Evidence</div><button data-conf>Show the chain ▸</button><pre hidden>14:32:07  conn refused <span class="ip">10.100</span>:443
+14:32:07  retry 1 failed
+14:32:09  deadline exceeded</pre></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 04 know before you click -->
+    <section class="beat reveal">
+      <div class="beat-inner">
+        <div class="beat-label">04 // Know before you click</div>
+        <div>
+          <h2 class="beat-h">The system tells you its state. <em>No guessing.</em></h2>
+          <div class="beat-body">
+            <p>Start at the smallest altitude: a single PR. Before Terran, a failing row looked exactly like every other row. Red, or maybe green, and nothing else. To learn anything you had to open it. Opening it was the tax.</p>
+            <p>In Terran, the row carries its state on its face. Being triaged, root cause in hand, or waiting on you, without clicking into anything. The list becomes scannable. <b>Your attention goes to the rows that have earned it.</b></p>
+          </div>
+          <div class="tcard prlist">
+            <div class="r"><span class="nm">pr3467_grpc_deadline</span><span class="pill info"><span class="d"></span>Root cause found</span></div>
+            <div class="r"><span class="nm">pr3468_payment_auth_flow</span><span class="pill run"><span class="d"></span>Triaging</span></div>
+            <div class="r"><span class="nm">pr3470_token_refresh</span><span class="pill warn"><span class="d"></span>Needs you</span></div>
+            <div class="r"><span class="nm">pr3465_ledger_sync</span><span class="pill ok"><span class="d"></span>Passed</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </article>
+
+  <!-- CENTERPIECE: LIVE AI TRIAGE -->
+  <section class="demo reveal">
+    <div class="demo-inner">
+      <div class="demo-eyebrow">05 // Working in the open · the AI triage</div>
+      <h2 class="demo-h">We show the work. <em>Not a blank screen.</em></h2>
+      <p class="demo-note">This is the heart of Terran, rebuilt here so you can run it. Trigger the triage and watch the agent work in the open: gather the logs, correlate the signals, find the root cause. It collapses many failures into one, keeps the full chain one tap away, and every diagnosis flows into a next move. <b>Nothing here is a screenshot. It runs.</b></p>
+
+      <div class="triage" id="triage">
+        <div class="triage-head">
+          <span class="pill fail"><span class="d"></span>Failed</span>
+          <span class="nm">pr3467_grpc_deadline</span>
+          <button class="triage-run" id="triageRun">⚡ Triage with Terran AI</button>
+        </div>
+        <div class="triage-body" id="triageBody"></div>
+      </div>
+      <p class="triage-hint" id="triageHint">Confidence before detail. Status first. Summary second. Evidence last.</p>
+    </div>
+  </section>
+
+  <article class="story">
+    <!-- 06 one cause -->
+    <section class="beat reveal">
+      <div class="beat-inner">
+        <div class="beat-label">06 // Noise into signal</div>
+        <div>
+          <h2 class="beat-h">One cause. <em>17 failures explained.</em></h2>
+          <div class="beat-body">
+            <p>Those ninety-six failures were never ninety-six problems. In the scenario I use to demo it, the agent traces seventeen of them to a single origin: a gRPC deadline timeout at IP 10.100. One cause. Seventeen failures explained.</p>
+            <p>This is the moment the noise collapses into signal. The wall stops being a wall. It becomes a short, honest list of actual root causes, each standing in front of the failures it accounts for. The count drops not because anything was hidden, but because the truth was finally grouped correctly.</p>
+            <p>And because Terran leads with confidence, you get that collapse first, as a headline, with the individual failures one tap underneath. <b>Trust, but verify. The full chain is there, collapsed until you want it.</b></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 07 never a dead end -->
+    <section class="beat reveal">
+      <div class="beat-inner">
+        <div class="beat-label">07 // Never a dead end</div>
+        <div>
+          <h2 class="beat-h">The diagnosis flows into action. <em>No swivel chair.</em></h2>
+          <div class="beat-body">
+            <p>A diagnosis that leaves you at a dead end is just a better-looking wall. So every conclusion in Terran is also a launchpad. From the root cause in front of you, create the Radar ticket, see the suggested code fix, open the Splunk logs, ask the agent a follow-up, or share the finding to Slack. In place, without leaving the answer.</p>
+            <p>This is where the swivel chair finally dies. The four tools did not go away. <b>They came to the diagnosis, instead of you going to them.</b> The context you used to assemble by hand at 2am is now assembled for you, and it stays attached to whatever you do next.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </article>
+
+  <!-- 08 team dashboard -->
+  <section class="demo reveal">
+    <div class="demo-inner">
+      <div class="demo-eyebrow">08 // Different altitude, same principle</div>
+      <h2 class="demo-h">One screen. <em>One source of truth.</em></h2>
+      <p class="demo-note">What works for one PR has to work for a whole team. The answer is not a different design. It is the same hierarchy of trust at a higher altitude. Status, summary, blockers, trajectory. And the trajectory tier is the one that changes behavior. <b>Catch it on day one, not day five. The trend is the signal.</b></p>
+
+      <div class="tcard dash">
+        <div class="dash-l"><div class="lk">L1</div>
+          <div class="dash-tiles">
+            <div class="dtile bad"><div class="n">2</div><div class="l">Services blocked · out of 6</div></div>
+            <div class="dtile bad"><div class="n">3</div><div class="l">Features failed · out of 18</div></div>
+            <div class="dtile"><div class="n">120</div><div class="l">PRs shipped this week</div></div>
+          </div>
+        </div>
+        <div class="dash-l"><div class="lk">L2</div><div class="dash-sum">Release health is blocked on two services. Both trace to timeouts on a shared dependency, not eighteen separate defects.</div></div>
+        <div class="dash-l"><div class="lk">L3</div>
+          <div style="flex:1">
+            <div class="dash-block"><span class="svc">transfer-service</span><span>PR #382 · a shared dependency is timing out under load</span><span class="pill fail" style="margin-left:auto"><span class="d"></span>Blocked</span></div>
+            <div class="dash-block" style="border-bottom:none"><span class="svc">ingress</span><span>PR #380 · retries exhausted before the deadline</span><span class="pill fail" style="margin-left:auto"><span class="d"></span>Blocked</span></div>
+          </div>
+        </div>
+        <div class="dash-l" style="border-bottom:1px solid var(--line-d)"><div class="lk">L4</div>
+          <div style="flex:1">
+            <div class="spark">
+              <i style="height:36%"></i><i style="height:40%"></i><i style="height:38%"></i><i style="height:44%"></i><i style="height:42%"></i><i class="warn" style="height:58%"></i><i class="warn" style="height:70%"></i><i class="bad" style="height:88%"></i>
+            </div>
+            <div class="spark-note">↑ failure rate trending up 3 days early. Flagged before it became an outage.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 09 how I built this -->
+  <section class="demo reveal" style="margin-bottom:0;">
+    <div class="demo-inner">
+      <div class="demo-eyebrow">09 // How I built this</div>
+      <h2 class="demo-h">The shipped product is <em>the designed product.</em></h2>
+      <p class="demo-note">I did not design Terran in a canvas and hand it off. I designed it in the codebase. Stakeholders reviewed running prototypes, the real thing in the browser, with real interaction. I refined in that same artifact, then integrated it with the backend and the AI agent. There was no translation layer where the design goes to die.</p>
+    </div>
+
+    <div class="ds">
+      <div class="ds-grid">
+        <div class="ds-cell">
+          <div class="ds-tag">Designed · in the codebase</div>
+          <div class="ds-mock"><div class="bar a"></div><div class="bar b"></div><div class="bar c"></div></div>
+          <div class="ds-cap">The prototype stakeholders reviewed. Running, in the browser, real interaction.</div>
+        </div>
+        <div class="ds-seam"></div>
+        <div class="ds-cell">
+          <div class="ds-tag">Shipped · in production</div>
+          <div class="ds-mock"><div class="bar a"></div><div class="bar b"></div><div class="bar c"></div></div>
+          <div class="ds-cap">The same artifact, integrated with the backend and the AI agent. Not a redraw.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="demo-inner" style="margin-top:clamp(40px,6vh,72px);">
+      <p class="demo-note" style="max-width:60ch;">The way I worked was to treat <b>Claude Code as a configurable collaborator.</b> I did not point it at a task and walk away. I directed it, and I switched the role I was directing it in as the work demanded. Each one a prompt away. Each one its own act of direction.</p>
+    </div>
+    <div class="roles">
+      <div class="roles-grid">
+        <div class="role"><span class="n">01</span><span class="t"><b>Senior architect</b> <span>· shaping the system</span></span></div>
+        <div class="role"><span class="n">02</span><span class="t"><b>Information architect</b> <span>· the four-tier hierarchy</span></span></div>
+        <div class="role"><span class="n">03</span><span class="t"><b>Interaction designer</b> <span>· tuning the reveal</span></span></div>
+        <div class="role"><span class="n">04</span><span class="t"><b>Visual designer</b> <span>· type, badges, rhythm</span></span></div>
+        <div class="role"><span class="n">05</span><span class="t"><b>Front-end engineer</b> <span>· shipping the component</span></span></div>
+        <div class="role"><span class="n">06</span><span class="t"><b>Most designers hand off.</b> <span>· I ship</span></span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRINCIPLES -->
+  <section class="principles reveal">
+    <div class="principles-inner">
+      <div class="principles-eyebrow">What Terran is built on</div>
+      <div class="principles-grid">
+        <div class="principle"><div class="h">Confidence before detail</div><div class="d">Status first, summary second, evidence last. Lead with the answer, keep the proof one tap away.</div></div>
+        <div class="principle"><div class="h">Show the work</div><div class="d">A visible process earns trust a blank spinner never can. Confidence is built in front of the person, the whole way.</div></div>
+        <div class="principle"><div class="h">Never a dead end</div><div class="d">Every diagnosis flows into the next action. The tools come to you, not the other way around.</div></div>
+        <div class="principle"><div class="h">The shipped product is the designed product</div><div class="d">Design in the codebase, or design a document nobody ships.</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CLOSE -->
+  <section class="close">
+    <div class="close-inner">
+      <div class="close-eyebrow">The whole point</div>
+      <h2 class="close-line">From noise <em>to signal.</em></h2>
+      <p class="close-sub">Terran took a wall of ninety-six failures and turned it into one clear answer with a next move. I built it the only way I know how: as a designer who ships.</p>
+      <div class="close-actions">
+        <a href="index.html#work" class="btn btn-primary">See the other bets →</a>
+        <a href="mailto:knock@vishalme.com" class="btn btn-ghost">Get in touch</a>
+      </div>
+      <div class="next-cases">
+        <a href="customer-portal.html" class="next-case l">
+          <span class="next-k">Next · Intuitive</span>
+          <span class="next-t">The decision the data was hiding.</span>
+        </a>
+        <a href="dv-design-system.html" class="next-case r">
+          <span class="next-k">Next · Walmart</span>
+          <span class="next-t">Nobody called it a problem. I did.</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="foot-inner">
+      <span>© 2026 Vishal Mehta</span>
+      <span>Design ↔ Engineering</span>
+    </div>
+  </footer>
+
+  <script>
+    (function(){
+      const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:0.1});
+      document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+      const nav=document.getElementById('nav');
+      const onScroll=()=>{const y=62,darks=document.querySelectorAll('.case-hero,.demo,.principles,.close');let dark=false;darks.forEach(s=>{const r=s.getBoundingClientRect();if(r.top<=y&&r.bottom>=y)dark=true;});nav.classList.toggle('light',!dark);};
+      window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+      const burger=document.getElementById('burger'),links=document.getElementById('navlinks');
+      burger.addEventListener('click',()=>links.classList.toggle('open'));
+      links.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>links.classList.remove('open')));
+
+      // confidence card expander
+      document.querySelectorAll('[data-conf]').forEach(b=>{
+        b.addEventListener('click',()=>{const pre=b.parentElement.querySelector('pre');const open=!pre.hasAttribute('hidden');if(open){pre.setAttribute('hidden','');b.textContent='Show the chain ▸';}else{pre.removeAttribute('hidden');b.textContent='Hide the chain ▾';}});
+      });
+
+      // LIVE AI TRIAGE
+      const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const runBtn=document.getElementById('triageRun');
+      const body=document.getElementById('triageBody');
+      const hint=document.getElementById('triageHint');
+      const steps=[['Gathering logs','2,847 lines'],['Correlating signals','6 services'],['Analyzing failure patterns',''],['Identifying root cause','']];
+      const wait=(ms)=>new Promise(r=>setTimeout(r,reduce?0:ms));
+
+      async function run(){
+        runBtn.disabled=true; runBtn.textContent='Triaging…'; body.innerHTML=''; hint.textContent='Working in the open. We show the work, not a blank screen.';
+        const rows=[];
+        for(let i=0;i<steps.length;i++){
+          const row=document.createElement('div'); row.className='tstep active';
+          row.innerHTML='<span class="ic"><span class="spin"></span></span><span class="lbl">'+steps[i][0]+'</span>'+(steps[i][1]?'<span class="meta">'+steps[i][1]+'</span>':'');
+          body.appendChild(row); rows.push(row);
+          requestAnimationFrame(()=>row.classList.add('show'));
+          await wait(720);
+          row.querySelector('.ic').innerHTML='<span class="chk">✓</span>'; row.classList.remove('active');
+          await wait(120);
+        }
+        // root cause
+        const rc=document.createElement('div'); rc.className='rc';
+        rc.innerHTML=
+          '<div class="rc-k">Root cause</div>'+
+          '<div class="rc-cause">gRPC deadline timeout at IP 10.100</div>'+
+          '<div class="rc-sub"><b>One cause. 17 failures explained.</b><span class="rc-chip">+16 failures, same root cause</span></div>'+
+          '<button class="rc-expand" id="rcx">Trust, but verify ▸</button>'+
+          '<div class="rc-evidence" id="rce" hidden>'+
+            '<div class="row"><span class="ts">14:32:07</span><span>conn refused <span class="ip">10.100</span>:443</span></div>'+
+            '<div class="row"><span class="ts">14:32:07</span><span>retry 1 failed</span></div>'+
+            '<div class="row"><span class="ts">14:32:09</span><span>deadline exceeded</span></div>'+
+          '</div>'+
+          '<div class="rc-actions"><button class="primary">Create Radar</button><button>See code fix</button><button>View Splunk logs</button><button>Ask a follow-up</button><button>Share to Slack</button></div>';
+        body.appendChild(rc);
+        requestAnimationFrame(()=>rc.classList.add('show'));
+        hint.textContent='Never a dead end. The diagnosis flows into action. No swivel chair.';
+        const rcx=document.getElementById('rcx'),rce=document.getElementById('rce');
+        rcx.addEventListener('click',()=>{const open=!rce.hasAttribute('hidden');if(open){rce.setAttribute('hidden','');rcx.textContent='Trust, but verify ▸';}else{rce.removeAttribute('hidden');rcx.textContent='Trust, but verify ▾';}});
+        const again=document.createElement('button'); again.className='triage-again'; again.textContent='↺ Run the triage again';
+        again.addEventListener('click',run); body.appendChild(again);
+        runBtn.textContent='✓ Triaged';
+      }
+      runBtn.addEventListener('click',run);
+    })();
+  </script>
+</body>
+</html>
