@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Vishal Mehta</title>
+<meta name="description" content="Vishal Mehta. Staff and Principal design leader for enterprise and AI. I find the real problem under the noise, and make complex, high-stakes systems clear." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Spline+Sans+Mono:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --paper:#f3efe6;
+    --paper-2:#efe9dd;
+    --card:#f7f3ea;
+    --ink:#1a1815;
+    --ink-2:#6f685c;
+    --ink-3:#a49c8c;
+    --accent:#a8571e;          /* warm burnt amber, harmonizes with paper */
+    --accent-soft:rgba(168,87,30,.12);
+    --line:rgba(26,24,21,.10);
+    --line-2:rgba(26,24,21,.16);
+    --mono:'Spline Sans Mono',ui-monospace,'SF Mono',Menlo,monospace;
+    --ease:cubic-bezier(.2,.7,.2,1);
+    --gut:clamp(28px,6vw,96px);
+    --pad:22px;
+  }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:var(--mono);
+    background:
+      radial-gradient(120% 90% at 26% 14%, #f7f3ea 0%, var(--paper) 46%, var(--paper-2) 100%);
+    background-attachment:fixed;
+    color:var(--ink);
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+    overflow-x:hidden;
+    line-height:1.6;
+  }
+  ::selection{background:var(--ink);color:var(--paper);}
+  a{color:inherit;text-decoration:none;}
+
+  /* warm paper grain */
+  .grain{
+    position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.05;mix-blend-mode:multiply;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  }
+
+  /* the seam: a persistent editor margin down the left */
+  .seam{
+    position:fixed;top:0;bottom:0;left:var(--gut);width:1px;z-index:1;pointer-events:none;
+    background:linear-gradient(180deg,transparent,var(--line) 5%,var(--line) 95%,transparent);
+    opacity:.75;
+  }
+
+  /* fixed header */
+  .topbar{
+    position:fixed;top:0;left:0;right:0;z-index:6;
+    display:flex;align-items:baseline;justify-content:space-between;
+    padding:clamp(18px,3.4vw,26px) var(--gut);
+    padding-left:calc(var(--gut) + var(--pad));
+    background:linear-gradient(180deg,var(--paper) 42%,rgba(243,239,230,.72) 74%,transparent);
+  }
+  .wordmark{font-size:13px;font-weight:500;letter-spacing:.02em;color:var(--ink);}
+  .wordmark .dim{color:var(--ink-3);font-weight:400;}
+  .topcta{
+    font-size:12.5px;color:var(--ink-2);letter-spacing:.02em;
+    transition:color .2s var(--ease);
+  }
+  .topcta:hover{color:var(--accent);}
+
+  /* section scaffold */
+  .sec{
+    position:relative;z-index:2;
+    padding:clamp(72px,11vw,140px) var(--gut);
+    padding-left:calc(var(--gut) + var(--pad));
+  }
+  .sec + .sec{border-top:1px solid var(--line);}
+  .inner{max-width:min(1120px,94vw);}
+
+  .eyebrow{
+    display:flex;align-items:center;gap:.6em;
+    font-size:12px;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--ink-3);margin-bottom:clamp(18px,2.4vw,30px);
+  }
+  .eyebrow::before{
+    content:"";width:.5em;height:.9em;background:var(--accent);border-radius:1.5px;
+    opacity:.7;transform:translateY(.08em);
+  }
+  .eyebrow b{color:var(--ink-2);font-weight:500;letter-spacing:.14em;}
+
+  .h{
+    font-weight:500;
+    font-size:clamp(27px,4.4vw,50px);
+    line-height:1.14;letter-spacing:-.025em;
+    max-width:20ch;
+  }
+  .h .soft{color:var(--ink-3);}
+  .body{
+    font-size:clamp(15px,1.35vw,17px);
+    line-height:1.72;color:var(--ink-2);
+    max-width:60ch;font-weight:300;
+  }
+  .body strong{color:var(--ink);font-weight:500;}
+  .lede{color:var(--ink);font-weight:400;}
+
+  /* ---------- HERO ---------- */
+  .stage{
+    position:relative;z-index:2;
+    min-height:100svh;
+    display:flex;flex-direction:column;justify-content:center;
+    padding:clamp(96px,14vh,160px) var(--gut) clamp(56px,9vh,96px);
+    padding-left:calc(var(--gut) + var(--pad));
+  }
+  .block{
+    max-width:min(1100px,92vw);
+    opacity:0;transform:translateY(6px);
+    transition:opacity 1s var(--ease),transform 1s var(--ease);
+  }
+  .block.show{opacity:1;transform:none;}
+  .line{
+    font-weight:500;
+    font-size:clamp(38px,7.1vw,96px);
+    line-height:1.16;letter-spacing:-.032em;white-space:nowrap;
+  }
+  .line + .line{margin-top:.14em;}
+  .vb{transition:color .18s var(--ease),opacity .18s var(--ease);}
+  .vb.roll{color:var(--ink-3);opacity:.85;}
+  .cur{
+    display:inline-block;width:.56em;height:.96em;margin-left:.05em;vertical-align:-.12em;
+    background:var(--ink);border-radius:1.5px;opacity:0;
+  }
+  .cur.on{opacity:1;}
+  .cur.blink{animation:blink 1.06s steps(1,end) infinite;}
+  @keyframes blink{0%,50%{opacity:1;}50.01%,100%{opacity:0;}}
+
+  .support{
+    margin-top:clamp(28px,4vw,44px);
+    max-width:56ch;font-size:clamp(15px,1.5vw,18px);line-height:1.66;
+    color:var(--ink-2);font-weight:300;
+    opacity:0;transform:translateY(8px);
+    transition:opacity .9s var(--ease) .2s,transform .9s var(--ease) .2s;
+  }
+  .support.show{opacity:1;transform:none;}
+  .support b{color:var(--ink);font-weight:500;}
+  .scrollhint{
+    margin-top:clamp(36px,6vh,64px);
+    font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);
+    display:flex;align-items:center;gap:.7em;
+    opacity:0;transition:opacity 1s var(--ease) .6s;
+  }
+  .scrollhint.show{opacity:1;}
+  .scrollhint .car{
+    width:.5em;height:.9em;background:var(--ink-3);border-radius:1.5px;
+    animation:hintblink 1.6s steps(1,end) infinite;
+  }
+  @keyframes hintblink{0%,60%{opacity:.7;}60.01%,100%{opacity:0;}}
+
+  /* ---------- SELECTED WORK ---------- */
+  .work-head{margin-bottom:clamp(40px,6vw,72px);}
+  .cases{display:flex;flex-direction:column;gap:clamp(28px,4vw,44px);}
+  .case{
+    display:grid;grid-template-columns:1.05fr 1fr;gap:clamp(24px,3.4vw,52px);align-items:center;
+    background:var(--card);
+    border:1px solid var(--line);border-radius:14px;
+    padding:clamp(22px,3vw,40px);
+    transition:border-color .3s var(--ease),transform .5s var(--ease);
+  }
+  .case:hover{border-color:var(--line-2);transform:translateY(-2px);}
+  .case:nth-child(even) .case-media{order:-1;}
+  .case-eyebrow{
+    font-size:12px;letter-spacing:.05em;color:var(--ink-3);margin-bottom:14px;
+    display:flex;align-items:center;gap:.55em;
+  }
+  .case-eyebrow b{color:var(--accent);font-weight:500;letter-spacing:.04em;}
+  .case-h{
+    font-size:clamp(20px,2.4vw,28px);font-weight:500;line-height:1.2;letter-spacing:-.02em;
+    margin-bottom:14px;max-width:20ch;
+  }
+  .case-body{font-size:14.5px;line-height:1.68;color:var(--ink-2);font-weight:300;max-width:46ch;}
+  .metric{
+    margin-top:22px;display:inline-flex;align-items:center;gap:.6em;
+    font-size:13px;letter-spacing:.01em;color:var(--ink);
+    border:1px solid var(--line-2);border-radius:8px;padding:9px 14px;background:var(--paper);
+  }
+  .metric::before{content:"›";color:var(--accent);font-weight:600;}
+  .metric b{color:var(--accent);font-weight:600;}
+  .case-link{
+    display:inline-flex;align-items:center;gap:.5em;margin-top:22px;margin-left:14px;
+    font-size:12.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);
+    transition:color .2s var(--ease),gap .2s var(--ease);
+  }
+  .case:hover .case-link{color:var(--ink-2);gap:.75em;}
+  .case-foot{display:flex;flex-wrap:wrap;align-items:center;}
+
+  .case-media{
+    border-radius:10px;overflow:hidden;border:1px solid var(--line);
+    aspect-ratio:16/11;background:var(--paper-2);
+  }
+  .case-media img{width:100%;height:100%;object-fit:cover;display:block;}
+
+  /* Terran typographic terminal card */
+  .term{
+    width:100%;height:100%;background:#1a1815;color:#d9d2c4;
+    border-radius:10px;padding:clamp(18px,2.4vw,28px);
+    font-size:clamp(11px,1.15vw,13.5px);line-height:1.85;letter-spacing:.01em;
+    display:flex;flex-direction:column;justify-content:center;
+  }
+  .term .p{color:#8f877a;}
+  .term .ok{color:#c9a06a;}
+  .term .arw{color:#c9a06a;}
+  .term .dim2{color:#7d766a;}
+  .term .cc{display:inline-block;width:.5em;height:1em;background:#d9d2c4;border-radius:1px;vertical-align:-.14em;margin-left:.15em;animation:blink 1.06s steps(1,end) infinite;}
+
+  /* ---------- HOW I WORK ---------- */
+  .beats{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--line);
+    border:1px solid var(--line);border-radius:14px;overflow:hidden;margin-top:clamp(36px,5vw,56px);}
+  .beat{background:var(--card);padding:clamp(24px,3vw,38px);}
+  .beat .num{font-size:12px;color:var(--accent);letter-spacing:.1em;margin-bottom:14px;}
+  .beat h3{font-size:clamp(18px,1.9vw,22px);font-weight:500;letter-spacing:-.01em;margin-bottom:12px;}
+  .beat p{font-size:14px;line-height:1.7;color:var(--ink-2);font-weight:300;max-width:42ch;}
+  .note{
+    margin-top:clamp(26px,3vw,36px);font-size:13.5px;color:var(--ink-3);font-weight:300;
+    display:flex;align-items:center;gap:.6em;
+  }
+  .note::before{content:"//";color:var(--ink-3);}
+
+  /* ---------- ABOUT ---------- */
+  .about-grid{display:grid;grid-template-columns:1.4fr 1fr;gap:clamp(36px,5vw,72px);align-items:start;}
+  .creds{margin-top:8px;}
+  .creds .lbl{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);margin-bottom:18px;}
+  .creds ul{list-style:none;}
+  .creds li{
+    font-size:14px;color:var(--ink-2);padding:12px 0;border-top:1px solid var(--line);
+    display:flex;gap:.7em;align-items:baseline;font-weight:300;
+  }
+  .creds li:first-child{border-top:0;padding-top:0;}
+  .creds li::before{content:"+";color:var(--accent);font-weight:600;}
+  .creds li em{font-style:italic;color:var(--ink);}
+
+  /* ---------- WRITING ---------- */
+  .writing{margin-top:clamp(36px,5vw,52px);border-top:1px solid var(--line);}
+  .wrow{
+    display:grid;grid-template-columns:1fr auto;gap:20px;align-items:baseline;
+    padding:clamp(20px,2.6vw,30px) 0;border-bottom:1px solid var(--line);
+    transition:padding-left .3s var(--ease);
+  }
+  .wrow:hover{padding-left:12px;}
+  .wrow .wt{font-size:clamp(15px,1.7vw,19px);font-weight:400;letter-spacing:-.01em;line-height:1.4;color:var(--ink);
+    transition:color .2s var(--ease);}
+  .wrow:hover .wt{color:var(--accent);}
+  .wrow .wt .arrow{color:var(--ink-3);transition:color .2s var(--ease);}
+  .wrow:hover .wt .arrow{color:var(--accent);}
+  .wrow .wm{font-size:12.5px;color:var(--ink-3);letter-spacing:.03em;white-space:nowrap;text-align:right;}
+
+  /* ---------- CONTACT ---------- */
+  .contact{padding-bottom:clamp(90px,14vw,160px);}
+  .contact .h{font-size:clamp(32px,6.4vw,74px);letter-spacing:-.035em;max-width:none;}
+  .contact .cur2{
+    display:inline-block;width:.5em;height:.86em;background:var(--ink);border-radius:1.5px;
+    vertical-align:-.08em;margin-left:.08em;animation:blink 1.06s steps(1,end) infinite;
+  }
+  .avail{margin-top:clamp(28px,3.6vw,40px);max-width:56ch;font-size:clamp(15px,1.4vw,17px);
+    line-height:1.7;color:var(--ink-2);font-weight:300;}
+  .links{margin-top:clamp(32px,4vw,48px);display:flex;flex-wrap:wrap;gap:12px;}
+  .links a{
+    font-size:14px;letter-spacing:.01em;color:var(--ink);
+    border:1px solid var(--line-2);border-radius:9px;padding:12px 18px;background:var(--card);
+    display:inline-flex;align-items:center;gap:.55em;
+    transition:border-color .25s var(--ease),color .25s var(--ease),background .25s var(--ease);
+  }
+  .links a::before{content:"›";color:var(--accent);}
+  .links a:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-soft);}
+  .colophon{
+    margin-top:clamp(56px,8vw,96px);padding-top:26px;border-top:1px solid var(--line);
+    font-size:12px;color:var(--ink-3);letter-spacing:.03em;
+    display:flex;flex-wrap:wrap;gap:16px;justify-content:space-between;
+  }
+
+  /* ---------- reveal motion ---------- */
+  .reveal{opacity:0;transform:translateY(14px);transition:opacity .8s var(--ease),transform .8s var(--ease);}
+  .reveal.show{opacity:1;transform:none;}
+
+  /* ---------- responsive ---------- */
+  @media (max-width:860px){
+    .case{grid-template-columns:1fr;}
+    .case:nth-child(even) .case-media{order:0;}
+    .about-grid{grid-template-columns:1fr;}
+    .beats{grid-template-columns:1fr;}
+  }
+  @media (max-width:640px){
+    .line{white-space:normal;}
+    .wrow{grid-template-columns:1fr;gap:6px;}
+    .wrow .wm{text-align:left;}
+    .topcta{display:none;}
+  }
+  @media (prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto;}
+    .block,.support,.scrollhint,.reveal{opacity:1;transform:none;transition:none;}
+    .cur.blink,.cur2,.scrollhint .car,.term .cc{animation:none;}
+    .vb.roll{color:var(--ink);opacity:1;}
+    .cur2{opacity:1;}
+  }
+</style>
+</head>
+<body>
+  <div class="grain" aria-hidden="true"></div>
+  <div class="seam" aria-hidden="true"></div>
+
+  <header class="topbar">
+    <div class="wordmark">vishal mehta <span class="dim">/ clarity</span></div>
+    <a class="topcta" href="#contact">contact&nbsp;&#9656;</a>
+  </header>
+
+  <!-- 1 · HERO -->
+  <main class="stage" id="top">
+    <div class="block" id="block" aria-label="I design it. Then I ship it.">
+      <div class="line">
+        <span class="pre" id="p1"></span><span class="vb" id="v1"></span><span class="suf" id="s1"></span><span class="cur" id="c1"></span>
+      </div>
+      <div class="line">
+        <span class="pre" id="p2"></span><span class="vb" id="v2"></span><span class="suf" id="s2"></span><span class="cur" id="c2"></span>
+      </div>
+    </div>
+
+    <p class="support" id="support">
+      <b>Staff and Principal design leader for enterprise and AI.</b>
+      I find the real problem under the noise, and make complex, high-stakes systems clear.
+    </p>
+
+    <div class="scrollhint" id="scrollhint"><span class="car"></span> scroll to read</div>
+  </main>
+
+  <!-- 2 · CLARITY -->
+  <section class="sec" id="clarity">
+    <div class="inner">
+      <div class="eyebrow reveal">02 <b>clarity</b> · the spine</div>
+      <h2 class="h reveal">The real problem is rarely the one you are handed.</h2>
+      <p class="body reveal" style="margin-top:clamp(20px,2.6vw,30px)">
+        Stakeholders hand me a solution disguised as a problem. <span class="lede">"We need a dashboard."</span>
+        <span class="lede">"Add AI to it."</span> My job is to find the real need, the one they cannot quite name,
+        and make it clear. Whether the surface is a design system, an analytics platform, or an AI agent, the work is the same:
+        <strong>find the real problem, not the symptom, and solve it.</strong>
+      </p>
+    </div>
+  </section>
+
+  <!-- 3 · SELECTED WORK -->
+  <section class="sec" id="work">
+    <div class="inner">
+      <div class="work-head">
+        <div class="eyebrow reveal">03 <b>selected work</b></div>
+        <h2 class="h reveal">Four decisions that changed the outcome.</h2>
+      </div>
+
+      <div class="cases">
+
+        <!-- Terran -->
+        <a href="#" class="case reveal">
+          <div class="case-text">
+            <div class="case-eyebrow"><b>Apple</b> · AI-native observability</div>
+            <div class="case-h">Read the answer, not four dashboards.</div>
+            <p class="case-body">
+              When an Apple Pay build breaks, an engineer used to chase one failure across four tools for an hour.
+              I designed Terran to do the digging, so they read the answer instead. The AI finds the root cause and shows
+              its reasoning; the human keeps the call.
+            </p>
+            <div class="case-foot">
+              <span class="metric">1 hour &rarr; <b>3 minutes</b></span>
+              <span class="case-link">Terran &#9656;</span>
+            </div>
+          </div>
+          <div class="case-media" aria-hidden="true">
+            <div class="term">
+              <div><span class="p">$</span> terran trace &lt;build&gt;</div>
+              <div class="dim2">&nbsp;&nbsp;scanning 4 sources ........ <span class="ok">done</span></div>
+              <div>&nbsp;&nbsp;<span class="arw">&rarr;</span> root cause identified</div>
+              <div class="dim2">&nbsp;&nbsp;reasoning shown</div>
+              <div>&nbsp;&nbsp;human decides<span class="cc"></span></div>
+            </div>
+          </div>
+        </a>
+
+        <!-- Walmart DV -->
+        <a href="#" class="case reveal">
+          <div class="case-text">
+            <div class="case-eyebrow"><b>Walmart Data Ventures</b> · design system</div>
+            <div class="case-h">Anchor the system on a language they already trust.</div>
+            <p class="case-body">
+              Six products, six teams, 40% design debt. I audited the landscape, anchored a new system on Walmart's own
+              design language, and proved it on one beta product before the rest followed.
+            </p>
+            <div class="case-foot">
+              <span class="metric">6 months · <b>zero debt · 30% faster</b></span>
+              <span class="case-link">Case &#9656;</span>
+            </div>
+          </div>
+          <div class="case-media">
+            <img src="../dv-thumb.png" alt="Walmart Data Ventures design system cover" loading="lazy" />
+          </div>
+        </a>
+
+        <!-- Intuitive Surgical -->
+        <a href="#" class="case reveal">
+          <div class="case-text">
+            <div class="case-eyebrow"><b>Intuitive Surgical</b> · customer portal</div>
+            <div class="case-h">Make the hidden decision a picture.</div>
+            <p class="case-body">
+              Surgical teams ordered inventory blind, where availability affects outcomes. I found the decision the data
+              was hiding and made the reorder signal a treemap you read in one glance.
+            </p>
+            <div class="case-foot">
+              <span class="metric">navigation 3&ndash;4 levels &rarr; <b>1 step</b></span>
+              <span class="case-link">Case &#9656;</span>
+            </div>
+          </div>
+          <div class="case-media">
+            <img src="../cp-hero.png" alt="Intuitive Surgical customer portal treemap" loading="lazy" />
+          </div>
+        </a>
+
+        <!-- Apple Intelligence Shipping -->
+        <a href="#" class="case reveal">
+          <div class="case-text">
+            <div class="case-eyebrow"><b>Apple</b> · intelligence shipping</div>
+            <div class="case-h">Automate the work, not the judgment.</div>
+            <p class="case-body">
+              Internal logistics ran by hand. The temptation was full automation; I made every AI action named, explainable,
+              and reversible, so managers stayed in control.
+            </p>
+            <div class="case-foot">
+              <span class="metric">50% faster · <b>humans in control</b></span>
+              <span class="case-link">Case &#9656;</span>
+            </div>
+          </div>
+          <div class="case-media">
+            <img src="../apple-s01.png" alt="Apple intelligence shipping dashboard" loading="lazy" />
+          </div>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- 4 · HOW I WORK -->
+  <section class="sec" id="how">
+    <div class="inner">
+      <div class="eyebrow reveal">04 <b>how I work</b></div>
+      <h2 class="h reveal">A method, not a mood.</h2>
+
+      <div class="beats">
+        <div class="beat reveal">
+          <div class="num">01</div>
+          <h3>Find the real problem</h3>
+          <p>Research first. Ask why until it stops being a feature request. Watch what people actually do, not what they say they need.</p>
+        </div>
+        <div class="beat reveal">
+          <div class="num">02</div>
+          <h3>Make it clear</h3>
+          <p>Systems thinking over screens. Reduce cognitive load. Design the order the eye travels: status first, detail last.</p>
+        </div>
+        <div class="beat reveal">
+          <div class="num">03</div>
+          <h3>Prove it</h3>
+          <p>Prototype early. Test with real users. Tie the result to a business number, not a nicer-looking screen.</p>
+        </div>
+        <div class="beat reveal">
+          <div class="num">04</div>
+          <h3>Lead it</h3>
+          <p>Player-coach. Scale judgment across a team. The best mentoring makes you unnecessary.</p>
+        </div>
+      </div>
+
+      <p class="note reveal">And yes, I build in code, so what ships is what I designed.</p>
+    </div>
+  </section>
+
+  <!-- 5 · ABOUT / ORIGIN -->
+  <section class="sec" id="about">
+    <div class="inner">
+      <div class="eyebrow reveal">05 <b>about</b> · origin</div>
+      <div class="about-grid">
+        <div>
+          <p class="body reveal" style="max-width:62ch;font-size:clamp(16px,1.6vw,19px);color:var(--ink-2)">
+            I came to design from engineering. Early on I watched someone struggle with a tool I had built and was proud of,
+            and it landed hard: what was effortless for me, the maker, was a wall for them, the user. That flipped my question
+            from what the technology can do to <span class="lede">who is using it, and why.</span>
+          </p>
+          <p class="body reveal" style="max-width:62ch;margin-top:22px;font-size:clamp(16px,1.6vw,19px);color:var(--ink-2)">
+            Twenty-five years later the job is the same: <strong>find the real problem, not the symptom, and fix it.</strong>
+            I lead as a player-coach, and the systems I am proudest of kept growing after I stepped back.
+          </p>
+        </div>
+        <div class="creds reveal">
+          <div class="lbl">credentials</div>
+          <ul>
+            <li>EB1A · Extraordinary Ability</li>
+            <li>IEEE Senior Member</li>
+            <li>Author, <em>Design AI Alchemy</em></li>
+            <li>Speaker, World Usability Congress 2025</li>
+            <li>ACM SIGCHI</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6 · WRITING -->
+  <section class="sec" id="writing">
+    <div class="inner">
+      <div class="eyebrow reveal">06 <b>writing</b></div>
+      <h2 class="h reveal">Thinking out loud, in public.</h2>
+
+      <div class="writing">
+        <a class="wrow reveal" href="https://cookbook.idyeah.studio" target="_blank" rel="noopener">
+          <span class="wt">Design AI Alchemy: 75 Prompts for UX Designers <span class="arrow">&#8599;</span></span>
+          <span class="wm">Author · 2025</span>
+        </a>
+        <a class="wrow reveal" href="https://ieeexplore.ieee.org/abstract/document/10939687" target="_blank" rel="noopener">
+          <span class="wt">Real-Time Interaction in AR/VR Environments: A Deep Learning Approach to HCI <span class="arrow">&#8599;</span></span>
+          <span class="wm">IEEE · Feb 2025</span>
+        </a>
+        <a class="wrow reveal" href="https://www.uxmatters.com/mt/archives/2025/02/smarter-faster-human-the-future-of-design-systems-with-ai.php" target="_blank" rel="noopener">
+          <span class="wt">Smarter, Faster, Human: The Future of Design Systems with AI <span class="arrow">&#8599;</span></span>
+          <span class="wm">UXmatters · Feb 2025</span>
+        </a>
+        <a class="wrow reveal" href="https://medium.com/design-bootcamp/designing-for-trust-in-the-age-of-ai-agents-3cce73c7d8ef?sk=7fbb12f9ab2ca0c91ef530505afae2da" target="_blank" rel="noopener">
+          <span class="wt">Designing for Trust in the Age of AI Agents <span class="arrow">&#8599;</span></span>
+          <span class="wm">Bootcamp · Sep 2025</span>
+        </a>
+        <a class="wrow reveal" href="https://medium.com/design-bootcamp/your-dashboard-is-lying-to-you-25a837e836db?sk=a7c2fb7f7008bc279019d1d4023e700f" target="_blank" rel="noopener">
+          <span class="wt">Your Dashboard Is Lying to You <span class="arrow">&#8599;</span></span>
+          <span class="wm">Bootcamp · Mar 2026</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7 · CONTACT -->
+  <section class="sec contact" id="contact">
+    <div class="inner">
+      <div class="eyebrow reveal">07 <b>contact</b></div>
+      <h2 class="h reveal">What's the real problem?<span class="cur2"></span></h2>
+      <p class="avail reveal">
+        Open to Principal, Staff, and Director roles in enterprise and AI-UX, plus advisory work.
+      </p>
+      <div class="links reveal">
+        <a href="mailto:knock@vishalme.com">knock@vishalme.com</a>
+        <a href="https://linkedin.com/in/vishalme" target="_blank" rel="noopener">linkedin.com/in/vishalme</a>
+        <a href="https://medium.com/@vishalme" target="_blank" rel="noopener">medium.com/@vishalme</a>
+      </div>
+      <div class="colophon">
+        <span>vishal mehta · clarity for enterprise &amp; AI</span>
+        <a href="#top" style="color:var(--ink-3)">back to top &#8593;</a>
+      </div>
+    </div>
+  </section>
+
+<script>
+(function(){
+  var reduce=window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+
+  /* ---------- HERO typing (unchanged concept) ---------- */
+  var block=document.getElementById('block');
+  var support=document.getElementById('support');
+  var scrollhint=document.getElementById('scrollhint');
+
+  var L1={pre:'I ', roll:['sketch','shape','render','refine','design'], verb:'design', suf:' it.',
+          p:document.getElementById('p1'),v:document.getElementById('v1'),s:document.getElementById('s1'),c:document.getElementById('c1')};
+  var L2={pre:'Then I ', roll:['build','test','commit','ship'], verb:'ship', suf:' it',
+          p:document.getElementById('p2'),v:document.getElementById('v2'),s:document.getElementById('s2'),c:document.getElementById('c2')};
+
+  block.classList.add('show');
+
+  if(reduce){
+    L1.p.textContent=L1.pre; L1.v.textContent=L1.verb; L1.s.textContent=L1.suf;
+    L2.p.textContent=L2.pre; L2.v.textContent=L2.verb; L2.s.textContent=L2.suf;
+    L2.c.classList.add('on');
+    support.classList.add('show'); scrollhint.classList.add('show');
+  } else {
+    var wait=function(ms){return new Promise(function(r){setTimeout(r,ms);});};
+
+    var typeInto=async function(el,str,cps){
+      var s='';
+      for(var i=0;i<str.length;i++){
+        s+=str[i]; el.textContent=s;
+        await wait((1000/cps)+(Math.random()*34-10));
+      }
+    };
+    var rollVerb=async function(el,list){
+      el.classList.add('roll');
+      for(var i=0;i<list.length-1;i++){ el.textContent=list[i]; await wait(82); }
+      await wait(40); el.classList.remove('roll'); el.textContent=list[list.length-1];
+    };
+    var runLine=async function(L){
+      L.c.classList.add('on');
+      await typeInto(L.p,L.pre,17);
+      await rollVerb(L.v,L.roll.concat([L.verb]).filter(function(x,i,a){return a.indexOf(x)===i;}));
+      await wait(60);
+      await typeInto(L.s,L.suf,15);
+    };
+    (async function run(){
+      await wait(320);
+      await runLine(L1);
+      L1.c.classList.remove('on');
+      await wait(360);
+      await runLine(L2);
+      await wait(140);
+      L2.c.classList.add('blink');
+      support.classList.add('show');
+      await wait(500);
+      scrollhint.classList.add('show');
+    })();
+  }
+
+  /* ---------- scroll reveal ---------- */
+  var reveals=[].slice.call(document.querySelectorAll('.reveal'));
+  if(reduce || !('IntersectionObserver' in window)){
+    reveals.forEach(function(el){el.classList.add('show');});
+  } else {
+    var io=new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting){
+          var el=e.target;
+          var sibs=[].slice.call(el.parentNode.querySelectorAll(':scope > .reveal'));
+          var idx=sibs.indexOf(el);
+          el.style.transitionDelay=(idx>0?Math.min(idx,6)*70:0)+'ms';
+          el.classList.add('show');
+          io.unobserve(el);
+        }
+      });
+    },{threshold:.12,rootMargin:'0px 0px -8% 0px'});
+    reveals.forEach(function(el){io.observe(el);});
+  }
+})();
+</script>
+</body>
+</html>
