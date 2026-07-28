@@ -382,6 +382,29 @@
   .terran-steps span{display:flex;align-items:center;gap:9px;font-size:12.5px;color:rgba(247,241,230,0.68);}
   .terran-steps span::before{content:"\2713";color:#8FD3A6;font-weight:700;}
 
+  /* Design Systems & AI typographic card (no screenshot) */
+  .case-media.ds{
+    background:
+      radial-gradient(120% 120% at 82% 8%, rgba(190,74,43,0.26), rgba(190,74,43,0) 58%),
+      linear-gradient(160deg,#241A13,#0E0B08);
+    display:flex;align-items:center;padding:26px;
+  }
+  .ds-card{width:100%;font-family:'Inter',sans-serif;}
+  .ds-card .mono{font-family:ui-monospace,'SF Mono',Menlo,monospace;color:#E8996F;font-weight:500;}
+  .ds-status{display:flex;align-items:center;gap:9px;font-family:ui-monospace,'SF Mono',Menlo,monospace;font-size:11px;letter-spacing:.02em;color:rgba(247,241,230,0.6);margin-bottom:14px;}
+  .ds-status .d{width:7px;height:7px;border-radius:50%;background:#E8996F;box-shadow:0 0 8px rgba(232,153,111,0.8);flex-shrink:0;}
+  .ds-rc{background:rgba(232,153,111,0.09);border:1px solid rgba(232,153,111,0.34);border-radius:12px;padding:16px 18px;}
+  .ds-rc .k{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#E8996F;margin-bottom:9px;}
+  .ds-rc .cause{font-weight:600;font-size:clamp(15px,1.7vw,18px);color:var(--cream);letter-spacing:-0.01em;}
+  .ds-rc .sub{margin-top:9px;font-size:13.5px;color:rgba(247,241,230,0.72);}
+  .ds-rc .sub b{color:var(--cream);font-weight:600;}
+  .ds-act{margin-top:14px;display:flex;gap:8px;flex-wrap:wrap;}
+  .dsbtn{font-size:12px;padding:7px 14px;border-radius:980px;border:1px solid rgba(247,241,230,0.2);color:rgba(247,241,230,0.85);}
+  .dsbtn.primary{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:600;}
+  .ds-steps{margin-top:14px;display:flex;flex-direction:column;gap:7px;}
+  .ds-steps span{display:flex;align-items:center;gap:9px;font-size:12.5px;color:rgba(247,241,230,0.68);}
+  .ds-steps span::before{content:"\2713";color:#8FD3A6;font-weight:700;}
+
   .case-body{
     padding:clamp(20px,2vw,30px);
     display:flex;
@@ -756,10 +779,32 @@
           <span class="eyebrow" data-reveal>Selected work</span>
           <h2 class="display" id="work-h" data-reveal style="--d:80ms">Decisions,<br>not <em>decks.</em></h2>
         </div>
-        <p class="work-count" data-reveal style="--d:140ms">Four systems, shipped.</p>
+        <p class="work-count" data-reveal style="--d:140ms">Five systems, shipped.</p>
       </div>
 
       <div class="cases">
+        <!-- Design Systems & AI -->
+        <a class="case" href="design-systems-ai.html" data-reveal>
+          <div class="case-media ds" aria-hidden="true">
+            <div class="ds-card">
+              <div class="ds-status"><span class="d"></span>design-system &middot; skill: redesign</div>
+              <div class="ds-rc">
+                <div class="k">Human in the loop</div>
+                <div class="cause">New component &mdash; <span class="mono">ComparisonTable</span></div>
+                <div class="sub">Not in the system yet. <b>Your call.</b></div>
+                <div class="ds-act"><span class="dsbtn primary">Approve &amp; store</span><span class="dsbtn">Adjust</span></div>
+              </div>
+              <div class="ds-steps"><span>Composed from the system</span><span>Stored for reuse &middot; 24 &rarr; 25</span><span>Mock data ready</span></div>
+            </div>
+          </div>
+          <div class="case-body">
+            <span class="case-eyebrow">Design Systems &amp; AI &middot; Apple</span>
+            <h3>A design system that ships features</h3>
+            <p>The system lives as code an AI operates. New features start already aligned; when one needs a new pattern, the system captures it after I approve it. Consistency stopped depending on memory.</p>
+            <div class="metric"><span class="label">New page</span>Days &rarr; minutes</div>
+          </div>
+        </a>
+
         <!-- Terran -->
         <a class="case" href="terran.html" data-reveal>
           <div class="case-media terran" aria-hidden="true">
