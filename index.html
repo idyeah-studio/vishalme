@@ -382,28 +382,27 @@
   .terran-steps span{display:flex;align-items:center;gap:9px;font-size:12.5px;color:rgba(247,241,230,0.68);}
   .terran-steps span::before{content:"\2713";color:#8FD3A6;font-weight:700;}
 
-  /* Design Systems & AI typographic card (no screenshot) */
+  /* Design Systems & AI card — Apple-white spec sheet (opposite of Terran's dark card) */
   .case-media.ds{
-    background:
-      radial-gradient(120% 120% at 82% 8%, rgba(190,74,43,0.26), rgba(190,74,43,0) 58%),
-      linear-gradient(160deg,#241A13,#0E0B08);
-    display:flex;align-items:center;padding:26px;
+    background:linear-gradient(180deg,#FFFFFF,#F1F1F4);
+    display:flex;align-items:center;padding:clamp(22px,2.6vw,32px);
   }
-  .ds-card{width:100%;font-family:'Inter',sans-serif;}
-  .ds-card .mono{font-family:ui-monospace,'SF Mono',Menlo,monospace;color:#E8996F;font-weight:500;}
-  .ds-status{display:flex;align-items:center;gap:9px;font-family:ui-monospace,'SF Mono',Menlo,monospace;font-size:11px;letter-spacing:.02em;color:rgba(247,241,230,0.6);margin-bottom:14px;}
-  .ds-status .d{width:7px;height:7px;border-radius:50%;background:#E8996F;box-shadow:0 0 8px rgba(232,153,111,0.8);flex-shrink:0;}
-  .ds-rc{background:rgba(232,153,111,0.09);border:1px solid rgba(232,153,111,0.34);border-radius:12px;padding:16px 18px;}
-  .ds-rc .k{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#E8996F;margin-bottom:9px;}
-  .ds-rc .cause{font-weight:600;font-size:clamp(15px,1.7vw,18px);color:var(--cream);letter-spacing:-0.01em;}
-  .ds-rc .sub{margin-top:9px;font-size:13.5px;color:rgba(247,241,230,0.72);}
-  .ds-rc .sub b{color:var(--cream);font-weight:600;}
-  .ds-act{margin-top:14px;display:flex;gap:8px;flex-wrap:wrap;}
-  .dsbtn{font-size:12px;padding:7px 14px;border-radius:980px;border:1px solid rgba(247,241,230,0.2);color:rgba(247,241,230,0.85);}
-  .dsbtn.primary{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:600;}
-  .ds-steps{margin-top:14px;display:flex;flex-direction:column;gap:7px;}
-  .ds-steps span{display:flex;align-items:center;gap:9px;font-size:12.5px;color:rgba(247,241,230,0.68);}
-  .ds-steps span::before{content:"\2713";color:#8FD3A6;font-weight:700;}
+  .ds-spec{width:100%;font-family:ui-monospace,'SF Mono',Menlo,monospace;color:#1D1D1F;}
+  .ds-spec-head{display:flex;align-items:center;gap:9px;padding-bottom:14px;border-bottom:1px solid #E6E6EB;margin-bottom:6px;}
+  .ds-spec-head .d{width:8px;height:8px;border-radius:50%;background:var(--accent);flex:none;}
+  .ds-repo{font-size:13px;font-weight:600;letter-spacing:.01em;color:#1D1D1F;}
+  .ds-branch{margin-left:auto;font-size:11.5px;color:#86868B;letter-spacing:.02em;}
+  .ds-row{display:flex;align-items:center;gap:12px;padding:9px 0;border-bottom:1px solid #EEEEF2;}
+  .ds-row:last-of-type{border-bottom:none;}
+  .ds-row .sw{width:15px;height:15px;border-radius:4px;flex:none;box-shadow:inset 0 0 0 1px rgba(0,0,0,0.07);}
+  .ds-row .sw.r{background:#fff;border:1.5px solid #C7C7CC;border-radius:6px;box-shadow:none;}
+  .ds-row .sw.s{background:#E4E4EA;box-shadow:none;}
+  .ds-row .nm{font-size:13px;color:#3A3A3C;letter-spacing:.01em;}
+  .ds-row .vv{margin-left:auto;font-size:12.5px;color:#86868B;}
+  .ds-comps{display:flex;align-items:center;gap:7px;flex-wrap:wrap;margin-top:15px;}
+  .ds-comps .lbl{font-size:11px;color:#86868B;margin-right:3px;}
+  .ds-comps .cc{font-family:'Inter',sans-serif;font-size:12px;font-weight:500;color:#1D1D1F;background:#fff;border:1px solid #E2E2E7;border-radius:8px;padding:5px 11px;}
+  .ds-comps .cc.n{color:#86868B;background:#F0F0F3;border-color:#F0F0F3;}
 
   .case-body{
     padding:clamp(20px,2vw,30px);
@@ -786,20 +785,23 @@
         <!-- Design Systems & AI -->
         <a class="case" href="design-systems-ai.html" data-reveal>
           <div class="case-media ds" aria-hidden="true">
-            <div class="ds-card">
-              <div class="ds-status"><span class="d"></span>design-system &middot; skill: redesign</div>
-              <div class="ds-rc">
-                <div class="k">Human in the loop</div>
-                <div class="cause">New component &mdash; <span class="mono">ComparisonTable</span></div>
-                <div class="sub">Not in the system yet. <b>Your call.</b></div>
-                <div class="ds-act"><span class="dsbtn primary">Approve &amp; store</span><span class="dsbtn">Adjust</span></div>
+            <div class="ds-spec">
+              <div class="ds-spec-head">
+                <span class="d"></span><span class="ds-repo">design-system</span><span class="ds-branch">in&nbsp;code</span>
               </div>
-              <div class="ds-steps"><span>Composed from the system</span><span>Stored for reuse &middot; 24 &rarr; 25</span><span>Mock data ready</span></div>
+              <div class="ds-row"><span class="sw" style="background:#BE4A2B"></span><span class="nm">color / accent</span><span class="vv">#BE4A2B</span></div>
+              <div class="ds-row"><span class="sw" style="background:#17130F"></span><span class="nm">color / ink</span><span class="vv">#17130F</span></div>
+              <div class="ds-row"><span class="sw r"></span><span class="nm">radius / card</span><span class="vv">14px</span></div>
+              <div class="ds-row"><span class="sw s"></span><span class="nm">space / 4</span><span class="vv">16px</span></div>
+              <div class="ds-comps">
+                <span class="lbl">components</span>
+                <span class="cc">Button</span><span class="cc">Table</span><span class="cc">Card</span><span class="cc">Field</span><span class="cc n">+21</span>
+              </div>
             </div>
           </div>
           <div class="case-body">
             <span class="case-eyebrow">Design Systems &amp; AI &middot; Apple</span>
-            <h3>A design system that ships features</h3>
+            <h3>A design system in code</h3>
             <p>The system lives as code an AI operates. New features start already aligned; when one needs a new pattern, the system captures it after I approve it. Consistency stopped depending on memory.</p>
             <div class="metric"><span class="label">New page</span>Days &rarr; minutes</div>
           </div>
