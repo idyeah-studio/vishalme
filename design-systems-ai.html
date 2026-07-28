@@ -170,10 +170,10 @@
     <div class="wrap">
       <span class="eyebrow" data-reveal>Design Systems &amp; AI &middot; Apple</span>
       <h1 class="display" data-reveal style="--d:80ms">One system.<br>Every feature <em>aligned.</em></h1>
-      <p class="dek" data-reveal style="--d:140ms">I rebuilt the design system behind Apple Pay engineering as <b>code an AI can operate</b>. New features start already aligned, and when the work needs a pattern that does not exist yet, the system captures it, after I approve it.</p>
+      <p class="dek" data-reveal style="--d:140ms">When I joined Apple Pay, Terran had been built screen by screen, with no shared system. I turned one model screen into <b>a design system in code</b>, then built skills that redesigned the rest of Terran from it, and keep it evolving, with me at every gate.</p>
       <div class="meta" data-reveal style="--d:200ms">
-        <div><div class="k">Role</div><div class="v">Design lead. System architecture, the AI skills, the human-in-the-loop workflow, shipped in code.</div></div>
-        <div><div class="k">Built</div><div class="v">A code-native design system and the Claude Code skills that build and extend it</div></div>
+        <div><div class="k">Role</div><div class="v">Design lead. System architecture, the model screen, the AI skills, the human-in-the-loop workflow, shipped in code.</div></div>
+        <div><div class="k">Built</div><div class="v">A code-native design system, seeded from one model screen, and the skills that redesign and extend Terran from it</div></div>
         <div><div class="k">Context</div><div class="v">Apple, Apple Pay engineering (the Terran platform)</div></div>
       </div>
       <p class="nda" data-reveal style="--d:260ms"><b>NDA note.</b> This is internal Apple work, so I cannot show the real system. Everything here is a faithful recreation with representative data, and I am happy to walk through it in more depth privately.</p>
@@ -184,12 +184,12 @@
   <section class="band cream">
     <div class="wrap col">
       <span class="eyebrow" data-reveal>The problem</span>
-      <h2 class="display sechead" data-reveal style="--d:80ms">The system was perfect. The features still <em>drifted.</em></h2>
+      <h2 class="display sechead" data-reveal style="--d:80ms">I joined a tool built screen by <em>screen.</em></h2>
       <div class="secbody">
-        <p class="body" data-reveal style="--d:120ms">We had the tokens, the components, the documentation. On paper, everything a team needs to stay consistent. But a design system is opt-in. It relies on every person remembering to use it, correctly, every time, under a deadline.</p>
-        <p class="body" data-reveal style="--d:160ms">So each new page reinterpreted it a little. A spacing here, a one-off component there. Design review turned into policing, catching drift after it was already built. And building aligned was slower than building fast, so when the two collided, <b>speed won and the system lost.</b></p>
+        <p class="body" data-reveal style="--d:120ms">When I arrived at Apple Pay engineering, Terran had grown the way internal tools do: one screen at a time, each shipped under its own deadline. There was no shared source of truth, so every screen carried its own spacing, its own patterns, its own idea of the product.</p>
+        <p class="body" data-reveal style="--d:160ms">New work reinterpreted the last screen from memory. Consistency was technically everyone's job, which made it no one's, and design review turned into policing drift after it was already built. <b>The tool worked. It just did not feel like one tool.</b></p>
       </div>
-      <div class="pq" data-reveal style="--d:200ms"><p>A design system is a promise. Most teams break it by <em>Friday.</em></p></div>
+      <div class="pq" data-reveal style="--d:200ms"><p>Every screen remembered the product a little <em>differently.</em></p></div>
     </div>
   </section>
 
@@ -197,12 +197,25 @@
   <section class="band">
     <div class="wrap col">
       <span class="eyebrow" data-reveal>The real problem</span>
-      <h2 class="display sechead" data-reveal style="--d:80ms">More rules just police it <em>later.</em></h2>
+      <h2 class="display sechead" data-reveal style="--d:80ms">A library no one has time to <em>open.</em></h2>
       <div class="secbody">
-        <p class="body" data-reveal style="--d:120ms">The reflex was to add more control: tighter docs, stricter review, lint rules. But every one of those catches drift after it happens. They make the wall of enforcement taller. They do not make the right way the easy way.</p>
+        <p class="body" data-reveal style="--d:120ms">The reflex was a component library and a doc site. But a library is opt-in. It still asks every person to remember it, correctly, every time, under a deadline, and it only catches drift after the work is already built.</p>
         <p class="body" data-reveal style="--d:160ms">The real problem was that alignment was never the fastest path. So I flipped it. <b>Make the aligned path the path of least resistance</b>, by encoding the system as code an AI operates, so the default output is already aligned, and a genuinely new pattern gets captured instead of improvised.</p>
       </div>
-      <div class="pq" data-reveal style="--d:200ms"><p>Make the right way the <em>fast</em> way.</p></div>
+      <div class="pq" data-reveal style="--d:200ms"><p>Do not document the system. <em>Operate</em> it.</p></div>
+    </div>
+  </section>
+
+  <!-- THE SEED / MODEL SCREEN -->
+  <section class="band">
+    <div class="wrap col">
+      <span class="eyebrow" data-reveal>The seed</span>
+      <h2 class="display sechead" data-reveal style="--d:80ms">It started with one <em>screen.</em></h2>
+      <div class="secbody">
+        <p class="body" data-reveal style="--d:120ms">Before any system, I designed a single model screen: the CICD view at the core of Terran, done right. Every state, spacing, and component decided once, on purpose. Then came the unglamorous part, pulling that one screen apart into a system, its tokens, its archetype, and its components written as code the whole tool could share.</p>
+        <p class="body" data-reveal style="--d:160ms">One screen became the source of truth. <b>From there, the rest of Terran could be rebuilt to match it, not by hand, but by skills that read the system and compose from it.</b></p>
+      </div>
+      <div class="pq" data-reveal style="--d:200ms"><p>Get one screen exactly right. Then make it the <em>rule.</em></p></div>
     </div>
   </section>
 
@@ -277,10 +290,10 @@
   <section class="band cream">
     <div class="wrap col">
       <span class="eyebrow" data-reveal>The payoff</span>
-      <h2 class="display sechead" data-reveal style="--d:80ms">From one feature to <em>every</em> feature.</h2>
+      <h2 class="display sechead" data-reveal style="--d:80ms">From one screen to all of <em>Terran.</em></h2>
       <div class="secbody">
-        <p class="body" data-reveal style="--d:120ms">This changed how features get built. A new page used to mean days of reinterpreting the system by hand. Now it starts aligned in minutes, wired to the right hooks or running on mock data for a demo, and design review is spent on judgment instead of policing spacing.</p>
-        <p class="body" data-reveal style="--d:160ms">The compounding is the point. Every approved pattern makes the next build faster and more consistent than the last. <b>The system does not just hold the line. It moves it forward, on purpose, with a human at every gate.</b></p>
+        <p class="body" data-reveal style="--d:120ms">The skills did not just hold the line. They redesigned the whole of Terran from the system, screen by screen, until the tool finally looked like one product. Then the same skills went further: new workflows and screens that never existed before, composed from the system, aligned from the first draft.</p>
+        <p class="body" data-reveal style="--d:160ms">A screen that used to take days of reinterpreting patterns by hand now starts aligned in minutes, wired to the right hooks or running on mock data for a demo. And every approved pattern makes the next build faster than the last. <b>The system does not just keep Terran consistent. It is how Terran gets built.</b></p>
       </div>
       <div class="pq" data-reveal style="--d:200ms"><p>Speed and consistency stopped being a <em>trade.</em></p></div>
     </div>
