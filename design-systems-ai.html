@@ -137,6 +137,7 @@
   .scr-tag.b{background:rgba(23,19,15,0.08);color:var(--ink-soft);}
   .scr-tag.a{background:var(--accent);color:#fff;}
   .scr-cap .t{font-size:13.5px;color:var(--ink-faint);}
+  .scr-note{margin:0 0 16px;font-size:12px;font-style:italic;color:var(--ink-faint);opacity:.85;}
   .scrscale{width:100%;overflow:hidden;}
   .scr{width:1240px;transform-origin:top left;background:#fff;border:1px solid #E4E1DB;border-radius:14px;overflow:hidden;
     font-family:-apple-system,BlinkMacSystemFont,'Inter','Segoe UI',system-ui,sans-serif;color:#1D1D1F;line-height:1.4;-webkit-font-smoothing:antialiased;
@@ -149,16 +150,17 @@
   .scr .d.g{background:#34C759;}.scr .d.r{background:#FF3B30;}.scr .d.k{background:#B7B3AA;}
 
   /* AFTER (redesigned, composed from the system) */
-  .af-top{display:flex;align-items:center;gap:16px;padding:14px 22px;border-bottom:1px solid #EEECE6;}
-  .af-brand{display:flex;align-items:center;gap:12px;}
+  .af-top{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:16px;padding:14px 22px;border-bottom:1px solid #EEECE6;}
+  .af-brand{display:flex;align-items:center;gap:10px;justify-self:start;}
+  .af-apple{font-size:15px;line-height:1;}
   .af-word{font-weight:600;letter-spacing:.16em;font-size:14px;}
   .af-pill{font-size:11px;font-weight:600;background:#EFEDE8;color:#6E6E73;padding:3px 10px;border-radius:6px;}
   .af-proj{font-size:13px;font-weight:500;border:1px solid #E2E2E7;border-radius:980px;padding:5px 13px;color:#3A3A3C;}
   .af-res{font-size:13px;color:#6E6E73;}
-  .af-tabs{margin:0 auto;display:inline-flex;gap:4px;background:#F1F0EC;padding:4px;border-radius:12px;}
+  .af-tabs{justify-self:center;display:inline-flex;gap:4px;background:#F1F0EC;padding:4px;border-radius:12px;}
   .af-tabs span{font-size:13px;font-weight:500;color:#6E6E73;padding:7px 16px;border-radius:9px;}
   .af-tabs span.on{background:#1D1D1F;color:#fff;}
-  .af-right{display:flex;align-items:center;gap:14px;}
+  .af-right{display:flex;align-items:center;gap:14px;justify-self:end;}
   .af-nonwdp{font-size:12.5px;font-weight:500;border:1px solid #E2E2E7;border-radius:980px;padding:6px 13px;color:#3A3A3C;}
   .af-av{width:26px;height:26px;border-radius:50%;background:#DAD6CE;}
   .af-titlerow{padding:20px 22px 8px;}
@@ -345,14 +347,15 @@
 
         <figure class="scrfig" data-reveal>
           <div class="scr-cap"><span class="scr-tag b">Before</span><span class="t">Built screen by screen &mdash; the same CICD data, a different tool each time.</span></div>
+          <div class="scr-note">Recreated with mock data to protect sensitive information.</div>
           <div class="scrscale"><div class="scr before">
             <div class="scr-chrome"><span class="scr-cdot r"></span><span class="scr-cdot y"></span><span class="scr-cdot g"></span><span class="scr-url">terran / vertical-overview</span></div>
             <div class="bf-body">
               <aside class="bf-side">
                 <div class="bf-brand">&#63743;&nbsp; TERRAN</div>
-                <div class="bf-user"><span class="bf-av"></span>Hi Vishal</div>
+                <div class="bf-user"><span class="bf-av"></span>Hi Sam</div>
                 <div class="bf-lbl">Select the Organization</div>
-                <div class="bf-select">WPC <span>&#9662;</span></div>
+                <div class="bf-select">ACME <span>&#9662;</span></div>
                 <div class="bf-lbl">Select the View</div>
                 <nav class="bf-nav"><a>Classic Project</a><a class="on">Vertical</a><a>Release</a><a>Admin</a></nav>
               </aside>
@@ -366,23 +369,23 @@
                 <div class="bf-tabs"><span class="on">Latest Results</span><span>Result History</span></div>
                 <div class="bf-toolbar"><span>Viewing Latest Results across All Services</span><span class="bf-tools"><s>Expand All</s><s>Collapse All</s><s>Search</s></span></div>
                 <div class="bf-card">
-                  <div class="bf-svc-top">Kernel Manager <small>(v.1.9.0-30)</small><span class="bf-hist">History &#8635;</span></div>
-                  <div class="bf-pr">&#9095; <span class="lnk">TCKT-16380</span> (Add token refresh handling) (#512) <span class="bf-pass">Passed</span></div>
-                  <div class="bf-prmeta">Opened by A. Rivera &middot; merged 08:30 AM on Oct 30 &middot; Commit SHA <span class="lnk">cdc0b9f</span></div>
+                  <div class="bf-svc-top">Ledger Service <small>(v.3.0.1-12)</small><span class="bf-hist">History &#8635;</span></div>
+                  <div class="bf-pr">&#9095; <span class="lnk">TCKT-4821</span> (Add session token refresh) (#318) <span class="bf-pass">Passed</span></div>
+                  <div class="bf-prmeta">Opened by R. Almeida &middot; merged 08:30 AM on Mar 12 &middot; Commit SHA <span class="lnk">a1b2c3d</span></div>
                   <div class="bf-itest">
-                    <div class="bf-itest-head">Integration Tests <small>(QA-6)</small> <span class="bf-pass">Passed</span></div>
+                    <div class="bf-itest-head">Integration Tests <small>(QA-3)</small> <span class="bf-pass">Passed</span></div>
                     <div class="bf-ibar"><i style="width:100%"></i></div>
-                    <div class="bf-imeta">410/410 Test Passed (100%)<br>Started On: <b>11-07 01:39 PM</b><br>Test Image: <b>v814</b></div>
+                    <div class="bf-imeta">512/512 Test Passed (100%)<br>Started On: <b>03-14 02:10 PM</b><br>Test Image: <b>v902</b></div>
                   </div>
                 </div>
                 <div class="bf-card">
-                  <div class="bf-svc-top">External API Gateway <small>(v.1.1.6-58)</small><span class="bf-hist">History &#8635;</span></div>
-                  <div class="bf-pr">&#9095; <span class="lnk">TCKT-16133</span> (Bump services to new JWT version) (#274) <span class="bf-pass">Passed</span></div>
-                  <div class="bf-prmeta">Opened by M. Okafor &middot; merged 08:28 AM on Oct 29 &middot; Commit SHA <span class="lnk">f22af70</span></div>
+                  <div class="bf-svc-top">Gateway Service <small>(v.1.4.2-08)</small><span class="bf-hist">History &#8635;</span></div>
+                  <div class="bf-pr">&#9095; <span class="lnk">TCKT-4820</span> (Rotate service auth keys) (#301) <span class="bf-pass">Passed</span></div>
+                  <div class="bf-prmeta">Opened by T. Vance &middot; merged 08:28 AM on Mar 11 &middot; Commit SHA <span class="lnk">e4f5a6b</span></div>
                   <div class="bf-itest">
-                    <div class="bf-itest-head">Integration Tests <small>(QA-6)</small> <span class="bf-pass">Passed</span></div>
+                    <div class="bf-itest-head">Integration Tests <small>(QA-3)</small> <span class="bf-pass">Passed</span></div>
                     <div class="bf-ibar"><i style="width:100%"></i></div>
-                    <div class="bf-imeta">12/12 Test Passed (100%)<br>Started On: <b>11-07 11:48 AM</b><br>Test Image: <b>v814</b></div>
+                    <div class="bf-imeta">48/48 Test Passed (100%)<br>Started On: <b>03-14 11:20 AM</b><br>Test Image: <b>v902</b></div>
                   </div>
                 </div>
               </main>
@@ -392,32 +395,33 @@
 
         <figure class="scrfig" data-reveal>
           <div class="scr-cap"><span class="scr-tag a">After</span><span class="t">Composed from the system &mdash; the CICD view, rebuilt as the model screen.</span></div>
+          <div class="scr-note">Recreated with mock data to protect sensitive information.</div>
           <div class="scrscale"><div class="scr after">
             <div class="scr-chrome"><span class="scr-cdot r"></span><span class="scr-cdot y"></span><span class="scr-cdot g"></span><span class="scr-url">terran / cicd</span></div>
             <div class="af-top">
-              <div class="af-brand"><span class="af-word">TERRAN</span><span class="af-pill">WDP</span><span class="af-proj">Payments-Core &#9662;</span><span class="af-res">Resources</span></div>
+              <div class="af-brand"><span class="af-apple">&#63743;</span><span class="af-word">TERRAN</span><span class="af-pill">TEAM</span><span class="af-proj">Northwind Pay &#9662;</span><span class="af-res">Resources</span></div>
               <div class="af-tabs"><span class="on">CICD</span><span>Feature Flags</span><span>Ad-hoc</span></div>
-              <div class="af-right"><span class="af-nonwdp">NON-WDP &#8599;</span><span class="af-av"></span></div>
+              <div class="af-right"><span class="af-nonwdp">Switch &#8599;</span><span class="af-av"></span></div>
             </div>
-            <div class="af-titlerow"><div class="af-h">Payments-Core &mdash; CICD</div></div>
+            <div class="af-titlerow"><div class="af-h">Northwind Pay &mdash; CICD</div></div>
             <div class="af-body">
               <aside class="af-rail">
                 <div class="af-rail-head"><span>Services</span><span class="s">Search</span></div>
-                <a class="af-svc on"><span class="d g"></span>Payment Processing Service</a>
-                <a class="af-svc"><span class="d g"></span>Fraud Detection Engine</a>
-                <a class="af-svc"><span class="d r"></span>User Authentication Service</a>
-                <a class="af-svc"><span class="d g"></span>Notification Orchestrator</a>
-                <a class="af-svc"><span class="d k"></span>Analytics Dashboard Service</a>
-                <a class="af-svc"><span class="d g"></span>Wallet Management Service</a>
-                <a class="af-svc"><span class="d r"></span>Transaction Reconciliation</a>
-                <a class="af-svc"><span class="d k"></span>Merchant Onboarding</a>
-                <a class="af-svc"><span class="d g"></span>API Gateway</a>
-                <a class="af-svc"><span class="d g"></span>Rate Limiting Service</a>
-                <a class="af-svc"><span class="d g"></span>Session Management</a>
-                <a class="af-svc"><span class="d r"></span>Encryption Service</a>
+                <a class="af-svc on"><span class="d g"></span>Ledger Service</a>
+                <a class="af-svc"><span class="d g"></span>Risk Engine</a>
+                <a class="af-svc"><span class="d r"></span>Identity Service</a>
+                <a class="af-svc"><span class="d g"></span>Notification Service</a>
+                <a class="af-svc"><span class="d k"></span>Analytics Service</a>
+                <a class="af-svc"><span class="d g"></span>Wallet Service</a>
+                <a class="af-svc"><span class="d r"></span>Reconciliation Worker</a>
+                <a class="af-svc"><span class="d k"></span>Onboarding Flow</a>
+                <a class="af-svc"><span class="d g"></span>Gateway Service</a>
+                <a class="af-svc"><span class="d g"></span>Throttle Service</a>
+                <a class="af-svc"><span class="d g"></span>Session Store</a>
+                <a class="af-svc"><span class="d r"></span>Cipher Service</a>
               </aside>
               <main class="af-main">
-                <div class="af-svchead"><span class="d g"></span><b>Payment Processing Service</b><span class="af-meta">Version: v2.15.3-a4f2c1d</span><span class="af-meta">Last activity: 15 minutes ago</span><span class="af-date">Dec 10 &ndash; Dec 17, 2025 &#9662;</span></div>
+                <div class="af-svchead"><span class="d g"></span><b>Ledger Service</b><span class="af-meta">Version: v4.2.0-7c1a2b</span><span class="af-meta">Last activity: 8 minutes ago</span><span class="af-date">May 8 &ndash; May 15, 2026 &#9662;</span></div>
                 <div class="af-card">
                   <div class="af-card-head"><b>Trend</b><span class="af-seg"><i>7-day</i><i class="on">30-day</i></span><span class="af-legend"><s><i style="background:#34C759"></i>Passed</s><s><i style="background:#FF3B30"></i>Failed</s><s><i style="background:#C7C7CC"></i>Skipped</s></span></div>
                   <div class="af-chart"><div class="af-yaxis"><span>150</span><span>100</span><span>50</span><span>0</span></div><div class="af-bars" id="afBars"></div></div>
@@ -426,21 +430,21 @@
                   <div class="af-runs-head"><b>Test Runs</b><span class="af-fpills"><i class="on">All (3)</i><i>Passed (2)</i><i>Failed (1)</i></span><span class="af-tool"><s>Custom Filters</s><s>My Runs</s></span></div>
                   <div class="af-run">
                     <span class="af-st ok">&#10003;</span>
-                    <div class="af-info"><div class="af-rt">Add support for deferred payments</div><div class="af-rm">v2.15.3-a4f2c1d &middot; Dec 17, 8:15 AM &middot; FLAGGER &middot; A. Rivera</div></div>
-                    <div class="af-cov">Coverage<br><b>89%</b> overall &middot; <b>87%</b> new</div>
-                    <div class="af-cols"><span class="af-col"><span class="ci">&#10003;</span><em>Unit 132/132</em></span><span class="af-col"><span class="ci">&#10003;</span><em>Comp. 66/66</em></span><span class="af-col"><span class="ci">&#10003;</span><em>Contract</em></span><span class="af-col"><span class="ci">&#10003;</span><em>Integ. 89/89</em></span></div>
+                    <div class="af-info"><div class="af-rt">Add support for split tender</div><div class="af-rm">v4.2.0-7c1a2b &middot; May 15, 8:15 AM &middot; PIPELINE &middot; R. Almeida</div></div>
+                    <div class="af-cov">Coverage<br><b>91%</b> overall &middot; <b>88%</b> new</div>
+                    <div class="af-cols"><span class="af-col"><span class="ci">&#10003;</span><em>Unit 118/118</em></span><span class="af-col"><span class="ci">&#10003;</span><em>Comp. 54/54</em></span><span class="af-col"><span class="ci">&#10003;</span><em>Contract</em></span><span class="af-col"><span class="ci">&#10003;</span><em>Integ. 72/72</em></span></div>
                   </div>
                   <div class="af-run">
                     <span class="af-st ok">&#10003;</span>
-                    <div class="af-info"><div class="af-rt">Add retry logic for failed transactions</div><div class="af-rm">v2.15.4-m8n3p2q &middot; Dec 13, 4:20 AM &middot; FLAGGER &middot; M. Okafor</div></div>
-                    <div class="af-cov">Coverage<br><b>92%</b> overall &middot; <b>87%</b> new</div>
-                    <div class="af-cols"><span class="af-col"><span class="ci">&#10003;</span><em>Unit 135/135</em></span><span class="af-col"><span class="ci">&#10003;</span><em>Comp. 68/68</em></span><span class="af-col"><span class="ci">&#10003;</span><em>Contract</em></span><span class="af-col"><span class="ci">&#10003;</span><em>Integ. 91/91</em></span></div>
+                    <div class="af-info"><div class="af-rt">Add retry logic for failed captures</div><div class="af-rm">v4.2.1-9e3d4c &middot; May 12, 4:20 AM &middot; PIPELINE &middot; T. Vance</div></div>
+                    <div class="af-cov">Coverage<br><b>94%</b> overall &middot; <b>90%</b> new</div>
+                    <div class="af-cols"><span class="af-col"><span class="ci">&#10003;</span><em>Unit 126/126</em></span><span class="af-col"><span class="ci">&#10003;</span><em>Comp. 60/60</em></span><span class="af-col"><span class="ci">&#10003;</span><em>Contract</em></span><span class="af-col"><span class="ci">&#10003;</span><em>Integ. 80/80</em></span></div>
                   </div>
                   <div class="af-run">
                     <span class="af-st no">&#10005;</span>
-                    <div class="af-info"><div class="af-rt">Implement payment method validation</div><div class="af-rm">v2.15.5-r7s4t1u &middot; Dec 10, 1:05 AM &middot; FLAGGER &middot; S. Kade &middot; 1 Ticket</div></div>
-                    <div class="af-cov">Coverage<br><b>56%</b> overall &middot; <b>75%</b> new</div>
-                    <div class="af-cols"><span class="af-col"><span class="ci no">&#10005;</span><em>Unit 130/132</em></span><span class="af-col"><span class="ci no">&#10005;</span><em>Comp. 65/66</em></span><span class="af-col"><span class="ci">&#10003;</span><em>Contract</em></span><span class="af-col"><span class="ci no">&#10005;</span><em>Integ. 84/89</em></span></div>
+                    <div class="af-info"><div class="af-rt">Add currency rounding rules</div><div class="af-rm">v4.2.2-2b5f8a &middot; May 10, 1:05 AM &middot; PIPELINE &middot; D. Cole &middot; 1 Ticket</div></div>
+                    <div class="af-cov">Coverage<br><b>58%</b> overall &middot; <b>74%</b> new</div>
+                    <div class="af-cols"><span class="af-col"><span class="ci no">&#10005;</span><em>Unit 112/118</em></span><span class="af-col"><span class="ci no">&#10005;</span><em>Comp. 51/54</em></span><span class="af-col"><span class="ci">&#10003;</span><em>Contract</em></span><span class="af-col"><span class="ci no">&#10005;</span><em>Integ. 66/72</em></span></div>
                   </div>
                 </div>
               </main>
