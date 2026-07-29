@@ -235,11 +235,7 @@
     text-transform:uppercase;
     color:var(--accent);
   }
-  .eyebrow::before{
-    content:"";
-    width:7px;height:7px;border-radius:50%;
-    background:var(--accent);
-  }
+  .eyebrow::before{content:none;}
   .band.ink .eyebrow{color:#E8996F;}
   .band.ink .eyebrow::before{background:#E8996F;}
 
@@ -683,7 +679,7 @@
     color:rgba(247,241,230,0.82);
     display:flex;align-items:center;gap:.6ch;
   }
-  .colophon .cmark .dot{width:6px;height:6px;border-radius:50%;background:#E8996F;}
+  .colophon .cmark .dot{display:none;}
 
   /* =================================================
      scroll reveal
