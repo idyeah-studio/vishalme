@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>MIRA &middot; Vishal Mehta</title>
+<meta name="description" content="MIRA, an AI teammate for legacy modernization at Ionate. I designed the product experience, named it, and wrote its story: one conversational agent over three proven engines. 18 months to 72 hours." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,900;1,9..144,400;1,9..144,600;1,9..144,900&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --bone:#F2EBDD; --cream:#F7F1E6; --ink:#17130F; --ink-soft:#4A423A; --ink-faint:#6E655A;
+    --sand:#E4D8C4; --line:rgba(23,19,15,0.14); --accent:#BE4A2B; --accent-deep:#93341C;
+    --glow:#E8996F; --ok:#8FB865; --mira:#F5860A; --mira-soft:#FFB24D;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;}
+  body{background:var(--bone);color:var(--ink);font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden;}
+  a{color:inherit;text-decoration:none;}
+  .grain{position:fixed;inset:-50%;z-index:1;opacity:0.045;pointer-events:none;mix-blend-mode:multiply;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");}
+
+  .wrap{position:relative;z-index:2;padding-inline:clamp(24px,5vw,72px);max-width:1360px;margin:0 auto;}
+  .col{max-width:760px;}
+
+  /* nav */
+  nav{position:sticky;top:0;z-index:20;padding:20px clamp(24px,5vw,72px);display:flex;justify-content:space-between;align-items:center;
+    background:rgba(242,235,221,0.72);backdrop-filter:saturate(160%) blur(14px);-webkit-backdrop-filter:saturate(160%) blur(14px);}
+  .nav-back{display:inline-flex;align-items:baseline;gap:.6ch;font-family:'Fraunces',serif;font-weight:600;font-size:clamp(15px,1.5vw,18px);letter-spacing:.01em;}
+  .nav-back .dot{width:7px;height:7px;border-radius:50%;background:var(--accent);transform:translateY(-1px);flex:0 0 auto;}
+  .nav-right{font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-faint);font-weight:600;}
+
+  /* bands */
+  section.band{position:relative;padding-block:clamp(72px,11vh,150px);}
+  .band.cream{background:var(--cream);}
+  .band.ink{background:radial-gradient(78% 60% at 84% -6%, rgba(245,134,10,0.14), transparent 56%), #100D0A;color:var(--cream);}
+  .band.ink .eyebrow{color:var(--mira-soft);} .band.ink .eyebrow::before{background:var(--mira-soft);}
+  .band.ink h2.display em{color:var(--mira-soft);}
+  .band.ink .body{color:rgba(247,241,230,0.76);}
+
+  .eyebrow{display:inline-flex;align-items:center;gap:.7ch;font-weight:600;font-size:clamp(11px,1.1vw,12.5px);letter-spacing:.22em;text-transform:uppercase;color:var(--accent);}
+  .eyebrow::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--accent);}
+
+  h1.display{font-family:'Fraunces',serif;font-weight:300;font-size:clamp(44px,7.4vw,112px);line-height:.98;letter-spacing:-0.025em;}
+  h2.display{font-family:'Fraunces',serif;font-weight:300;font-size:clamp(34px,5.4vw,74px);line-height:1.0;letter-spacing:-0.02em;margin-top:.5em;}
+  h1.display em,h2.display em{font-style:italic;font-weight:900;color:var(--accent);}
+  .body{font-size:clamp(16px,1.4vw,18.5px);line-height:1.72;color:var(--ink-soft);max-width:62ch;}
+  .body + .body{margin-top:1.1em;}
+  .body b{color:var(--ink);font-weight:600;} .band.ink .body b{color:var(--cream);}
+
+  /* case hero */
+  .chero{padding-top:clamp(48px,9vh,110px);padding-bottom:clamp(56px,9vh,120px);}
+  .chero h1{margin-top:.34em;max-width:15ch;}
+  .chero .dek{margin-top:clamp(26px,3.4vw,42px);font-family:'Fraunces',serif;font-weight:400;font-size:clamp(20px,2.5vw,30px);line-height:1.42;color:var(--ink-soft);max-width:42ch;}
+  .chero .dek b{color:var(--ink);font-weight:600;}
+  .meta{margin-top:clamp(44px,6vw,72px);display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:28px;border-top:1px solid var(--line);padding-top:26px;}
+  .meta .k{font-size:11px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-faint);margin-bottom:8px;}
+  .meta .v{font-size:15px;color:var(--ink);max-width:34ch;}
+
+  /* pull quote */
+  .pq{margin:clamp(40px,6vh,80px) 0 0;padding-left:26px;border-left:2px solid var(--accent);}
+  .pq p{font-family:'Fraunces',serif;font-style:italic;font-weight:400;font-size:clamp(22px,3.2vw,38px);line-height:1.2;letter-spacing:-0.02em;color:var(--ink);max-width:26ch;}
+  .band.ink .pq{border-color:var(--mira);} .band.ink .pq p{color:var(--cream);}
+
+  .sechead{max-width:22ch;}
+  .secbody{margin-top:clamp(24px,3vw,40px);}
+
+  .credit{margin-top:clamp(28px,3.4vw,40px);font-size:13.5px;line-height:1.55;color:var(--ink-faint);padding:16px 20px;border:1px solid var(--line);border-radius:10px;background:rgba(190,74,43,0.05);}
+  .credit b{color:var(--accent-deep);font-weight:600;}
+
+  /* video */
+  .vidwrap{margin-top:clamp(30px,4vw,50px);border-radius:16px;overflow:hidden;border:1px solid rgba(245,134,10,0.22);
+    box-shadow:0 50px 100px -50px rgba(0,0,0,0.8);background:#0b0a08;line-height:0;}
+  .vidwrap video{width:100%;height:auto;display:block;}
+  .vidcap{margin-top:16px;font-size:13px;color:rgba(247,241,230,0.6);line-height:0;line-height:1.5;}
+
+  /* failure grid */
+  .fails{margin-top:clamp(30px,4vw,52px);display:grid;grid-template-columns:repeat(4,1fr);gap:14px;}
+  .fail{border:1px solid var(--line);border-radius:12px;padding:20px;background:var(--bone);}
+  .band.cream .fail{background:var(--bone);}
+  .fail .t{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin-bottom:10px;}
+  .fail .d{font-size:14px;line-height:1.5;color:var(--ink-soft);}
+
+  /* engines trio */
+  .trio{margin-top:clamp(30px,4vw,52px);display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+  .eng{border:1px solid var(--line);border-radius:12px;padding:22px;background:var(--bone);}
+  .band.cream .eng{background:var(--bone);}
+  .eng .n{font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:500;letter-spacing:.1em;color:var(--accent);margin-bottom:8px;}
+  .eng .r{font-family:'Fraunces',serif;font-size:19px;color:var(--ink);line-height:1.2;}
+  .eng .s{margin-top:8px;font-size:13.5px;color:var(--ink-faint);font-style:italic;}
+  .backronym{margin-top:clamp(28px,3.4vw,40px);font-family:'JetBrains Mono',monospace;font-size:clamp(13px,1.5vw,16px);color:var(--ink-soft);letter-spacing:.02em;}
+  .backronym b{color:var(--accent);font-weight:500;}
+
+  /* sarah challenge */
+  .challenge{margin-top:clamp(30px,4vw,48px);display:grid;grid-template-columns:1fr;gap:14px;max-width:520px;}
+  .chal{display:flex;gap:12px;align-items:baseline;font-size:15px;color:var(--ink-soft);}
+  .chal::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--accent);flex:none;transform:translateY(-3px);}
+  .chal b{color:var(--ink);font-weight:600;}
+  .traditional{margin-top:26px;font-family:'Fraunces',serif;font-style:italic;font-size:clamp(17px,2vw,22px);color:var(--ink);}
+  .traditional em{font-style:normal;font-weight:600;color:var(--accent);}
+
+  /* ask mira card */
+  .ask{margin-top:clamp(34px,4vw,52px);max-width:820px;background:linear-gradient(168deg,#1a1815,#0e0c0a);border:1px solid rgba(245,134,10,0.22);border-radius:16px;padding:clamp(20px,2.4vw,28px);box-shadow:0 40px 90px -50px rgba(0,0,0,0.7);}
+  .ask-head{display:flex;align-items:center;gap:9px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:rgba(247,241,230,0.5);margin-bottom:20px;}
+  .ask-head .d{width:7px;height:7px;border-radius:50%;background:var(--mira);flex:none;}
+  .ask-u{margin-left:auto;max-width:80%;align-self:flex-end;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.08);border-radius:14px;padding:13px 17px;font-size:14.5px;color:var(--cream);font-style:italic;margin-bottom:18px;}
+  .ask-m{max-width:88%;background:rgba(245,134,10,0.06);border:1px solid rgba(245,134,10,0.32);border-radius:14px;padding:16px 18px;}
+  .ask-m .lead{font-size:14.5px;color:var(--cream);margin-bottom:12px;}
+  .ask-m .lead b{color:var(--mira-soft);font-weight:600;}
+  .ask-rule{display:flex;gap:12px;font-family:'JetBrains Mono',monospace;font-size:12.5px;color:rgba(247,241,230,0.82);padding:5px 0;}
+  .ask-rule .rk{color:var(--mira-soft);flex:none;}
+  .ask-foot{margin-top:14px;font-size:12.5px;color:rgba(247,241,230,0.5);font-style:italic;}
+  .ask-foot b{color:rgba(247,241,230,0.8);font-weight:500;font-style:normal;}
+
+  /* security */
+  .secure{margin-top:clamp(30px,4vw,52px);display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+  .sec{border:1px solid rgba(247,241,230,0.16);border-radius:12px;padding:20px;}
+  .sec .t{font-size:14.5px;font-weight:600;color:var(--cream);margin-bottom:7px;}
+  .sec .d{font-size:13px;color:rgba(247,241,230,0.64);line-height:1.5;}
+
+  /* close */
+  .close{background:radial-gradient(60% 70% at 50% 42%, rgba(245,134,10,0.16), transparent 72%), #100D0A;color:var(--cream);text-align:center;padding-block:clamp(90px,15vh,180px);}
+  .close .eyebrow{color:var(--mira-soft);justify-content:center;display:inline-flex;} .close .eyebrow::before{background:var(--mira-soft);}
+  .close h2{margin-top:clamp(24px,3.4vw,44px);font-family:'Fraunces',serif;font-weight:300;font-size:clamp(40px,8vw,116px);line-height:.96;letter-spacing:-0.03em;}
+  .close h2 em{font-style:italic;font-weight:900;color:var(--mira-soft);}
+  .close .cbody{margin:clamp(24px,3.4vw,38px) auto 0;max-width:54ch;font-size:clamp(16px,1.6vw,19px);line-height:1.6;color:rgba(247,241,230,0.78);}
+  .close-actions{margin-top:clamp(34px,4vw,50px);display:flex;justify-content:center;gap:14px;flex-wrap:wrap;}
+  .btn{display:inline-flex;align-items:center;gap:.6ch;padding:14px 26px;border-radius:100px;font-size:14.5px;font-weight:600;transition:.2s;}
+  .btn.primary{background:var(--accent);color:#fff;} .btn.primary:hover{background:var(--accent-deep);}
+  .btn.ghost{border:1px solid rgba(247,241,230,0.28);color:var(--cream);} .btn.ghost:hover{border-color:var(--cream);}
+
+  /* next case */
+  .nextcase{display:grid;grid-template-columns:1fr auto;align-items:center;gap:18px 24px;
+    max-width:640px;margin:clamp(48px,6vw,76px) auto 0;padding-top:clamp(30px,3.6vw,42px);
+    border-top:1px solid rgba(247,241,230,0.16);text-align:left;transition:border-color .3s;}
+  .nextcase-eye{grid-column:1;font-weight:600;font-size:clamp(11px,1.1vw,12.5px);letter-spacing:.22em;text-transform:uppercase;color:var(--mira-soft);}
+  .nextcase-line{grid-column:1;display:block;margin-top:10px;}
+  .nextcase-line em{font-family:'Fraunces',serif;font-style:normal;font-weight:400;font-size:clamp(24px,3.2vw,38px);line-height:1.08;letter-spacing:-0.02em;color:var(--cream);transition:color .3s;}
+  .nextcase-sep{color:rgba(247,241,230,0.32);margin:0 .5ch;}
+  .nextcase-metric{font-size:clamp(14px,1.4vw,16px);color:rgba(247,241,230,0.62);}
+  .nextcase-arrow{grid-column:2;grid-row:1 / span 2;align-self:center;font-family:'Fraunces',serif;font-size:clamp(28px,3vw,40px);color:var(--mira-soft);transition:transform .35s cubic-bezier(.16,1,.3,1);}
+  .nextcase:hover{border-color:rgba(247,241,230,0.32);}
+  .nextcase:hover .nextcase-line em{color:var(--mira-soft);}
+  .nextcase:hover .nextcase-arrow{transform:translateX(8px);}
+
+  /* reveal */
+  [data-reveal]{opacity:0;transform:translateY(22px);transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1);transition-delay:var(--d,0ms);}
+  [data-reveal].in{opacity:1;transform:none;}
+  @media (prefers-reduced-motion:reduce){*{animation:none!important;}[data-reveal]{opacity:1;transform:none;transition:none;}}
+  @media (max-width:760px){
+    .meta{grid-template-columns:1fr;gap:20px;}
+    .fails{grid-template-columns:1fr 1fr;} .trio{grid-template-columns:1fr;} .secure{grid-template-columns:1fr;}
+    .ask-u{max-width:92%;}
+  }
+</style>
+</head>
+<body>
+  <div class="grain"></div>
+
+  <nav>
+    <a class="nav-back" href="index.html"><span class="dot"></span>Vishal Mehta</a>
+    <span class="nav-right">Case study</span>
+  </nav>
+
+  <!-- CASE HERO -->
+  <header class="band chero">
+    <div class="wrap">
+      <span class="eyebrow" data-reveal>MIRA &middot; Ionate</span>
+      <h1 class="display" data-reveal style="--d:80ms">Forty years of COBOL.<br>Understood in <em>minutes.</em></h1>
+      <p class="dek" data-reveal style="--d:140ms">MIRA is an AI teammate for legacy modernization. I designed its product experience, named it, and wrote its story, turning Ionate's proven engines into <b>one agent a developer can just talk to.</b></p>
+      <div class="meta" data-reveal style="--d:200ms">
+        <div><div class="k">Role</div><div class="v">Product experience, naming and backronym, narrative and launch deck. For Ionate.</div></div>
+        <div><div class="k">Built</div><div class="v">MIRA, one conversational agent over Ionate's discovery, transformation, and delivery engines</div></div>
+        <div><div class="k">Context</div><div class="v">Ionate, enterprise legacy modernization (banking, mainframe COBOL)</div></div>
+      </div>
+      <p class="credit" data-reveal style="--d:260ms"><b>A note.</b> MIRA is a live Ionate product with public demos. Everything shown here uses mock data, and it is shared with Ionate's blessing.</p>
+    </div>
+  </header>
+
+  <!-- VIDEO -->
+  <section class="band ink">
+    <div class="wrap">
+      <span class="eyebrow" data-reveal>See it</span>
+      <h2 class="display sechead" data-reveal style="--d:80ms">MIRA, in <em>action.</em></h2>
+      <div class="vidwrap" data-reveal style="--d:140ms">
+        <video controls preload="metadata" playsinline poster="mira-poster.jpg">
+          <source src="mira-in-action.mp4" type="video/mp4" />
+        </video>
+      </div>
+      <p class="vidcap" data-reveal>A developer asks MIRA to modernize a wire-transfer module. It maps the ecosystem, extracts the buried business rules, converts the code, and runs the tests, in one conversation. Mock data.</p>
+    </div>
+  </section>
+
+  <!-- PROBLEM -->
+  <section class="band cream">
+    <div class="wrap">
+      <div class="col">
+        <span class="eyebrow" data-reveal>The problem</span>
+        <h2 class="display sechead" data-reveal style="--d:80ms">Everyone tried Gen AI. It <em>didn't work.</em></h2>
+        <div class="secbody">
+          <p class="body" data-reveal style="--d:120ms">Ask any modernization team if they use Gen AI and the answer is yes. Ask if it works and the answer is a wince. A generic LLM sees a snippet, not a 40-year interconnected ecosystem, so it invents dependencies, forgets what a program does across its callers, and cannot actually convert, test, or ship anything.</p>
+        </div>
+      </div>
+      <div class="fails">
+        <div class="fail" data-reveal style="--d:80ms"><div class="t">No context</div><div class="d">It sees code snippets, not the ecosystem they live in.</div></div>
+        <div class="fail" data-reveal style="--d:140ms"><div class="t">Hallucinations</div><div class="d">It invents dependencies, business rules, and transform paths.</div></div>
+        <div class="fail" data-reveal style="--d:200ms"><div class="t">No memory</div><div class="d">It forgets what a program does across 47 callers.</div></div>
+        <div class="fail" data-reveal style="--d:260ms"><div class="t">No execution</div><div class="d">It suggests, but cannot convert, test, or deploy.</div></div>
+      </div>
+      <div class="col"><div class="pq" data-reveal style="--d:200ms"><p>"It gives me plausible Java. It's wrong in ways I won't discover until <em>production.</em>"</p></div></div>
+    </div>
+  </section>
+
+  <!-- REFRAME -->
+  <section class="band">
+    <div class="wrap col">
+      <span class="eyebrow" data-reveal>The reframe</span>
+      <h2 class="display sechead" data-reveal style="--d:80ms">What if it actually <em>understood</em> your code?</h2>
+      <div class="secbody">
+        <p class="body" data-reveal style="--d:120ms">Not pattern-matching from internet training data. Actually knowing what your code does, how it connects, and how to transform it safely. Ionate already had the hard technology to do that. What it did not have was a way for a developer to reach it.</p>
+      </div>
+      <div class="pq" data-reveal style="--d:200ms"><p>The engines were real. They needed a <em>face.</em></p></div>
+    </div>
+  </section>
+
+  <!-- THE DESIGN -->
+  <section class="band cream">
+    <div class="wrap">
+      <div class="col">
+        <span class="eyebrow" data-reveal>The design</span>
+        <h2 class="display sechead" data-reveal style="--d:80ms">One teammate over three proven <em>engines.</em></h2>
+        <div class="secbody">
+          <p class="body" data-reveal style="--d:120ms">Ionate had spent years building three engines: discovery, transformation, and delivery. Powerful, and separate. I designed a single conversational experience that unifies them, so a developer stops running tools and starts talking to a teammate who runs them for her.</p>
+          <p class="body" data-reveal style="--d:160ms">I named her <b>MIRA</b>, gave the name its backronym, and built the story that carries the product, from the cold open to the close.</p>
+        </div>
+      </div>
+      <div class="trio">
+        <div class="eng" data-reveal style="--d:100ms"><div class="n">SOTERIA</div><div class="r">Discovery</div><div class="s">"Here's the lay of the land."</div></div>
+        <div class="eng" data-reveal style="--d:160ms"><div class="n">APPDATE</div><div class="r">Transformation</div><div class="s">"I'll convert this for you."</div></div>
+        <div class="eng" data-reveal style="--d:220ms"><div class="n">K&Iacute;RK&Emacr;</div><div class="r">Delivery</div><div class="s">"Here's your deployment."</div></div>
+      </div>
+      <p class="backronym" data-reveal style="--d:200ms"><b>MIRA</b> &nbsp;/&nbsp; Modernization &middot; Intelligence &middot; Reasoning &middot; Agent</p>
+    </div>
+  </section>
+
+  <!-- MEET SARAH -->
+  <section class="band">
+    <div class="wrap col">
+      <span class="eyebrow" data-reveal>The user</span>
+      <h2 class="display sechead" data-reveal style="--d:80ms">Meet <em>Sarah.</em></h2>
+      <div class="secbody">
+        <p class="body" data-reveal style="--d:120ms">A senior developer at a legacy bank, handed the wire-transfer module: 340,000 lines of COBOL written between 1987 and 2003. The original authors have retired. Documentation is sparse. The code moves <b>$2.3 billion in daily transactions.</b> The story is built around her, because the product only matters if it works for her.</p>
+      </div>
+      <div class="challenge">
+        <div class="chal" data-reveal style="--d:120ms"><span><b>127</b> interconnected programs</span></div>
+        <div class="chal" data-reveal style="--d:160ms"><span><b>23</b> external system interfaces</span></div>
+        <div class="chal" data-reveal style="--d:200ms"><span>Unknown business rules embedded in code</span></div>
+        <div class="chal" data-reveal style="--d:240ms"><span>Zero tolerance for production failures</span></div>
+      </div>
+      <p class="traditional" data-reveal style="--d:200ms">Estimated timeline, the traditional way: <em>18 months.</em></p>
+    </div>
+  </section>
+
+  <!-- THE DIFFERENCE -->
+  <section class="band ink">
+    <div class="wrap col">
+      <span class="eyebrow" data-reveal>The difference</span>
+      <h2 class="display sechead" data-reveal style="--d:80ms">She knows. She doesn't <em>guess.</em></h2>
+      <div class="secbody">
+        <p class="body" data-reveal style="--d:120ms">The experience is built on one promise: every answer is drawn from the actual codebase, with the line numbers to prove it. Ask a generic LLM about a fee program and it reasons from "typical banking patterns." Ask MIRA, and she reads it.</p>
+      </div>
+      <div class="ask" data-reveal style="--d:160ms">
+        <div class="ask-head"><span class="d"></span>Ask MIRA &mdash; business rules</div>
+        <div class="ask-u">What business rules are embedded in FEE-CALC-007?</div>
+        <div class="ask-m">
+          <div class="lead"><b>FEE-CALC-007</b> contains 7 distinct fee rules:</div>
+          <div class="ask-rule"><span class="rk">1</span><span>Domestic &lt; $10K &rarr; flat $15</span></div>
+          <div class="ask-rule"><span class="rk">2</span><span>Domestic $10K&ndash;$100K &rarr; 0.15%</span></div>
+          <div class="ask-rule"><span class="rk">4</span><span>International SWIFT &rarr; $45 + 0.20%</span></div>
+          <div class="ask-rule"><span class="rk">6</span><span>VIP accounts (tier 3+) &rarr; 50% discount</span></div>
+          <div class="ask-foot">These rules are undocumented. <b>Extracted from conditional logic at lines 234&ndash;892.</b></div>
+        </div>
+      </div>
+      <div class="pq" data-reveal style="--d:200ms"><p>"MIRA doesn't guess. She <em>knows.</em>"</p></div>
+    </div>
+  </section>
+
+  <!-- TRUST -->
+  <section class="band ink" style="padding-top:0">
+    <div class="wrap col">
+      <span class="eyebrow" data-reveal>Trust</span>
+      <h2 class="display sechead" data-reveal style="--d:80ms">Your code never <em>leaves.</em></h2>
+      <div class="secbody">
+        <p class="body" data-reveal style="--d:120ms">For a bank, that promise is the whole sale. MIRA runs in a secure, isolated container inside the customer's own infrastructure, so trust is a property of the architecture, not a line in a contract.</p>
+      </div>
+      <div class="secure">
+        <div class="sec" data-reveal style="--d:120ms"><div class="t">Air-gapped</div><div class="d">Runs with no internet required. No source ever sent to external APIs.</div></div>
+        <div class="sec" data-reveal style="--d:180ms"><div class="t">SOC 2 compliant</div><div class="d">Enterprise security standards, with full audit trails.</div></div>
+        <div class="sec" data-reveal style="--d:240ms"><div class="t">Your model, your rules</div><div class="d">Bring your own model. No training on your proprietary logic.</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CLOSE -->
+  <section class="close">
+    <div class="wrap">
+      <span class="eyebrow" data-reveal>Outcome</span>
+      <h2 data-reveal style="--d:70ms">Eighteen months, to <em>seventy-two hours.</em></h2>
+      <p class="cbody" data-reveal style="--d:140ms">In the wire-transfer demo, the 18-month migration becomes a 72-hour conversion, mapped, converted, and tested with the business rules preserved. MIRA is live at Ionate, and the story I built is how the product introduces itself to the world.</p>
+      <div class="close-actions" data-reveal style="--d:200ms">
+        <a class="btn ghost" href="index.html#work">Back to work</a>
+        <a class="btn primary" href="index.html#contact">What's the real problem?</a>
+      </div>
+
+      <a class="nextcase" data-reveal style="--d:260ms" href="design-systems-ai.html">
+        <span class="nextcase-eye">Next case</span>
+        <span class="nextcase-line"><em>Design Systems &amp; AI</em><span class="nextcase-sep">&middot;</span><span class="nextcase-metric">A design system in code</span></span>
+        <span class="nextcase-arrow" aria-hidden="true">&rarr;</span>
+      </a>
+    </div>
+  </section>
+
+  <script>
+    (function(){
+      var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{rootMargin:'0px 0px -12% 0px',threshold:0.1});
+      document.querySelectorAll('[data-reveal]').forEach(function(el){io.observe(el);});
+    })();
+  </script>
+</body>
+</html>
